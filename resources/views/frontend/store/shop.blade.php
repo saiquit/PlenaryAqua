@@ -333,9 +333,11 @@
                             <div class="col-lg-4 col-md-6 col-sm-6">
                                 <div class="product__discount__item">
                                     <div class="product__discount__item__pic set-bg"
-                                        data-setbg="{{ url('storage/' . $variation->images[0]->filename) }}">
-                                        <div class="product__discount__percent">
-                                            -{{ $variation->current_district[0]->pivot->discount }}%</div>
+                                        data-setbg="{{ url('storage/' . $variation->product->images[0]->filename) }}">
+                                        @isset($variation->current_district[0]->pivot->discount)
+                                            <div class="product__discount__percent">
+                                                -{{ $variation->current_district[0]->pivot->discount }}%</div>
+                                        @endisset
                                         <ul class="product__item__pic__hover">
                                             <li><a href="#"><i class="fa fa-heart"></i></a></li>
                                             <li><a href="#"><i class="fa fa-retweet"></i></a></li>

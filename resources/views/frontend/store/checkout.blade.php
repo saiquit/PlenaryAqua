@@ -40,7 +40,7 @@
                                     <div class="checkout__input">
                                         <p>Fist Name<span>*</span></p>
                                         <input
-                                            value="@auth {{ auth()->user()->profile->first_name }} @else {{ old('first_name') }} @endauth"
+                                            value="@auth {{ auth()->user()->profile ? auth()->user()->profile->first_name : '' }} @else {{ old('first_name') }} @endauth"
                                             name="first_name" type="text">
                                     </div>
                                 </div>
@@ -48,7 +48,7 @@
                                     <div class="checkout__input">
                                         <p>Last Name<span>*</span></p>
                                         <input
-                                            value="@auth {{ auth()->user()->profile->last_name }} @else {{ old('last_name') }} @endauth"
+                                            value="@auth {{ auth()->user()->profile ? auth()->user()->profile->last_name : '' }} @else {{ old('last_name') }} @endauth"
                                             name="last_name" type="text">
                                     </div>
                                 </div>

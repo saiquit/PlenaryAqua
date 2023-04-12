@@ -23,10 +23,10 @@
     <!-- Product Details Section Begin -->
     <section class="product-details spad">
         <div class="container">
-            <div class="row">
-                @foreach ($product->variations as $variation)
-                    @if ($variation->current_district->count())
-                        <div class="col-lg-6 col-md-6">
+            @foreach ($product->variations as $variation)
+                @if ($variation->current_district->count())
+                    <div class="row d-none @if ($var == $variation->id) d-flex @endif">
+                        <div class="col-lg-6 col-md-6 ">
                             <div class="product__details__pic">
                                 <div class="product__details__pic__item">
                                     <img class="product__details__pic__item--large"
@@ -42,31 +42,28 @@
                         </div>
                         <div class="col-lg-6 col-md-6">
                             <div class="product__details__text">
-
                                 <div class="btn-group" role="group" aria-label="">
                                     <a
                                         href="{{ route('front.single', ['slug' => $product->slug, 'var' => $variation->id]) }}"><button
                                             type="button"
                                             class="btn btn-lg btn-outline-secondary text-uppercase 
                                             @if ($var == $variation->id) active @endif">
-                                            {{-- <img src="{{ asset('static/f/img/featured/feature-1.jpg') }}" width="50"
-                                                alt=""> --}}
+
                                             {{ $variation->weight }}KG</button>
                                     </a>
                                 </div>
-                                {{-- @endif --}}
-                                {{-- @endforeach
-                        @foreach ($product->variations as $variation) --}}
-                                {{-- @if ($variation->current_district->count()) --}}
+
                                 <form action="{{ route('cart.update', ['id' => $variation->id]) }}" method="post">
                                     @csrf
-                                    <div class="d-none @if ($var == $variation->id) d-block @endif">
+                                    <div>
                                         <h3>{{ $variation['name_' . app()->getLocale()] }}</h3>
 
                                         <div class="product__details__price">
-                                            <sup style="text-decoration: line-through">
-                                                ${{ $variation->current_district[0]->pivot->discounted_from_price }}
-                                            </sup>
+                                            @isset($variation->current_district[0]->pivot->discounted_from_price)
+                                                <sup style="text-decoration: line-through">
+                                                    ${{ $variation->current_district[0]->pivot->discounted_from_price }}
+                                                </sup>
+                                            @endisset
                                             ${{ $variation->current_district[0]->pivot->price }}
                                         </div>
                                         <div class="product__details__quantity">
@@ -168,9 +165,9 @@
                                 </div>
                             </div>
                         </div>
-                    @endif
-                @endforeach
-            </div>
+                    </div>
+                @endif
+            @endforeach
         </div>
     </section>
     <!-- Product Details Section End -->

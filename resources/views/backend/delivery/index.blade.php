@@ -85,9 +85,9 @@
                 <thead>
                     <tr>
                         <th class="table-plus datatable-nosort">ID</th>
-                        <th class="table-plus datatable-nosort">District</th>
-                        <th class="table-plus datatable-nosort">Name</th>
-                        <th class="table-plus datatable-nosort">Cost</th>
+                        <th class="">District</th>
+                        <th class="">Name</th>
+                        <th class="">Cost</th>
                         <th>Start Date</th>
                         <th>Updated Date</th>
                         <th>Action</th>

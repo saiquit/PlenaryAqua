@@ -101,6 +101,12 @@
     <div class="menu-block customscroll">
         <div class="sidebar-menu">
             <ul id="accordion-menu">
+                <li>
+                    <a href="{{ route('admin.dashboard') }}"
+                        class="dropdown-toggle no-arrow @if (Route::is('admin.dashboard')) active @endif">
+                        <span class="micon bi bi-diagram-3"></span><span class="mtext">Dashboard</span>
+                    </a>
+                </li>
                 <li class="dropdown">
                     <a href="javascript:;" class="dropdown-toggle">
                         <span class="micon bi bi-view-list"></span><span class="mtext">Products</span>
