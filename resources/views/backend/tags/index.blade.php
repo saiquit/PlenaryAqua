@@ -76,13 +76,14 @@
                             <td>{{ $tag->name_en }}</td>
                             <td>{{ $tag->created_at->format('d/m/Y') }}</td>
                             <td>
-                                <div class="d-inline-flex">
+                                <div class="table-actions">
                                     <a class="dropdown-item" href="#" class="btn-block" data-toggle="modal"
-                                        data-target="#edit-modal-{{ $tag->id }}" type="button"><i
-                                            class="dw dw-pencil"></i>Edit</a>
-                                    <a class="dropdown-item"
-                                        onclick="document.querySelector('#delete_{{ $tag->id }}').submit()"><i
-                                            class="dw dw-delete-3"></i> Delete</a>
+                                        data-target="#edit-modal-{{ $tag->id }}" type="button" data-color="#265ed7"
+                                        style="color: rgb(38, 94, 215);"><i class="icon-copy dw dw-edit2"></i></a>
+                                    <a href="#" class="dropdown-item"
+                                        onclick="document.querySelector('#delete_{{ $tag->id }}').submit()"
+                                        data-color="#e95959" style="color: rgb(233, 89, 89);"><i
+                                            class="icon-copy dw dw-delete-3"></i></a>
                                 </div>
                                 <div class="modal fade bs-example-modal-lg" id="edit-modal-{{ $tag->id }}"
                                     tabindex="-1" role="dialog" aria-labelledby="edit-modal-label" aria-hidden="true">

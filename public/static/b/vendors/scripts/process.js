@@ -8,7 +8,7 @@ var PercentageID = $("#percent1"),
 		start = 0,
 		end = 100,
 		durataion = time;
-		animateValue(PercentageID, start, end, durataion);
+animateValue(PercentageID, start, end, durataion);
 		
 function animateValue(id, start, end, duration) {
   
@@ -31,5 +31,9 @@ function animateValue(id, start, end, duration) {
 
 // Fading Out Loadbar on Finised
 setTimeout(function(){
-  $('.pre-loader').fadeOut(300);
+  $('.pre-loader').fadeOut(300, function(){
+	$($('.alert-dismissible').get().reverse()).each(function(indexInArray, valueOfElement) {
+		$(this).delay(1000 * (indexInArray + 1)).fadeOut(1000 * (indexInArray + 1));
+	});
+  });
 }, time);

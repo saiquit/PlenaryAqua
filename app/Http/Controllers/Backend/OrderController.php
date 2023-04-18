@@ -3,11 +3,10 @@
 namespace App\Http\Controllers\Backend;
 
 use App\Http\Controllers\Controller;
-use App\Models\Tag;
+use App\Models\Order;
 use Illuminate\Http\Request;
-use Illuminate\Support\Str;
 
-class TagController extends Controller
+class OrderController extends Controller
 {
     /**
      * Display a listing of the resource.
@@ -16,8 +15,8 @@ class TagController extends Controller
      */
     public function index()
     {
-        $tags = Tag::all();
-        return view('backend.tags.index', compact('tags'));
+        $orders = Order::all();
+        return view('backend.orders.index', compact('orders'));
     }
 
     /**
@@ -38,36 +37,27 @@ class TagController extends Controller
      */
     public function store(Request $request)
     {
-        $request->validate([
-            'tag_name_en' => 'required',
-            'tag_name_bn' => 'required',
-        ]);
-        Tag::create([
-            'name_en' => $request->tag_name_en,
-            'slug' => Str::slug($request->tag_name_en),
-            'name_bn' => $request->tag_name_bn,
-        ]);
-        return redirect()->back();
+        //
     }
 
     /**
      * Display the specified resource.
      *
-     * @param  \App\Models\Tag  $tag
+     * @param  \App\Models\Order  $order
      * @return \Illuminate\Http\Response
      */
-    public function show(Tag $tag)
+    public function show(Order $order)
     {
-        //
+        return view('backend.orders.show', compact('order'));
     }
 
     /**
      * Show the form for editing the specified resource.
      *
-     * @param  \App\Models\Tag  $tag
+     * @param  \App\Models\Order  $order
      * @return \Illuminate\Http\Response
      */
-    public function edit(Tag $tag)
+    public function edit(Order $order)
     {
         //
     }
@@ -76,15 +66,13 @@ class TagController extends Controller
      * Update the specified resource in storage.
      *
      * @param  \Illuminate\Http\Request  $request
-     * @param  \App\Models\Tag  $tag
+     * @param  \App\Models\Order  $order
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, Tag $tag)
+    public function update(Request $request, Order $order)
     {
-        $tag->update([
-            'name_en' => $request->tag_name_en,
-            'slug' => Str::slug($request->tag_name_en),
-            'name_bn' => $request->tag_name_bn,
+        $order->update([
+            'shipping_status' => $request->shipping_status
         ]);
         return redirect()->back();
     }
@@ -92,12 +80,11 @@ class TagController extends Controller
     /**
      * Remove the specified resource from storage.
      *
-     * @param  \App\Models\Tag  $tag
+     * @param  \App\Models\Order  $order
      * @return \Illuminate\Http\Response
      */
-    public function destroy(Tag $tag)
+    public function destroy(Order $order)
     {
-        $tag->delete();
-        return redirect()->back();
+        //
     }
 }

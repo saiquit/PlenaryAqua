@@ -13,14 +13,19 @@
                              @if ($category->subcategory->count())
                                  <li class="@if (request()->query('category_id') == $category->id) active @endif">
                                      <a
-                                         href="{{ route('front.shop', array_merge($_GET, ['category_id' => $category->id])) }}">{{ $category['name_' . app()->getLocale()] }}</a>
+                                         href="{{ route('front.shop', array_merge($_GET, ['category_id' => $category->id])) }}">{{ Str::ucfirst($category['name_' . app()->getLocale()]) }}</a>
                                      <ul class="sub__cats">
                                          @foreach ($category->subcategory as $subCat)
                                              <li class="@if (request()->query('category_id') == $subCat->id) active @endif">
                                                  <a
-                                                     href="{{ route('front.shop', array_merge($_GET, ['category_id' => $subCat->id])) }}">{{ $subCat['name_' . app()->getLocale()] }}</a>
+                                                     href="{{ route('front.shop', array_merge($_GET, ['category_id' => $subCat->id])) }}">{{ Str::ucfirst($subCat['name_' . app()->getLocale()]) }}</a>
                                          @endforeach
                                      </ul>
+                                 </li>
+                             @elseif (!$category->parent)
+                                 <li class="@if (request()->query('category_id') == $category->id) active @endif">
+                                     <a
+                                         href="{{ route('front.shop', array_merge($_GET, ['category_id' => $category->id])) }}">{{ Str::ucfirst($category['name_' . app()->getLocale()]) }}</a>
                                  </li>
                              @endif
                          @endforeach

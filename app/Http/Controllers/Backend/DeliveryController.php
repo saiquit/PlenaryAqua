@@ -16,6 +16,12 @@ class DeliveryController extends Controller
     }
     public function store(Request $request)
     {
+        $request->validate([
+            'district_id' => 'required',
+            'name_en' => 'required',
+            'name_bn' => 'required',
+            'cost' => 'required|numeric'
+        ]);
         DB::table('delivery')->insert([
             "district_id" => $request->district_id,
             "name_en" => $request->name_en,

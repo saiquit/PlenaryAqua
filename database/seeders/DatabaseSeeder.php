@@ -18,6 +18,9 @@ class DatabaseSeeder extends Seeder
             DeliverySeeder::class
         ]);
         \App\Models\User::factory(1)->create();
+        \App\Models\User::factory([
+            'email' => 'admin@admin.com'
+        ])->create();
         \App\Models\District::factory()->create([
             'name_en' => 'Dhaka',
             'name_bn' => 'ঢাকা',

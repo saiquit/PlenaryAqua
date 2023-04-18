@@ -43,6 +43,13 @@ class VariationController extends Controller
      */
     public function store(Request $request)
     {
+        $request->validate([
+            'variation_name_en' => 'required',
+            'variation_name_bn' => 'required',
+            'weight' => 'required|numeric',
+            'variation_desc_en' => 'required',
+            'variation_desc_bn' => 'required',
+        ]);
         $product = Product::findOrFail($request->product);
         $newVar = $product->variations()->create([
             'sku' => sprintf('%04d', $product->id) . $product->variations()->count() + 1,

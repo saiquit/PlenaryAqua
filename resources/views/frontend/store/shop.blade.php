@@ -307,13 +307,16 @@
                     <div class="filter__item">
                         <div class="row">
                             <div class="col-lg-4 col-md-5">
-                                <div class="filter__sort">
-                                    <span>Sort By</span>
-                                    <select>
-                                        <option value="0">Default</option>
-                                        <option value="0">Default</option>
-                                    </select>
-                                </div>
+                                <form id="filter_sort_form" action="{{ route('front.shop') }}" method="get">
+                                    <div class="filter__sort">
+                                        <span>Sort By</span>
+                                        <select name="sort">
+                                            <option value="">Default</option>
+                                            <option value="price_asc">Price Asc</option>
+                                            <option value="price_desc">Price Desc</option>
+                                        </select>
+                                    </div>
+                                </form>
                             </div>
                             <div class="col-lg-4 col-md-4">
                                 <div class="filter__found">
@@ -321,10 +324,10 @@
                                 </div>
                             </div>
                             <div class="col-lg-4 col-md-3">
-                                <div class="filter__option">
+                                {{-- <div class="filter__option">
                                     <span class="icon_grid-2x2"></span>
                                     <span class="icon_ul"></span>
-                                </div>
+                                </div> --}}
                             </div>
                         </div>
                     </div>
@@ -333,14 +336,14 @@
                             <div class="col-lg-4 col-md-6 col-sm-6">
                                 <div class="product__discount__item">
                                     <div class="product__discount__item__pic set-bg"
-                                        data-setbg="{{ url('storage/' . $variation->product->images[0]->filename) }}">
+                                        data-setbg="{{ isset($variation->product->images[0]->filename) ? url('storage/' . $variation->product->images[0]->filename) : null }}">
                                         @isset($variation->current_district[0]->pivot->discount)
                                             <div class="product__discount__percent">
                                                 -{{ $variation->current_district[0]->pivot->discount }}%</div>
                                         @endisset
                                         <ul class="product__item__pic__hover">
-                                            <li><a href="#"><i class="fa fa-heart"></i></a></li>
-                                            <li><a href="#"><i class="fa fa-retweet"></i></a></li>
+                                            {{-- <li><a href="#"><i class="fa fa-heart"></i></a></li>
+                                            <li><a href="#"><i class="fa fa-retweet"></i></a></li> --}}
                                             <li><a
                                                     href="{{ route('front.single', ['slug' => $variation->product->slug, 'var' => $variation->id]) }}"><i
                                                         class="fa fa-shopping-cart"></i></a></li>
@@ -379,6 +382,24 @@
 @push('js')
     <script>
         $(document).ready(function() {
+            $('#filter_sort_form select').change(function(e) {
+                e.preventDefault();
+                var path = $(location).attr('href').split('?')[0];
+                var params = {};
+                location.search.replace(/[?&]+([^=&]+)=([^&]*)/gi, function(s, k, v) {
+                    params[k] = v
+                });
+                params['sort'] = $(this).val();
+                var param_list = '';
+                for (const key in params) {
+                    if (Object.hasOwnProperty.call(params, key)) {
+                        const element = params[key];
+                        param_list += key + '=' + element + '&';
+                    }
+                }
+                var newUrl = path + '?' + param_list;
+                window.location.href = newUrl;
+            });
             $('.price_car').owlCarousel({
                 loop: true,
                 margin: 10,

@@ -16,7 +16,7 @@
                         Register
                     </span>
                     <div class="wrap-input100 validate-input" data-validate="Valid name is required: Md S...">
-                        <input class="input100" type="text" name="name">
+                        <input value="{{ old('name') }}" class="input100" type="text" name="name">
                         <span class="focus-input100"></span>
                         <span class="label-input100">Name</span>
                     </div>
@@ -24,7 +24,7 @@
                         <div class="alert alert-danger">{{ $message }}</div>
                     @enderror
                     <div class="wrap-input100 validate-input" data-validate="Valid email is required: ex@abc.xyz">
-                        <input class="input100" type="text" name="email">
+                        <input value="{{ old('email') }}" class="input100" type="text" name="email">
                         <span class="focus-input100"></span>
                         <span class="label-input100">Email</span>
                     </div>
@@ -32,7 +32,7 @@
                         <div class="alert alert-danger">{{ $message }}</div>
                     @enderror
                     <div class="wrap-input100 validate-input" data-validate="Valid phone is required: +8801......">
-                        <input class="input100" type="text" name="phone">
+                        <input value="{{ old('phone') }}" class="input100" type="text" name="phone">
                         <span class="focus-input100"></span>
                         <span class="label-input100">Phone</span>
                     </div>

@@ -61,6 +61,11 @@ class StoreController extends Controller
                 $d->where('price', '<=', $request->maxPrice);
             });
         }
+        // if ($request->sort) {
+        //     $sort_arr = explode('_', $request->sort);
+        //     $sorted = $variations_q->with('current_district')->whereHas('current_district')('price', 'desc');
+        //     dd($sorted->paginate(10));
+        // }
         $variations = $variations_q->paginate(24);
         return view('frontend.store.shop', compact('variations'));
     }

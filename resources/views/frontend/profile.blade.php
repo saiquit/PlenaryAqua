@@ -6,10 +6,7 @@
             <div class="bg-white shadow rounded-lg d-block d-sm-flex">
                 <div class="profile-tab-nav border-right">
                     <div class="p-4">
-                        <div class="img-circle text-center mb-3">
-                            <img src="{{ asset('static/f/img/logo.png') }}" alt="Image" class="shadow">
-                        </div>
-                        <h4 class="text-center">Kiran Acharya</h4>
+                        <h4 class="text-center">Point: {{ $profile->point }}</h4>
                     </div>
                     <div class="nav flex-column nav-pills" id="v-pills-tab" role="tablist" aria-orientation="vertical">
                         <a class="nav-link active show" id="account-tab" data-toggle="pill" href="#account" role="tab"
@@ -131,6 +128,7 @@
                                                         <th>Paid Date</th>
                                                         <th>Amount</th>
                                                         <th>Transaction</th>
+                                                        <th>Shipping</th>
                                                         <th>Items</th>
                                                     </tr>
                                                 </thead>
@@ -143,8 +141,13 @@
                                                             <td>{{ $order->payment_method }}</td>
                                                             <td>{{ $order->created_at->format('d/m/Y') }}</td>
                                                             <td>${{ $order->total }}</td>
-                                                            <td><span
+                                                            <td>
+                                                                <span
                                                                     class="badge badge-{{ $order->payment == 'pending' ? 'warning' : 'success' }}  badge-boxed badge-soft-warning">{{ $order->payment }}</span>
+                                                            </td>
+                                                            <td>
+                                                                <span
+                                                                    class="badge @switch($order->shipping_status) @case('pending') badge-info @break @case('shipping') badge-warning @break @case('shipped') badge-warning @break @default badge-success @endswitch badge-boxed badge-soft-warning">{{ $order->payment }}</span>
                                                             </td>
                                                             <td onclick="showProducts({{ $order->id }})"><i
                                                                     class="fa fa-chevron-down"></i>

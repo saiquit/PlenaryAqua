@@ -60,6 +60,17 @@
         allowParentLinks: true
     });
 
+    $('.dropdown a').click(function (e) { 
+        e.preventDefault();
+        if ($('.dropdown-menu').hasClass('active')) {
+            $('.dropdown-menu').removeClass('active');
+            $('.dropdown a').removeClass('active');
+        }else{
+            $(this).toggleClass('active');
+            $(this).siblings('.dropdown-menu').toggleClass('active');
+        }
+        
+    });
 
 
     $('.hero__slider').owlCarousel({

@@ -30,7 +30,8 @@
                             <div class="product__details__pic">
                                 <div class="product__details__pic__item">
                                     <img class="product__details__pic__item--large"
-                                        src="{{ url('storage/' . $variation->images[0]->filename) }}" alt="">
+                                        src="{{ isset($variation->images[0]->filename) ? url('storage/' . $variation->images[0]->filename) : null }}"
+                                        alt="">
                                 </div>
                                 <div class="product__details__pic__slider owl-carousel">
                                     @foreach ($variation->images as $image)
@@ -43,14 +44,17 @@
                         <div class="col-lg-6 col-md-6">
                             <div class="product__details__text">
                                 <div class="btn-group" role="group" aria-label="">
-                                    <a
-                                        href="{{ route('front.single', ['slug' => $product->slug, 'var' => $variation->id]) }}"><button
-                                            type="button"
-                                            class="btn btn-lg btn-outline-secondary text-uppercase 
-                                            @if ($var == $variation->id) active @endif">
-
-                                            {{ $variation->weight }}KG</button>
-                                    </a>
+                                    @foreach ($product->variations as $item)
+                                        @if ($item->districts->find(session('district')))
+                                            <a
+                                                href="{{ route('front.single', ['slug' => $product->slug, 'var' => $item->id]) }}"><button
+                                                    type="button"
+                                                    class="btn btn-lg btn-outline-secondary text-uppercase mx-2
+                                            @if ($var == $item->id) active @endif">
+                                                    {{ $item->weight }}KG</button>
+                                            </a>
+                                        @endif
+                                    @endforeach
                                 </div>
 
                                 <form action="{{ route('cart.update', ['id' => $variation->id]) }}" method="post">
@@ -69,7 +73,7 @@
                                         <div class="product__details__quantity">
                                             <div class="quantity">
                                                 <div class="pro-qty">
-                                                    <input type="text"
+                                                    <input type="text" readonly
                                                         max="{{ $variation->current_district[0]->pivot->stock }}"
                                                         value="{{ isset(session('cart.items')[$variation->id]['qty']) ? session('cart.items')[$variation->id]['qty'] : 0 }}"
                                                         name="qty" />

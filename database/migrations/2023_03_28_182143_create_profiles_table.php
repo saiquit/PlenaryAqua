@@ -23,6 +23,7 @@ return new class extends Migration
             $table->longText('bio')->nullable();
             $table->string('district')->nullable();
             $table->string('upazila')->nullable();
+            $table->integer('point')->nullable()->default(0);
             $table->timestamps();
         });
     }

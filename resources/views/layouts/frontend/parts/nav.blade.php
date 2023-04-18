@@ -93,12 +93,12 @@
                   </div>
                   <div class="col-lg-6 col-md-6">
                       <div class="header__top__right">
-                          {{-- <div class="header__top__right__social">
+                          <div class="header__top__right__social">
                               <a href="#"><i class="fa fa-facebook"></i></a>
-                              <a href="#"><i class="fa fa-twitter"></i></a>
+                              {{-- <a href="#"><i class="fa fa-twitter"></i></a>
                               <a href="#"><i class="fa fa-linkedin"></i></a>
-                              <a href="#"><i class="fa fa-pinterest-p"></i></a>
-                          </div> --}}
+                              <a href="#"><i class="fa fa-pinterest-p"></i></a> --}}
+                          </div>
                           <div class="header__top__right__language">
                               {{-- <img src="/static/f/img/language.png" alt=""> --}}
                               <div>
@@ -133,13 +133,89 @@
                               </ul>
                           </div>
                           @guest
-                              <div class="header__top__right__auth">
-                                  <a href="{{ route('login') }}"><i class="fa fa-user"></i> Login</a>
+                              <div class="header__top__right__auth dropdown">
+                                  <a href="#" class="nav-item">Login</a>
+                                  <div class="dropdown-menu">
+                                      <form action="{{ route('login') }}" method="POST" class="px-4 py-3">
+                                          @csrf
+                                          <div class="form-group">
+                                              <label for="login_email">Email address</label>
+                                              <input type="email" name="email" class="form-control" id="login_email"
+                                                  placeholder="email@example.com">
+                                          </div>
+                                          <div class="form-group">
+                                              <label for="login_password">Password</label>
+                                              <input type="password" name="password" class="form-control"
+                                                  id="login_password" placeholder="Password">
+                                          </div>
+                                          <div class="form-group">
+                                              <div class="form-check">
+                                                  <input name="remember" type="checkbox" class="form-check-input"
+                                                      id="dropdownCheck">
+                                                  <label class="form-check-label" for="dropdownCheck">
+                                                      Remember me
+                                                  </label>
+                                              </div>
+                                          </div>
+                                          <button type="submit" class="btn btn-primary">Sign in</button>
+                                      </form>
+                                      <div class="dropdown-divider"></div>
+                                      <a class="dropdown-item" href="#"
+                                          onclick="document.querySelector('#forget_button').submit()">Forgot password?</a>
+                                      <form id="forget_button"
+                                          action="{{ route('password.reset', ['token' => csrf_token()]) }}"
+                                          method="get"></form>
+                                  </div>
+                              </div>
+                              <div class="mx-3  border-right"></div>
+                              <div class="header__top__right__auth dropdown">
+                                  <a href="#" class="nav-item">Register</a>
+                                  <div class="dropdown-menu">
+                                      <form action="{{ route('register') }}" method="POST" class="px-4 py-3">
+                                          @csrf
+                                          <div class="form-group">
+                                              <label for="register_name">Name</label>
+                                              <input type="name" name="name" class="form-control"
+                                                  id="register_name" placeholder="Your Name">
+                                          </div>
+                                          <div class="form-group">
+                                              <label for="register_email">Email address</label>
+                                              <input type="email" name="email" class="form-control"
+                                                  id="register_email" placeholder="email@example.com">
+                                          </div>
+                                          <div class="form-group">
+                                              <label for="register_phone">Phone Number</label>
+                                              <input type="phone" name="phone" class="form-control"
+                                                  id="register_phone" placeholder="017........">
+                                          </div>
+                                          <div class="form-group">
+                                              <label for="register_password">Password</label>
+                                              <input type="password" name="password" class="form-control"
+                                                  id="register_password" placeholder="*********">
+                                          </div>
+                                          <div class="form-group">
+                                              <label for="register_password_confirm">Confirm Password</label>
+                                              <input type="password" name="password_confirmation" class="form-control"
+                                                  id="register_password_confirm" placeholder="*********">
+                                          </div>
+                                          <button type="submit" class="btn btn-primary">Sign Up</button>
+                                      </form>
+                                      <div class="dropdown-divider"></div>
+                                      <a class="dropdown-item" href="#">New around here? Sign up</a>
+                                      <a class="dropdown-item" href="#">Forgot password?</a>
+                                  </div>
                               </div>
                           @else
                               <div class="header__top__right__auth">
                                   <a href="{{ route('front.profile', []) }}"><i class="fa fa-user"></i> Profile</a>
                               </div>
+                              <div class="mx-3  border-right"></div>
+                              <div class="header__top__right__auth">
+                                  <a href="#" onclick="document.querySelector('#logout_form').submit();"> Logout</a>
+                              </div>
+                              <form id="logout_form" action="{{ route('logout', []) }}" method="post">
+                                  @csrf
+                              </form>
                           @endguest
                       </div>
                   </div>

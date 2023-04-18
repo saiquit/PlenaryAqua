@@ -1,13 +1,15 @@
 @extends('layouts.auth.base')
 
 @section('main')
-    <div class="container">
-        <div class="row justify-content-center">
+    <div class="container min-vh-100">
+        <div class="row min-vh-100 align-items-center justify-content-center">
             <div class="col-md-8">
                 <div class="card">
-                    <div class="card-header">{{ __('Reset Password') }}</div>
 
                     <div class="card-body">
+                        <div class="card-title">
+                            <h3>{{ __('Reset Password') }}</h3>
+                        </div>
                         <form method="POST" action="{{ route('password.update') }}">
                             @csrf
 

@@ -29,9 +29,9 @@ Route::group([
         Route::get('/set-district/{district?}', 'StoreController@selectDistrict')->name('set_district');
         Route::get('/cart', 'StoreController@cart')->name('cart');
         Route::get('/checkout', 'StoreController@checkout')->name('checkout')->middleware(['auth', 'verified']);
-        Route::get('/profile', 'ProfileController@profile')->name('profile')->middleware(['auth', 'verified']);
-        Route::post('/profile', 'ProfileController@update')->name('update_profile')->middleware(['auth', 'verified']);
-        Route::post('/pass-update', 'ProfileController@update_pass')->name('update_pass')->middleware(['auth', 'verified']);
+        Route::get('/profile', 'ProfileController@profile')->name('profile')->middleware(['auth', 'verified', 'role:customer']);
+        Route::post('/profile', 'ProfileController@update')->name('update_profile')->middleware(['auth', 'verified', 'role:customer']);
+        Route::post('/pass-update', 'ProfileController@update_pass')->name('update_pass')->middleware(['auth', 'verified', 'role:customer']);
     });
 
     Route::group([
@@ -56,7 +56,8 @@ Route::group([
 Route::group([
     'namespace' => 'App\Http\Controllers\Backend',
     'as'        => 'admin.',
-    'prefix'    => 'admin'
+    'prefix'    => 'admin',
+    'middleware' => ['role:admin']
 ], function () {
     Route::get('/', 'DashboardController@index')->name('dashboard');
     Route::group([], function () {
@@ -64,6 +65,7 @@ Route::group([
         Route::resource('variations', VariationController::class);
         Route::resource('categories', CategoryController::class);
         Route::resource('tags', TagController::class);
+        Route::resource('orders', OrderController::class);
         Route::group([
             'as'        => 'delivery.',
             'prefix'    => 'delivery'
@@ -74,6 +76,15 @@ Route::group([
             Route::delete('delete', 'DeliveryController@destroy')->name('destory');
         });
     });
+});
+
+Route::group([
+    'namespace' => 'App\Http\Controllers\Backend',
+    'as'        => 'admin.auth.',
+    'prefix'    => 'admin',
+], function () {
+    Route::get('login', 'AuthController@login')->name('login')->middleware('guest');
+    Route::post('login', 'AuthController@do_login')->name('do_login')->middleware('throttle:10,2');
 });
 
 Auth::routes(['verify' => true]);

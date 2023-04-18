@@ -295,8 +295,16 @@ ol {
 }
 
 .header__top__right {
-	text-align: right;
+	/* text-align: right; */
+	display: flex;
+	justify-content: end;
 	padding: 10px 0 13px;
+}
+.dropdown-menu{
+	transition: all 200ms ease;
+}
+.dropdown-menu.active{
+	display: block;
 }
 
 .header__top__right__social {
@@ -585,7 +593,13 @@ ol {
 	z-index: 9;
 	background: #ffffff;
 }
-
+.main__cats li a{
+	transition: all 400ms ease;
+}
+.main__cats li:hover a{
+	font-weight: bold;
+	margin-left: .4rem;
+}
 .hero.hero-normal .hero__search {
 	margin-bottom: 0;
 }
@@ -629,6 +643,7 @@ ol {
 .hero__categories ul li {
 	list-style: none;
 }
+
 
 .hero__categories ul li a {
 	font-size: 16px;

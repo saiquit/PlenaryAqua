@@ -3,10 +3,14 @@
 namespace App\Http\Controllers\Frontend;
 
 use App\Http\Controllers\Controller;
+use App\Models\District;
 use App\Models\Order;
+use App\Models\User;
+use App\Notifications\NewOrderNotification;
 use Carbon\Carbon;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
+use Illuminate\Support\Facades\Notification;
 use Illuminate\Support\Facades\Validator;
 
 class OrderController extends Controller
@@ -34,7 +38,6 @@ class OrderController extends Controller
         $total = $sub_total + $dl_cost;
         $order_count = Order::whereMonth('created_at', Carbon::now()->month)->count();
 
-
         $order = Order::create([
             'order_id' => date('ym') . sprintf("%04d", $order_count + 1),
             'user_id' => auth() ?  auth()->id() : null,
@@ -58,7 +61,10 @@ class OrderController extends Controller
                 'qty' => $item['qty'],
                 'wt'  => $item['qty'] * $item['weight']
             ]);
+            DB::table('district_variation')->where(['district_id' => session('district'), 'variation_id' => $item->id])->decrement('stock', $item['qty']);
         }
+        auth()->user()->profile->increment('point', intval($total));
+        Notification::send(User::where('type', 'admin')->get(), new NewOrderNotification($order));
         session()->forget(['cart.items', 'cart.qty', 'cart.weight', 'cart.subTotal']);
         return redirect()->route('order.invoice', $order->order_id);
     }

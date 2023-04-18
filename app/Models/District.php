@@ -18,6 +18,6 @@ class District extends Model
      */
     public function variations(): BelongsToMany
     {
-        return $this->belongsToMany(Variation::class)->where('district_id', session('district'))->withPivot(['stock', 'price', 'discounted_from_price', 'discount'])->wherePivot('district_id', session('district'))->withTimestamps();
+        return $this->belongsToMany(Variation::class)->where('district_id', session('district'))->withPivot(['stock', 'price', 'discounted_from_price', 'discount'])->withTimestamps();
     }
 }

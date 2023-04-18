@@ -90,7 +90,7 @@
 
 <div class="left-side-bar">
     <div class="brand-logo">
-        <a href="index.html">
+        <a href="{{ route('front.home') }}">
             <img src="/static/b/vendors/images/deskapp-logo.svg" alt="" class="dark-logo" />
             <img src="/static/b/vendors/images/deskapp-logo-white.svg" alt="" class="light-logo" />
         </a>
@@ -134,6 +134,22 @@
                         class="dropdown-toggle no-arrow @if (Route::is('admin.delivery.index')) active @endif">
                         <span class="micon bi bi-diagram-3"></span><span class="mtext">Delivery Cost</span>
                     </a>
+                </li>
+
+                <li>
+                    <a href="{{ route('admin.orders.index') }}"
+                        class="dropdown-toggle no-arrow @if (Route::is('admin.orders.index')) active @endif">
+                        <span class="micon bi bi-diagram-3"></span><span class="mtext">Orders</span>
+                    </a>
+                </li>
+
+                <li>
+                    <a class="dropdown-toggle no-arrow" onclick="document.querySelector('#logout').submit()">
+                        <span class="micon bi bi-diagram-3"></span><span class="mtext">Logout</span>
+                    </a>
+                    <form id="logout" action="{{ route('logout') }}" method="post">
+                        @csrf
+                    </form>
                 </li>
 
             </ul>

@@ -66,6 +66,7 @@ class Kernel extends HttpKernel
         'locale' => \App\Http\Middleware\SetLocaleMiddleware::class,
         'district' => \App\Http\Middleware\SetDistrictMiddleware::class,
         'additional' => \App\Http\Middleware\SendAdditionMiddleware::class,
-        'cors' => \App\Http\Middleware\ModifyHeadersMiddleware::class,
+        // 'cors' => \App\Http\Middleware\ModifyHeadersMiddleware::class,
+        'role' => \App\Http\Middleware\AuthRoleMiddleware::class,
     ];
 }

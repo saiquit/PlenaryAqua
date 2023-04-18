@@ -46,7 +46,8 @@ class ProductController extends Controller
             'product_name_bn' => 'required',
             'product_desc_en' => 'required',
             'product_desc_bn' => 'required',
-            'categories' => 'array'
+            'categories' => 'array|required',
+            'images'     => 'required'
         ]);
 
         $product = Product::create([
