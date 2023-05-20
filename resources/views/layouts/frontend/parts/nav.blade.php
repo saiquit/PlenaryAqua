@@ -6,7 +6,7 @@
       </div>
       <div class="humberger__menu__cart">
           <ul>
-              <li><a href="#"><i class="fa fa-heart"></i>
+              <li><a href="{{ route('front.love') }}"><i class="fa fa-heart"></i>
                       <span>
                           @auth
                               {{ auth()->user()->loved_products->count() }}
@@ -259,7 +259,7 @@
               <div class="col-lg-3">
                   <div class="header__cart">
                       <ul>
-                          <li><a href="#"><i class="fa fa-heart"></i>
+                          <li><a href="{{ route('front.love') }}"><i class="fa fa-heart"></i>
                                   <span>
                                       @auth
                                           {{ auth()->user()->loved_products->count() }}

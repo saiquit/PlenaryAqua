@@ -57,7 +57,7 @@
                                 </div>
                             </div>
                         </div>
-                        <div class="sidebar__item">
+                        {{-- <div class="sidebar__item">
                             <h4>Popular Size</h4>
                             <div class="sidebar__item__size">
                                 <label for="large">
@@ -83,69 +83,28 @@
                                     <input type="radio" id="tiny">
                                 </label>
                             </div>
-                        </div>
+                        </div> --}}
                         <div class="sidebar__item">
                             <div class="latest-product__text">
-                                <h4>Latest Products</h4>
+                                <h4>Top rated Products</h4>
                                 <div class="latest-product__slider owl-carousel">
-                                    <div class="latest-prdouct__slider__item">
-                                        <a href="#" class="latest-product__item">
-                                            <div class="latest-product__item__pic">
-                                                <img src="/static/f/img/latest-product/lp-1.jpg" alt="">
-                                            </div>
-                                            <div class="latest-product__item__text">
-                                                <h6>Crab Pool Security</h6>
-                                                <span>৳30.00</span>
-                                            </div>
-                                        </a>
-                                        <a href="#" class="latest-product__item">
-                                            <div class="latest-product__item__pic">
-                                                <img src="/static/f/img/latest-product/lp-2.jpg" alt="">
-                                            </div>
-                                            <div class="latest-product__item__text">
-                                                <h6>Crab Pool Security</h6>
-                                                <span>৳30.00</span>
-                                            </div>
-                                        </a>
-                                        <a href="#" class="latest-product__item">
-                                            <div class="latest-product__item__pic">
-                                                <img src="/static/f/img/latest-product/lp-3.jpg" alt="">
-                                            </div>
-                                            <div class="latest-product__item__text">
-                                                <h6>Crab Pool Security</h6>
-                                                <span>৳30.00</span>
-                                            </div>
-                                        </a>
-                                    </div>
-                                    <div class="latest-prdouct__slider__item">
-                                        <a href="#" class="latest-product__item">
-                                            <div class="latest-product__item__pic">
-                                                <img src="/static/f/img/latest-product/lp-1.jpg" alt="">
-                                            </div>
-                                            <div class="latest-product__item__text">
-                                                <h6>Crab Pool Security</h6>
-                                                <span>৳30.00</span>
-                                            </div>
-                                        </a>
-                                        <a href="#" class="latest-product__item">
-                                            <div class="latest-product__item__pic">
-                                                <img src="/static/f/img/latest-product/lp-2.jpg" alt="">
-                                            </div>
-                                            <div class="latest-product__item__text">
-                                                <h6>Crab Pool Security</h6>
-                                                <span>৳30.00</span>
-                                            </div>
-                                        </a>
-                                        <a href="#" class="latest-product__item">
-                                            <div class="latest-product__item__pic">
-                                                <img src="/static/f/img/latest-product/lp-3.jpg" alt="">
-                                            </div>
-                                            <div class="latest-product__item__text">
-                                                <h6>Crab Pool Security</h6>
-                                                <span>৳30.00</span>
-                                            </div>
-                                        </a>
-                                    </div>
+                                    @foreach ($top_rated as $item)
+                                        <div class="latest-prdouct__slider__item">
+                                            @foreach ($item as $variation)
+                                                <a href="{{ route('front.single', ['slug' => $variation->product->slug, 'var' => $variation->id]) }}"
+                                                    class="latest-product__item">
+                                                    <div class="latest-product__item__pic">
+                                                        <img src="{{ isset($variation->product->images[0]->filename) ? url('storage/' . $variation->product->images[0]->filename) : asset('static/f/img/product/product-1.jpg') }}"
+                                                            alt="">
+                                                    </div>
+                                                    <div class="latest-product__item__text">
+                                                        <h6>{{ $variation['name_' . app()->getLocale()] }}</h6>
+                                                        <span>৳{{ $variation->price }}</span>
+                                                    </div>
+                                                </a>
+                                            @endforeach
+                                        </div>
+                                    @endforeach
                                 </div>
                             </div>
                         </div>
@@ -313,8 +272,7 @@
                                                 -{{ $variation->discount }}%</div>
                                         @endisset
                                         <ul class="product__item__pic__hover">
-                                            <li><a
-                                                    onclick="document.querySelector('#form-{{ $variation->id }}').submit()"><i
+                                            <li><a onclick="document.querySelector('#form-{{ $variation->id }}').submit()"><i
                                                         class="fa fa-heart @if (auth()->user() &&
                                                                 auth()->user()->loved_products->contains($variation->product->id)) text-danger @endif"></i></a>
                                             </li>

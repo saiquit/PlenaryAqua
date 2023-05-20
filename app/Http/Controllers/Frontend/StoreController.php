@@ -22,6 +22,7 @@ class StoreController extends Controller
             $p->whereIn('category_id', $top_categories->pluck('id')->toArray());
         })->get();
         $var_q = Variation::query();
+        $var_q->where('district_id', session('district'));
 
         $featured = $var_q->whereHas('tags', function ($q) {
             $q->where('slug', 'featured');
@@ -38,6 +39,9 @@ class StoreController extends Controller
     {
         $variations_q = Variation::query();
         $variations_q->where('district_id', session('district'));
+        $top_rated = $variations_q->whereHas('tags', function ($q) {
+            $q->where('slug', 'top-rated');
+        })->latest()->inRandomOrder()->limit(9)->get()->chunk(3);
 
         if ($request->category_id) {
             $variations_q->whereHas('product', function ($p) use ($request) {
@@ -60,7 +64,7 @@ class StoreController extends Controller
             $variations_q->orderBy($sort[0], $sort[1]);
         }
         $variations = $variations_q->paginate(24);
-        return view('frontend.store.shop', compact('variations'));
+        return view('frontend.store.shop', compact('variations', 'top_rated'));
     }
     public function single(Request $request, $slug)
     {
@@ -137,6 +141,11 @@ class StoreController extends Controller
         return view('frontend.blog.single', compact('blog'));
     }
 
+    public function love()
+    {
+        $wishes = auth()->user()->loved_products;
+        return view('frontend.store.love', compact('wishes'));
+    }
     public function about()
     {
         return view('frontend.additional.about');

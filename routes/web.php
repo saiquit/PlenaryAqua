@@ -41,6 +41,7 @@ Route::group([
         Route::delete('/address_delete/{address}', 'ProfileController@delete_address')->name('address_delete')->middleware(['auth', 'verified', 'role:customer']);
         // Route::post('/pass-update', 'ProfileController@update_pass')->name('update_pass')->middleware(['auth', 'verified', 'role:customer']);
         Route::post('/store-sub', 'StoreController@store_subscriber')->name('store-sub');
+        Route::get('/wishes', 'StoreController@love')->name('love');
         //comment
         Route::post('/comment', 'CommentController@store')->name('store_comment');
         //additional pages
