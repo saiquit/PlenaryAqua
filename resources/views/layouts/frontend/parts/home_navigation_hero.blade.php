@@ -75,15 +75,16 @@
                  <div class="hero__slider owl-carousel ">
                      @foreach (DB::table('slides')->orderBy('created_at', 'desc')->get() as $item)
                          @if ($item->active)
-                             <div class="hero__item set-bg" data-setbg="{{ url('storage/' . $item->image) }}">
-                                 {{-- <div class="hero__text">
+                             <img src="{{ url('storage/' . $item->image) }}" alt="">
+                             {{-- <div class="hero__item set-bg" data-setbg="{{ }}"> --}}
+                             {{-- <div class="hero__text">
                                      <span>{{ App\Models\Category::where('id', $item->category_id)->first()['name_' . app()->getLocale()] }}</span>
                                      <h2>{{ collect($item)['heading_' . app()->getLocale()] }}</h2>
                                      <p>{{ collect($item)['sub_heading_' . app()->getLocale()] }}</p>
                                      <a href="{{ route('front.shop', ['category_id' => $item->category_id]) }}"
                                          class="primary-btn">SHOP NOW</a>
                                  </div> --}}
-                             </div>
+                             {{-- </div> --}}
                          @endif
                      @endforeach
                  </div>

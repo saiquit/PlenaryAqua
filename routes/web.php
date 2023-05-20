@@ -2,6 +2,7 @@
 
 use App\Http\Controllers\Backend\BlogController;
 use App\Http\Controllers\Backend\CategoryController;
+use App\Http\Controllers\Backend\FAQController;
 use App\Http\Controllers\Backend\ProductController;
 use App\Http\Controllers\Backend\VariationController;
 use Illuminate\Support\Facades\Route;
@@ -33,6 +34,7 @@ Route::group([
         Route::get('/set-district/{district?}', 'StoreController@selectDistrict')->name('set_district');
         Route::get('/cart', 'StoreController@cart')->name('cart');
         Route::get('/contact', 'StoreController@contact')->name('contact');
+        Route::post('/contact', 'StoreController@do_contact')->name('contact');
         Route::get('/checkout', 'StoreController@checkout')->name('checkout')->middleware(['auth', 'verified']);
         Route::get('/profile', 'ProfileController@profile')->name('profile')->middleware(['auth', 'verified', 'role:customer']);
         Route::post('/profile', 'ProfileController@update')->name('update_profile')->middleware(['auth', 'verified', 'role:customer']);
@@ -91,6 +93,7 @@ Route::group([
         Route::resource('blogs', BlogController::class);
         Route::resource('tags', TagController::class);
         Route::resource('orders', OrderController::class);
+        Route::resource('faqs', FAQController::class);
 
         //Pages Data
         Route::group([

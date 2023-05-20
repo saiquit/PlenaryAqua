@@ -10,50 +10,50 @@
                 <h2>Our Services</h2>
             </div> --}}
             <div class="row">
-                <div class="col-md-6 col-lg-3">
+                <div class="col-6 col-md-6 col-lg-3">
                     <div class="mb-8 mb-xl-0">
                         <div class="mb-6">
                             <div class="icon_cover"><i class="icon icon_cart_alt"></i></div>
                         </div>
                         <h3 class="h5 mb-3">
-                            10 minute grocery now
+                            Farm to your home
                         </h3>
-                        <p>Get your order delivered to your doorstep at the earliest from FreshCart pickup stores near you.
-                        </p>
+                        <p class="text-justify">Farmers provide fresh fish and meat, which is then procured and, in response
+                            to consumer
+                            demand, delivered to their doorsteps ready to cook. </p>
                     </div>
                 </div>
-                <div class="col-md-6 col-lg-3">
+                <div class="col-6 col-md-6 col-lg-3">
                     <div class="mb-8 mb-xl-0">
                         <div class="mb-6">
                             <div class="icon_cover"><i class="icon icon_bag"></i></div>
                         </div>
-                        <h3 class="h5 mb-3">Wide Assortment</h3>
-                        <p>Choose from 5000+ products across food, personal care, household, bakery, veg and non-veg &amp;
-                            other
-                            categories.</p>
+                        <h3 class="h5 mb-3">Support 24/7</h3>
+                        <p class="text-justify">Choose from our uploaded product categories and contact us 24 hours a day, 7
+                            days a week.</p>
                     </div>
                 </div>
-                <div class="col-md-6  col-lg-3">
+                <div class="col-6 col-md-6  col-lg-3">
                     <div class="mb-8 mb-xl-0">
                         <div class="mb-6">
                             <div class="icon_cover"><i class="icon icon_gift_alt"></i></div>
                         </div>
-                        <h3 class="h5 mb-3">Best Prices &amp; Offers</h3>
-                        <p>Cheaper prices than your local supermarket, great cashback offers to top it off. Get best pricess
-                            &amp;
-                            offers.
-                        </p>
+                        <h3 class="h5 mb-3">Secure payment</h3>
+                        <p class="text-justify">We provide a cheaper price than your nearest supermarket, online shop, or
+                            local market. And
+                            if you are not satisfied with the products, return them and get a refund, as mentioned in our
+                            return policy.</p>
                     </div>
                 </div>
-                <div class="col-md-6 col-lg-3">
+                <div class="col-6 col-md-6 col-lg-3">
                     <div class="mb-8 mb-xl-0">
                         <div class="mb-6">
                             <div class="icon_cover"><i class="icon icon_refresh"></i></div>
                         </div>
                         <h3 class="h5 mb-3">Easy Returns</h3>
-                        <p>Not satisfied with a product? Return it at the doorstep &amp; get a refund within hours. No
-                            questions asked
-                            <a href="#!">policy</a>.
+                        <p class="text-justify">We ensure secure payment on our website, and cash on delivery is also
+                            available.
+                            <a href="{{ route('front.policy') }}">policy</a>.
                         </p>
                     </div>
                 </div>
@@ -154,7 +154,7 @@
             <div class="row">
                 <div class="col-lg-6">
                     {{-- <span class="badge badge-info rounded-pill px-3 py-1 font-weight-light">Service 12</span> --}}
-                    <h3>Why RTC (Ready to Cook) Fish?</h3>
+                    <h3>Why Ready to Cook (RTC) Fish?</h3>
                     <br>
                     <h5 class="font-weight-light subtitle text-justify">We Bengali people can’t do even a single day without
                         fish. It is
@@ -181,10 +181,10 @@
                             <p>Warehousing and delivering through a cool logistics system to the home and business consumers
                                 through online. </p>
                         </div>
-                        <div class="col-lg-12 my-4">
+                        {{-- <div class="col-lg-12 my-4">
                             <a class="btn btn-info-gradiant btn-md border-0 text-white" href="#f12"><span>Learn
                                     More</span></a>
-                        </div>
+                        </div> --}}
                     </div>
                 </div>
                 <div class="col-lg-6">

@@ -5,15 +5,15 @@
 
 @section('main')
     <!-- Breadcrumb Section Begin -->
-    <section class="breadcrumb-section set-bg" data-setbg="static/f/img/breadcrumb.jpg">
+    <section class="breadcrumb-section set-bg" data-setbg="{{ asset('static/f/img/banner/contactus.JPG') }}">
         <div class="container">
             <div class="row">
                 <div class="col-lg-12 text-center">
-                    <div class="breadcrumb__text">
-                        <h2>Contact Us</h2>
+                    <div class="breadcrumb__text black_heading_text">
+                        <h2>Contact us</h2>
                         <div class="breadcrumb__option">
-                            <a href="{{ route('front.home') }}">Home</a>
-                            <span>Contact Us</span>
+                            <a href="{{ route('front.contact') }}">Home</a>
+                            <span>Contact</span>
                         </div>
                     </div>
                 </div>
@@ -87,7 +87,8 @@
                     </div>
                 </div>
             </div>
-            <form action="#">
+            <form action="{{ route('front.contact') }}" method="POST">
+                @csrf
                 <div class="row">
                     <div class="col-lg-6 col-md-6">
                         <input name="name" type="text" placeholder="Your name">

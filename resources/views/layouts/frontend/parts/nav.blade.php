@@ -78,7 +78,7 @@
       <div class="humberger__menu__contact">
           <ul>
               <li><i class="fa fa-envelope"></i> plenaryaqua@gmail.com </li>
-              <li>Free Shipping for all Order of $99</li>
+              {{-- <li>Free Shipping for all Order of $99</li> --}}
           </ul>
       </div>
   </div>
@@ -94,7 +94,7 @@
                           <ul>
                               <li><i class="fa fa-envelope"></i> <a
                                       href="mailto:plenaryaqua@gmail.com">plenaryaqua@gmail.com</a> </li>
-                              <li>Free Shipping for all Order of ৳99</li>
+                              {{-- <li>Free Shipping for all Order of ৳99</li> --}}
                           </ul>
                       </div>
                   </div>

@@ -20,11 +20,11 @@ class DashboardController extends Controller
         $data = [];
         foreach ($orders_per_month as $month => $orders) {
             foreach ($orders as $key => $order) {
-                $data[$month]['name'] = Carbon::createFromFormat('m', $month)->format('M');
-                if (isset($data[$month]['total'])) {
+                if (isset($data[$month]['name'])) {
                     $data[$month]['total'] += $order->total;
                 } else {
-                    $data[$month]['total'] = 1;
+                    $data[$month]['name'] = Carbon::createFromFormat('m', $month)->format('M');
+                    $data[$month]['total'] = $order->total;
                 }
             }
         }
@@ -42,6 +42,7 @@ class DashboardController extends Controller
                 $pi_data[Variation::find($item->variation_id)->name_en] = 1;
             }
         }
-        return view('backend.dashboard', compact('data', 'pi_data'));
+        $orders = Order::where('shipping_status', '!=', 'delivered')->latest()->get();
+        return view('backend.dashboard', compact('data', 'pi_data', 'orders'));
     }
 }

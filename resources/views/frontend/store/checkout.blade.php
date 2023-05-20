@@ -280,7 +280,6 @@
                         <div class="checkout__input">
                             <p>Type<span>*</span></p>
                             <select name="type" class="w-100 wide mb-3" id="">
-                                <option disabled selected value>None</option>
                                 <option value="home">
                                     Home</option>
                                 <option value="work">

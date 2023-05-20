@@ -24,36 +24,41 @@
                                 </tr>
                             </thead>
                             <tbody>
-                                @foreach ($wishes as $wish)
-                                    <tr class="my-4">
-                                        <td>
-                                            <div class="display-flex align-center">
-                                                <div class="img-product">
-                                                    <img width="150"
-                                                        src="{{ isset($variation->product->images[0]->filename) ? url('storage/' . $variation->product->images[0]->filename) : asset('static/f/img/product/product-1.jpg') }}"
-                                                        alt="">
-                                                </div>
+                                @if ($wishes->count())
+                                    @foreach ($wishes as $wish)
+                                        <tr class="my-4">
+                                            <td>
+                                                <div class="display-flex align-center">
+                                                    <div class="img-product">
+                                                        <img width="150"
+                                                            src="{{ isset($variation->product->images[0]->filename) ? url('storage/' . $variation->product->images[0]->filename) : asset('static/f/img/product/product-1.jpg') }}"
+                                                            alt="">
+                                                    </div>
 
-                                            </div>
-                                        </td>
-                                        <td class="price"> {{ $wish['name_' . app()->getLocale()] }}</td>
-                                        <td class="price"> {{ $wish->variations->count() }}</td>
-                                        <td>
-                                            <a href="{{ route('front.single', ['slug' => $wish->slug]) }}" target="_blank"
-                                                rel="noopener noreferrer"><button class="btn btn-primary">Show
-                                                    Product</button></a>
-                                            <a onclick="document.querySelector('#form-{{ $wish->id }}').submit()"><button
-                                                    class="btn btn-danger">Remove</button></a>
-                                            <form hidden id="form-{{ $wish->id }}"
-                                                action="{{ route('front.store_love', ['product' => $wish->id]) }}"
-                                                method="post">
-                                                @csrf
-                                            </form>
-                                        </td>
-                                        <td class="text-center"><a href="#" class="trash-icon"><i
-                                                    class="far fa-trash-alt"></i></a></td>
-                                    </tr>
-                                @endforeach
+                                                </div>
+                                            </td>
+                                            <td class="price"> {{ $wish['name_' . app()->getLocale()] }}</td>
+                                            <td class="price"> {{ $wish->variations->count() }}</td>
+                                            <td>
+                                                <a href="{{ route('front.single', ['slug' => $wish->slug]) }}"
+                                                    target="_blank" rel="noopener noreferrer"><button
+                                                        class="btn btn-primary">Show
+                                                        Product</button></a>
+                                                <a onclick="document.querySelector('#form-{{ $wish->id }}').submit()"><button
+                                                        class="btn btn-danger">Remove</button></a>
+                                                <form hidden id="form-{{ $wish->id }}"
+                                                    action="{{ route('front.store_love', ['product' => $wish->id]) }}"
+                                                    method="post">
+                                                    @csrf
+                                                </form>
+                                            </td>
+                                            <td class="text-center"><a href="#" class="trash-icon"><i
+                                                        class="far fa-trash-alt"></i></a></td>
+                                        </tr>
+                                    @endforeach
+                                @else
+                                    <div class="alert alert-danger">No Wish Products Yet!</div>
+                                @endif
 
                             </tbody>
                         </table>

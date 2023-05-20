@@ -86,7 +86,7 @@
                         </div> --}}
                         <div class="sidebar__item">
                             <div class="latest-product__text">
-                                <h4>Top rated Products</h4>
+                                <h4>Top Products</h4>
                                 <div class="latest-product__slider owl-carousel">
                                     @foreach ($top_rated as $item)
                                         <div class="latest-prdouct__slider__item">

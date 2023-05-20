@@ -19,19 +19,19 @@
                        <h6>Useful Links</h6>
                        <ul>
                            <li><a href="{{ route('front.about', []) }}">About Us</a></li>
-                           <li><a href="#">About Our Shop</a></li>
-                           <li><a href="#">Secure Shopping</a></li>
+                           {{-- <li><a href="#">About Our Shop</a></li> --}}
+                           {{-- <li><a href="#">Secure Shopping</a></li> --}}
                            <li><a href="{{ route('front.terms', []) }}">Terms and Conditions</a></li>
                            <li><a href="{{ route('front.policy', []) }}">Return Policy</a></li>
-                           <li><a href="#">Our Sitemap</a></li>
+                           {{-- <li><a href="#">Our Sitemap</a></li> --}}
+                           <li><a href="#">FAQ</a></li>
+                           <li><a href="#">Projects</a></li>
                        </ul>
                        <ul>
-                           <li><a href="#">Who We Are</a></li>
-                           <li><a href="#">Our Services</a></li>
-                           <li><a href="#">Projects</a></li>
                            <li><a href="{{ route('front.contact', []) }}">Contact</a></li>
-                           <li><a href="#">Innovation</a></li>
-                           <li><a href="#">Testimonials</a></li>
+                           {{-- <li><a href="#">Our Services</a></li> --}}
+                           {{-- <li><a href="#">Innovation</a></li> --}}
+                           {{-- <li><a href="#">Testimonials</a></li> --}}
                        </ul>
                    </div>
                </div>

@@ -3,6 +3,7 @@
 namespace App\Http\Controllers\Frontend;
 
 use App\Http\Controllers\Controller;
+use App\Mail\ContactMail;
 use App\Models\Blog;
 use App\Models\Category;
 use App\Models\District;
@@ -11,6 +12,7 @@ use App\Models\Variation;
 use Carbon\Carbon;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
+use Illuminate\Support\Facades\Mail;
 
 class StoreController extends Controller
 {
@@ -118,6 +120,18 @@ class StoreController extends Controller
     public function contact()
     {
         return view('frontend.store.contact');
+    }
+
+    public function do_contact(Request $request)
+    {
+        $request->validate([
+            "name" => "string|required",
+            "email" => "email|required",
+            "message" => "string|required",
+        ]);
+        Mail::to(env('MAIL_FROM_ADDRESS', 'plenaryaqua@gmail.com'))->send(new ContactMail($request->only('name', 'email', 'message')));
+        // dd($request->all());
+        return redirect()->back();
     }
     // blogs
     public function blogs(Request $request)

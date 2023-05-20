@@ -19,7 +19,9 @@ class DatabaseSeeder extends Seeder
             DeliverySeeder::class,
             AdditionalPageSeeder::class
         ]);
-        \App\Models\User::factory(1)->create();
+        \App\Models\User::factory([
+            'email' => 'customer@customer.com',
+        ])->create();
         \App\Models\User::factory([
             'email' => 'admin@admin.com',
             'type'  => 'admin'
@@ -53,7 +55,32 @@ class DatabaseSeeder extends Seeder
         ]);
 
 
-        $categories = \App\Models\Category::factory(10)->create()->each(function ($c) {
+        \App\Models\Category::factory()->create([
+            'name_en' => 'River Fish',
+            'name_bn' => 'নদীর মাছ',
+        ]);
+        \App\Models\Category::factory()->create([
+            'name_en' => 'Beel Fish',
+            'name_bn' => 'বিল মাছ',
+        ]);
+        \App\Models\Category::factory()->create([
+            'name_en' => 'Sea Fish',
+            'name_bn' => 'সামুদ্রিক মাছ',
+        ]);
+        \App\Models\Category::factory()->create([
+            'name_en' => 'Organic Dry Fish',
+            'name_bn' => 'অর্গানিক শুটকি মাছ',
+        ]);
+        \App\Models\Category::factory()->create([
+            'name_en' => 'Steaks and Fillets Fish',
+            'name_bn' => 'স্টেক এবং ফিলেট',
+        ]);
+        \App\Models\Category::factory()->create([
+            'name_en' => 'Others',
+            'name_bn' => 'অন্যান্য',
+        ]);
+
+        $categories = \App\Models\Category::each(function ($c) {
             $c->products()->saveMany(\App\Models\Product::factory(20)->make())->each(function ($p) {
                 $p->variations()->saveMany(\App\Models\Variation::factory(rand(1, 5))->make())->each(function ($v) {
                     $random_number_array = range(1, 3);
