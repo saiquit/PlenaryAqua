@@ -27,7 +27,6 @@
     <link rel="stylesheet" href="{{ asset('static/f/css/owl.carousel.min.css') }}" type="text/css">
     <link rel="stylesheet" href="{{ asset('static/f/css/slicknav.min.css') }}" type="text/css">
     <link rel="stylesheet" href="{{ asset('static/f/css/style.css') }}" type="text/css">
-    <link rel="stylesheet" href="{{ asset('build/assets/rfront-84c8e029.css') }}" type="text/css">
     {{-- @vite(['resources/css/rfront.css']) --}}
     @stack('css')
 
@@ -113,7 +112,6 @@
     <script src="{{ asset('static/f/js/owl.carousel.min.js') }}"></script>
     {{-- <script src="{{ asset('static/f/js/alpine.min.js') }}"></script> --}}
     <script src="{{ asset('static/f/js/main.js') }}"></script>
-    <script src="{{ asset('build/assets/front-971931a0.js') }}"></script>
     {{-- <script src='https://cdn.jsdelivr.net/npm/botman-web-widget@0/build/js/widget.js'></script> --}}
     {{-- @vite(['resources/js/front.js']) --}}
     <script>
