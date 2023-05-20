@@ -1,5 +1,7 @@
 @extends('layouts.frontend.base')
-
+@section('title')
+    Cart
+@endsection
 @section('main')
     <section class="breadcrumb-section set-bg" data-setbg="/static/f/img/breadcrumb.jpg"
         style="background-image: url(/static/f/img/breadcrumb.jpg);">
@@ -9,7 +11,7 @@
                     <div class="breadcrumb__text">
                         <h2>Shopping Cart</h2>
                         <div class="breadcrumb__option">
-                            <a href="./index.html">Home</a>
+                            <a href="{{ route('front.home') }}">Home</a>
                             <span>Shopping Cart</span>
                         </div>
                     </div>
@@ -46,22 +48,21 @@
                                             <h5>{{ $item['name_' . app()->getLocale()] }}</h5>
                                         </td>
                                         <td class="shoping__cart__price">
-                                            ${{ $item->current_district[0]->pivot->price }}
+                                            ${{ $item->price }}
                                         </td>
                                         <td class="shoping__cart__quantity">
                                             <div class="quantity">
                                                 <div class="pro-qty">
                                                     {{-- <span class="dec qtybtn">-</span> --}}
-                                                    <input max="{{ $item->current_district[0]->pivot->stock }}" readonly
-                                                        data-id="{{ $item['id'] }}" name="qty" type="text"
-                                                        value="{{ $item['qty'] }}">
+                                                    <input max="{{ $item->stock }}" readonly data-id="{{ $item['id'] }}"
+                                                        name="qty" type="text" value="{{ $item['qty'] }}">
                                                     {{-- <span class="inc qtybtn">+</span> --}}
                                                 </div>
                                             </div>
                                             </form>
                                         </td>
                                         <td class="shoping__cart__total">
-                                            ${{ $item['qty'] * $item->current_district[0]->pivot->price }}
+                                            ${{ $item['qty'] * $item->price }}
                                         </td>
                                         <td class="shoping__cart__item__close">
                                             <form action="{{ route('cart.delete') }}" method="post">
@@ -89,8 +90,9 @@
                     <div class="shoping__continue">
                         <div class="shoping__discount">
                             <h5>Discount Codes</h5>
-                            <form action="#">
-                                <input type="text" placeholder="Enter your coupon code">
+                            <form method="POST" action="{{ route('cart.discount') }}">
+                                @csrf
+                                <input name="code" type="text" placeholder="Enter your coupon code">
                                 <button type="submit" class="site-btn">APPLY COUPON</button>
                             </form>
                         </div>
@@ -101,7 +103,11 @@
                         <h5>Cart Total</h5>
                         <ul>
                             <li>Subtotal <span id="sub_total">${{ session('cart.subTotal') }}</span></li>
-                            <li>Total <span id="total">${{ session('cart.subTotal') }}</span></li>
+                            @if (session('cart.discount'))
+                                <li>Discount <span id="sub_total">- ${{ session('cart.discount') }}</span></li>
+                            @endif
+                            <li>Total <span
+                                    id="total">৳{{ session('cart.subTotal') - session('cart.discount') }}</span></li>
                         </ul>
                         <a href="{{ route('front.checkout', []) }}" class="primary-btn">PROCEED TO CHECKOUT</a>
                     </div>

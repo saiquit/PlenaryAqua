@@ -6,12 +6,19 @@
       </div>
       <div class="humberger__menu__cart">
           <ul>
-              {{-- <li><a href="#"><i class="fa fa-heart"></i> <span>1</span></a></li> --}}
+              <li><a href="#"><i class="fa fa-heart"></i>
+                      <span>
+                          @auth
+                              {{ auth()->user()->loved_products->count() }}
+                          @else
+                              0
+                          @endauth
+                      </span></a></li>
               <li><a href="{{ route('front.cart') }}"><i class="fa fa-shopping-bag"></i>
                       <span>{{ session()->has('cart.items') ? count(session('cart.items')) : 0 }}</span></a></li>
           </ul>
           <div class="header__cart__price">item:
-              <span>${{ session()->has('cart.subTotal') ? session('cart.subTotal') : 0 }}</span>
+              <span>৳{{ session()->has('cart.subTotal') ? session('cart.subTotal') : 0 }}</span>
           </div>
       </div>
       <div class="humberger__menu__widget">
@@ -40,9 +47,9 @@
                   {{-- <li><a href="#">English</a></li> --}}
               </ul>
           </div>
-          <div class="header__top__right__auth">
+          {{-- <div class="header__top__right__auth">
               <a href="#"><i class="fa fa-user"></i> Login</a>
-          </div>
+          </div> --}}
       </div>
       <nav class="humberger__menu__nav mobile-menu">
           <ul>
@@ -50,16 +57,15 @@
               </li>
               <li class="@if (request()->route()->getName() == 'front.shop') active @endif"><a href="{{ route('front.shop') }}">Shop</a>
               </li>
-              <li><a href="#">Pages</a>
-                  <ul class="header__menu__dropdown">
-                      <li><a href="./shop-details.html">Shop Details</a></li>
-                      <li><a href="./shoping-cart.html">Shoping Cart</a></li>
-                      <li><a href="./checkout.html">Check Out</a></li>
-                      <li><a href="./blog-details.html">Blog Details</a></li>
-                  </ul>
+              <li class="@if (request()->route()->getName() == 'front.contact') active @endif"><a
+                      href="{{ route('front.contact') }}">Contact</a></li>
+              <li class="@if (request()->route()->getName() == 'front.blogs ') active @endif"><a href="{{ route('front.blogs') }}">Blog</a>
               </li>
-              <li><a href="./blog.html">Blog</a></li>
-              <li><a href="./contact.html">Contact</a></li>
+              @guest
+                  <li><a href="{{ route('login', []) }}">Login</a></li>
+              @else
+                  <li><a href="{{ route('register', []) }}">Register</a></li>
+              @endguest
           </ul>
       </nav>
       <div id="mobile-menu-wrap"></div>
@@ -71,7 +77,7 @@
       </div>
       <div class="humberger__menu__contact">
           <ul>
-              <li><i class="fa fa-envelope"></i> hello@colorlib.com</li>
+              <li><i class="fa fa-envelope"></i> plenaryaqua@gmail.com </li>
               <li>Free Shipping for all Order of $99</li>
           </ul>
       </div>
@@ -86,8 +92,9 @@
                   <div class="col-lg-6 col-md-6">
                       <div class="header__top__left">
                           <ul>
-                              <li><i class="fa fa-envelope"></i> hello@colorlib.com</li>
-                              <li>Free Shipping for all Order of $99</li>
+                              <li><i class="fa fa-envelope"></i> <a
+                                      href="mailto:plenaryaqua@gmail.com">plenaryaqua@gmail.com</a> </li>
+                              <li>Free Shipping for all Order of ৳99</li>
                           </ul>
                       </div>
                   </div>
@@ -164,7 +171,8 @@
                                           onclick="document.querySelector('#forget_button').submit()">Forgot password?</a>
                                       <form id="forget_button"
                                           action="{{ route('password.reset', ['token' => csrf_token()]) }}"
-                                          method="get"></form>
+                                          method="get">
+                                      </form>
                                   </div>
                               </div>
                               <div class="mx-3  border-right"></div>
@@ -207,7 +215,11 @@
                               </div>
                           @else
                               <div class="header__top__right__auth">
-                                  <a href="{{ route('front.profile', []) }}"><i class="fa fa-user"></i> Profile</a>
+                                  @if (auth()->user()->type == 'admin')
+                                      <a href="{{ route('admin.dashboard', []) }}"><i class="fa fa-user"></i> Admin</a>
+                                  @else
+                                      <a href="{{ route('front.profile', []) }}"><i class="fa fa-user"></i> Profile</a>
+                                  @endif
                               </div>
                               <div class="mx-3  border-right"></div>
                               <div class="header__top__right__auth">
@@ -236,23 +248,25 @@
                                   href="{{ route('front.home', []) }}">Home</a></li>
                           <li class="@if (Route::is('front.shop')) active @endif"><a
                                   href="{{ route('front.shop', []) }}">Shop</a></li>
-                          <li><a href="#">Pages</a>
-                              <ul class="header__menu__dropdown">
-                                  <li><a href="./shop-details.html">Shop Details</a></li>
-                                  <li><a href="./shoping-cart.html">Shoping Cart</a></li>
-                                  <li><a href="./checkout.html">Check Out</a></li>
-                                  <li><a href="./blog-details.html">Blog Details</a></li>
-                              </ul>
-                          </li>
-                          <li><a href="./blog.html">Blog</a></li>
-                          <li><a href="./contact.html">Contact</a></li>
+
+                          <li class="@if (request()->route()->getName() == 'front.blogs') active @endif"><a
+                                  href="{{ route('front.blogs') }}">Blog</a></li>
+                          <li class="@if (request()->route()->getName() == 'front.contact') active @endif"><a
+                                  href="{{ route('front.contact') }}">Contact</a></li>
                       </ul>
                   </nav>
               </div>
               <div class="col-lg-3">
                   <div class="header__cart">
                       <ul>
-                          {{-- <li><a href="#"><i class="fa fa-heart"></i> <span>1</span></a></li> --}}
+                          <li><a href="#"><i class="fa fa-heart"></i>
+                                  <span>
+                                      @auth
+                                          {{ auth()->user()->loved_products->count() }}
+                                      @else
+                                          0
+                                      @endauth
+                                  </span></a></li>
                           <li>
                               <a href="{{ route('front.cart') }}">
                                   <i class="fa fa-shopping-bag"></i>
@@ -261,7 +275,7 @@
                           </li>
                       </ul>
                       <div class="header__cart__price">item:
-                          <span>${{ session()->has('cart.subTotal') ? session('cart.subTotal') : 0 }}</span>
+                          <span>৳{{ session()->has('cart.subTotal') ? session('cart.subTotal') : 0 }}</span>
                       </div>
                   </div>
               </div>

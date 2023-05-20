@@ -55,11 +55,13 @@
                     </div>
                     <div class="hero__search__phone">
                         <div class="hero__search__phone__icon">
-                            <i class="fa fa-phone"></i>
+                            <a href="tel:+8801984955695">
+                                <i class="fa fa-phone"></i>
+                            </a>
                         </div>
                         <div class="hero__search__phone__text">
-                            <h5>+65 11.188.888</h5>
-                            <span>support 24/7 time</span>
+                            <h5>01984955695</h5>
+                            <span>support business hours</span>
                         </div>
                     </div>
                 </div>

@@ -40,4 +40,24 @@ class Product extends Model
     {
         return $this->belongsToMany(Image::class)->withTimestamps();
     }
+
+    /**
+     * Get all of the comments for the Product
+     *
+     * @return \Illuminate\Database\Eloquent\Relations\HasMany
+     */
+    public function comments(): HasMany
+    {
+        return $this->hasMany(Comment::class)->latest();
+    }
+
+    /**
+     * The user_loved that belong to the Product
+     *
+     * @return \Illuminate\Database\Eloquent\Relations\BelongsToMany
+     */
+    public function user_loved(): BelongsToMany
+    {
+        return $this->belongsToMany(User::class, 'loved_products', 'product_id', 'user_id')->withTimestamps();
+    }
 }

@@ -5,6 +5,7 @@ namespace App\Models;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsToMany;
+use Illuminate\Database\Eloquent\Relations\HasMany;
 
 class District extends Model
 {
@@ -16,8 +17,8 @@ class District extends Model
      *
      * @return \Illuminate\Database\Eloquent\Relations\BelongsToMany
      */
-    public function variations(): BelongsToMany
+    public function variations(): HasMany
     {
-        return $this->belongsToMany(Variation::class)->where('district_id', session('district'))->withPivot(['stock', 'price', 'discounted_from_price', 'discount'])->withTimestamps();
+        return $this->hasMany(Variation::class);
     }
 }

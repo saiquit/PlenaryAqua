@@ -93,7 +93,7 @@
     $(".categories__slider").owlCarousel({
         loop: true,
         margin: 0,
-        items: 4,
+        items: 6,
         dots: false,
         nav: true,
         navText: ["<span class='fa fa-angle-left'><span/>", "<span class='fa fa-angle-right'><span/>"],
@@ -117,7 +117,7 @@
             },
 
             992: {
-                items: 4,
+                items: 6,
             }
         }
     });
@@ -250,7 +250,7 @@
         }
     }
     proQty.on('click', '.qtybtn', function () {
-        $('.fa-shopping-bag').effect('shake', {
+        $('.fa-shopping-bag').stop(true, true).effect('shake', {
             distance: 4,
         });
         var $button = $(this);
@@ -277,4 +277,25 @@
         $button.parent().find('input').val(newVal);
     });
 
+    if ($(window).width() <= 992) {
+        $('.hero').addClass('hero-normal');
+    }
+    if (window.location.pathname === '/') {
+        $(window).resize(function (e) { 
+            if ($(window).width() <= 992) {
+                $('.hero').addClass('hero-normal');
+            }else{
+                $('.hero').removeClass('hero-normal');
+            }
+        });
+    }
+
+    $('.product__details__tab ul li a').click(function (e) { 
+        e.preventDefault();
+        var tab_nav = $(this).data('target');
+        $('.product__details__tab .tab-pane').slideUp();
+        $(`.tab-pane#${tab_nav}`).slideDown();
+        // .addClass('active');
+                
+    });
 })(jQuery);

@@ -20,14 +20,4 @@ class Image extends Model
     {
         return $this->belongsToMany(Product::class)->withTimestamps();
     }
-
-    /**
-     * The variations that belong to the Image
-     *
-     * @return \Illuminate\Database\Eloquent\Relations\BelongsToMany
-     */
-    public function variations(): BelongsToMany
-    {
-        return $this->belongsToMany(Variation::class)->withTimestamps();
-    }
 }

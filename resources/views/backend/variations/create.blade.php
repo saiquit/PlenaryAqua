@@ -1,7 +1,6 @@
 @extends('layouts.backend.base')
 @push('css')
     <link rel="stylesheet" type="text/css" href="{{ asset('static/b/src/plugins/switchery/switchery.min.css') }}" />
-    <link rel="stylesheet" type="text/css" href="{{ asset('static/b/src/styles/image-uploader.min.css') }}" />
 @endpush
 @section('main')
     <form enctype="multipart/form-data" action="{{ route('admin.variations.store') }}" method="POST">
@@ -16,7 +15,9 @@
                         <nav aria-label="breadcrumb" role="navigation">
                             <ol class="breadcrumb">
                                 <li class="breadcrumb-item active" aria-current="page">
-                                    {{ $product->name_en }}
+                                    <h4>
+                                        Product Name: <b class="text-blue text-uppercase">{{ $product->name_en }}</b>
+                                    </h4>
                                 </li>
                             </ol>
                         </nav>
@@ -27,7 +28,7 @@
                 <div class="clearfix"></div>
                 <div class="form">
                     <div class="row card-box pd-30 mb-15">
-                        <div class="col-12 col-md-6">
+                        <div class="col-12">
                             <div class="form-group">
                                 <label>Product</label>
                                 <input readonly class="form-control" type="text" placeholder="{{ $product->name_en }}">
@@ -38,8 +39,14 @@
                         </div>
                         <div class="col-12 col-md-6">
                             <div class="form-group">
-                                <label>Weight</label>
-                                <input name="weight" class="form-control" type="text" placeholder="Weight">
+                                <label>Net Weight</label>
+                                <input name="weight" class="form-control" type="text" placeholder="Net Weight">
+                            </div>
+                        </div>
+                        <div class="col-12 col-md-6">
+                            <div class="form-group">
+                                <label>Gross Weight</label>
+                                <input name="gross_weight" class="form-control" type="text" placeholder="Gross Weight">
                             </div>
                         </div>
                         <div class="col-12 col-md-6">
@@ -56,6 +63,17 @@
                                     placeholder="ভেরিয়েশন নাম">
                             </div>
                         </div>
+                        <div class="col-12 ">
+                            <div class="form-group">
+                                <label>Select Tags</label>
+                                <select class="custom-select2 form-control" multiple style="width: 100%" name="tags[]">
+                                    @foreach (App\Models\Tag::all() as $tag)
+                                        <option value="{{ $tag->id }}">
+                                            {{ $tag->name_en }}</option>
+                                    @endforeach
+                                </select>
+                            </div>
+                        </div>
                         <div class="col-12 col-md-6">
                             <div class="form-group">
                                 <label>Variation Decription (English)</label>
@@ -68,76 +86,63 @@
                                 <textarea class="form-control" name="variation_desc_bn" data-lt-tmp-id="lt-72920" spellcheck="false" data-gramm="false"></textarea>
                             </div>
                         </div>
-                        <div class="col-12">
-                            <div class="form-group">
-                                <label>Select Tags</label>
-                                <select class="custom-select2 form-control" multiple style="width: 100%" name="tags[]">
-                                    @foreach (App\Models\Tag::all() as $tag)
-                                        <option value="{{ $tag->id }}">
-                                            {{ $tag->name_en }}</option>
-                                    @endforeach
-                                </select>
-                            </div>
-                        </div>
-                        <div class="col-12 col-md-12">
-                            <div class="form-group">
-                                <div class="input-images" style="padding-top: .5rem;"></div>
-                            </div>
-                        </div>
-                        <div class="col-12 col-md-6" style="padding: 1rem">
-                            <div class="col-12 card border-danger">
-                                <div class="row mb-20 mt-30">
-                                    <div class="col-8">
-                                        <h4 class="">Price and Stock In Khulna</h4>
-                                    </div>
-                                    <div class="col-4">
-                                        <input name="khulna_active" type="checkbox" class="switch-btn" data-size="small"
-                                            data-color="#0099ff" style="display: none; color: rgb(0, 153, 255);"
-                                            data-switchery="true">
-                                    </div>
-                                </div>
-                                <br>
-                                <div class="items">
-                                    <div class="form-group row">
-                                        <div class="col-4">
-                                            <label>Price</label>
-                                        </div>
+
+                        @foreach (['khulna', 'dhaka'] as $d)
+                            <div class="col-12 col-md-6" style="padding: 1rem">
+                                <div class="col-12 card border-danger">
+                                    <div class="row mb-20 mt-30">
                                         <div class="col-8">
-                                            <input name="khulna_price" class="form-control" type="text"
-                                                placeholder="Price">
+                                            <h4 class="">Price and Stock In {{ ucfirst($d) }}</h4>
+                                        </div>
+                                        <div class="col-4">
+                                            <input name="vars[{{ $d }}][active]" type="checkbox"
+                                                class="switch-btn" data-size="small" data-color="#0099ff"
+                                                style="display: none; color: rgb(0, 153, 255);" data-switchery="true">
                                         </div>
                                     </div>
-                                    <div class="form-group row">
-                                        <div class="col-4">
-                                            <label>Discounted From Price</label>
+                                    <br>
+                                    <div class="items">
+                                        <div class="form-group row">
+                                            <div class="col-4">
+                                                <label>Price</label>
+                                            </div>
+                                            <div class="col-8">
+                                                <input name="vars[{{ $d }}][price]" class="form-control"
+                                                    type="text" placeholder="Price">
+                                            </div>
                                         </div>
-                                        <div class="col-8">
-                                            <input name="khulna_discount" class="form-control" type="text"
-                                                placeholder="Discounted From Price">
+                                        <div class="form-group row">
+                                            <div class="col-4">
+                                                <label>Discounted From Price</label>
+                                            </div>
+                                            <div class="col-8">
+                                                <input name="vars[{{ $d }}][discount]" class="form-control"
+                                                    type="text" placeholder="Discounted From Price">
+                                            </div>
                                         </div>
-                                    </div>
-                                    <div class="form-group row">
-                                        <div class="col-4">
-                                            <label>Discount %</label>
+                                        <div class="form-group row">
+                                            <div class="col-4">
+                                                <label>Discount %</label>
+                                            </div>
+                                            <div class="col-8">
+                                                <input name="vars[{{ $d }}][discount_pc]" class="form-control"
+                                                    type="text" placeholder="Discount %">
+                                            </div>
                                         </div>
-                                        <div class="col-8">
-                                            <input name="khulna_discount_pc" class="form-control" type="text"
-                                                placeholder="Discount %">
-                                        </div>
-                                    </div>
-                                    <div class="form-group row">
-                                        <div class="col-4">
-                                            <label>Stock</label>
-                                        </div>
-                                        <div class="col-8">
-                                            <input name="khulna_stock" class="form-control" type="text"
-                                                placeholder="Stock">
+                                        <div class="form-group row">
+                                            <div class="col-4">
+                                                <label>Stock</label>
+                                            </div>
+                                            <div class="col-8">
+                                                <input name="vars[{{ $d }}][stock]" class="form-control"
+                                                    type="text" placeholder="Stock">
+                                            </div>
                                         </div>
                                     </div>
                                 </div>
                             </div>
-                        </div>
-                        <div class="col-12 col-md-6" style="padding: 1rem">
+                        @endforeach
+                        {{-- <div class="col-12 col-md-6" style="padding: 1rem">
                             <div class="col-12 card border-info">
                                 <div class="row mb-20 mt-30">
                                     <div class="col-8">
@@ -189,7 +194,7 @@
                                     </div>
                                 </div>
                             </div>
-                        </div>
+                        </div> --}}
                     </div>
                 </div>
             </div>
@@ -204,14 +209,6 @@
 
 @push('js')
     <script src="{{ asset('static/b/src/plugins/switchery/switchery.min.js') }}"></script>
-    <script src="{{ asset('static/b/src/scripts/image-uploader.min.js') }}"></script>
-    <script>
-        $(function() {
-            $('.input-images').imageUploader({
-                imagesInputName: 'images',
-            });
-        });
-    </script>
     <script>
         var elems = Array.prototype.slice.call(document.querySelectorAll('.switch-btn'));
         $('.switch-btn').each(function() {

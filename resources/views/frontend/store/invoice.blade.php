@@ -1,4 +1,8 @@
 @extends('layouts.frontend.base')
+@section('title')
+    Invoice #{{ $order->order_id }}
+@endsection
+
 @push('css')
     <style>
         .text-secondary-d1 {
@@ -83,7 +87,7 @@
         }
 
         .bgc-default-tp1 {
-            background-color: #7fad39;
+            background-color: #1a632d;
         }
 
         .bgc-default-l4,
@@ -226,9 +230,9 @@
                                             <td>1</td>
                                             <td>{{ $variation['name_' . app()->getLocale()] }}</td>
                                             <td>{{ $variation->pivot->qty }}</td>
-                                            <td class="text-95">${{ $variation->get_price() }}</td>
+                                            <td class="text-95">৳{{ $variation->price }}</td>
                                             <td class="text-secondary-d2">
-                                                ${{ $variation->pivot->qty * $variation->get_price() }}</td>
+                                                ${{ $variation->pivot->qty * $variation->price }}</td>
                                         </tr>
                                     @endforeach
                                 </tbody>
@@ -242,31 +246,42 @@
                             </div>
 
                             <div class="col-12 col-sm-5 text-grey text-90 order-first order-sm-last">
+
                                 <div class="row my-2">
                                     <div class="col-7 text-right">
                                         SubTotal
                                     </div>
                                     <div class="col-5">
-                                        <span class="text-120 text-secondary-d1">${{ $order->sub_total }}</span>
+                                        <span class="text-120 text-secondary-d1">৳{{ $order->sub_total }}</span>
                                     </div>
                                 </div>
-
                                 <div class="row my-2">
                                     <div class="col-7 text-right">
                                         Delivery
                                         ({{ collect(DB::table('delivery')->find($order->upazila))['name_' . app()->getLocale()] }})
                                     </div>
                                     <div class="col-5">
-                                        <span class="text-110 text-secondary-d1">${{ $order->dl_total }}</span>
+                                        <span class="text-110 text-secondary-d1">৳{{ $order->dl_total }}</span>
                                     </div>
                                 </div>
+                                @if ($order->discount)
+                                    <div class="row my-2 text-danger">
+                                        <div class="col-7 text-right">
+                                            Discount
+                                        </div>
+                                        <div class="col-5">
+                                            <span class="text-120 text-secondary-d1">৳{{ $order->discount }}</span>
+                                        </div>
+                                    </div>
+                                @endif
+
 
                                 <div class="row my-2 align-items-center bgc-primary-l3 p-2">
                                     <div class="col-7 text-right">
                                         Total Amount
                                     </div>
                                     <div class="col-5">
-                                        <span class="text-150 text-success-d3 opacity-2">${{ $order->total }}</span>
+                                        <span class="text-150 text-success-d3 opacity-2">৳{{ $order->total }}</span>
                                     </div>
                                 </div>
                             </div>

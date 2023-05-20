@@ -1,15 +1,18 @@
 @extends('layouts.frontend.base')
+@section('title')
+    Store
+@endsection
 
 @section('main')
     <!-- Breadcrumb Section Begin -->
-    <section class="breadcrumb-section set-bg" data-setbg="/static/f/img/breadcrumb.jpg">
+    <section class="breadcrumb-section set-bg" data-setbg="{{ asset('static/f/img/banner/banner-shop-green.jpg') }}">
         <div class="container">
             <div class="row">
                 <div class="col-lg-12 text-center">
-                    <div class="breadcrumb__text">
-                        <h2>Organi Shop</h2>
+                    <div class="breadcrumb__text black_heading_text">
+                        <h2>Plenary Shop</h2>
                         <div class="breadcrumb__option">
-                            <a href="./index.html">Home</a>
+                            <a href="{{ route('front.home') }}">Home</a>
                             <span>Shop</span>
                         </div>
                     </div>
@@ -40,7 +43,8 @@
                             <h4>Price</h4>
                             <div class="price-range-wrap">
                                 <div class="price-range ui-slider ui-corner-all ui-slider-horizontal ui-widget ui-widget-content"
-                                    data-min="0" data-max="200">
+                                    data-min="{{ DB::table('variations')->min('price') }}"
+                                    data-max="{{ DB::table('variations')->max('price') }}">
                                     <div class="ui-slider-range ui-corner-all ui-widget-header"></div>
                                     <span tabindex="0" class="ui-slider-handle ui-corner-all ui-state-default"></span>
                                     <span tabindex="0" class="ui-slider-handle ui-corner-all ui-state-default"></span>
@@ -51,45 +55,6 @@
                                         <input type="text" value="{{ request()->query('maxPrice') }}" id="maxamount">
                                     </div>
                                 </div>
-                            </div>
-                        </div>
-                        <div class="sidebar__item sidebar__item__color--option">
-                            <h4>Colors</h4>
-                            <div class="sidebar__item__color sidebar__item__color--white">
-                                <label for="white">
-                                    White
-                                    <input type="radio" id="white">
-                                </label>
-                            </div>
-                            <div class="sidebar__item__color sidebar__item__color--gray">
-                                <label for="gray">
-                                    Gray
-                                    <input type="radio" id="gray">
-                                </label>
-                            </div>
-                            <div class="sidebar__item__color sidebar__item__color--red">
-                                <label for="red">
-                                    Red
-                                    <input type="radio" id="red">
-                                </label>
-                            </div>
-                            <div class="sidebar__item__color sidebar__item__color--black">
-                                <label for="black">
-                                    Black
-                                    <input type="radio" id="black">
-                                </label>
-                            </div>
-                            <div class="sidebar__item__color sidebar__item__color--blue">
-                                <label for="blue">
-                                    Blue
-                                    <input type="radio" id="blue">
-                                </label>
-                            </div>
-                            <div class="sidebar__item__color sidebar__item__color--green">
-                                <label for="green">
-                                    Green
-                                    <input type="radio" id="green">
-                                </label>
                             </div>
                         </div>
                         <div class="sidebar__item">
@@ -130,7 +95,7 @@
                                             </div>
                                             <div class="latest-product__item__text">
                                                 <h6>Crab Pool Security</h6>
-                                                <span>$30.00</span>
+                                                <span>৳30.00</span>
                                             </div>
                                         </a>
                                         <a href="#" class="latest-product__item">
@@ -139,7 +104,7 @@
                                             </div>
                                             <div class="latest-product__item__text">
                                                 <h6>Crab Pool Security</h6>
-                                                <span>$30.00</span>
+                                                <span>৳30.00</span>
                                             </div>
                                         </a>
                                         <a href="#" class="latest-product__item">
@@ -148,7 +113,7 @@
                                             </div>
                                             <div class="latest-product__item__text">
                                                 <h6>Crab Pool Security</h6>
-                                                <span>$30.00</span>
+                                                <span>৳30.00</span>
                                             </div>
                                         </a>
                                     </div>
@@ -159,7 +124,7 @@
                                             </div>
                                             <div class="latest-product__item__text">
                                                 <h6>Crab Pool Security</h6>
-                                                <span>$30.00</span>
+                                                <span>৳30.00</span>
                                             </div>
                                         </a>
                                         <a href="#" class="latest-product__item">
@@ -168,7 +133,7 @@
                                             </div>
                                             <div class="latest-product__item__text">
                                                 <h6>Crab Pool Security</h6>
-                                                <span>$30.00</span>
+                                                <span>৳30.00</span>
                                             </div>
                                         </a>
                                         <a href="#" class="latest-product__item">
@@ -177,7 +142,7 @@
                                             </div>
                                             <div class="latest-product__item__text">
                                                 <h6>Crab Pool Security</h6>
-                                                <span>$30.00</span>
+                                                <span>৳30.00</span>
                                             </div>
                                         </a>
                                     </div>
@@ -312,8 +277,14 @@
                                         <span>Sort By</span>
                                         <select name="sort">
                                             <option value="">Default</option>
-                                            <option value="price_asc">Price Asc</option>
-                                            <option value="price_desc">Price Desc</option>
+                                            <option @selected(request()->query('sort') == 'price_asc') value="price_asc">Price Low to High
+                                            </option>
+                                            <option @selected(request()->query('sort') == 'price_desc') value="price_desc">Price High to Low
+                                            </option>
+                                            <option @selected(request()->query('sort') == 'weight_asc') value="weight_asc">Weight Low to High
+                                            </option>
+                                            <option @selected(request()->query('sort') == 'weight_desc') value="weight_desc">Weight High to Low
+                                            </option>
                                         </select>
                                     </div>
                                 </form>
@@ -336,27 +307,44 @@
                             <div class="col-lg-4 col-md-6 col-sm-6">
                                 <div class="product__discount__item">
                                     <div class="product__discount__item__pic set-bg"
-                                        data-setbg="{{ isset($variation->product->images[0]->filename) ? url('storage/' . $variation->product->images[0]->filename) : null }}">
-                                        @isset($variation->current_district[0]->pivot->discount)
+                                        data-setbg="{{ isset($variation->product->images[0]->filename) ? url('storage/' . $variation->product->images[0]->filename) : asset('static/f/img/product/product-1.jpg') }}">
+                                        @isset($variation->discount)
                                             <div class="product__discount__percent">
-                                                -{{ $variation->current_district[0]->pivot->discount }}%</div>
+                                                -{{ $variation->discount }}%</div>
                                         @endisset
                                         <ul class="product__item__pic__hover">
-                                            {{-- <li><a href="#"><i class="fa fa-heart"></i></a></li>
-                                            <li><a href="#"><i class="fa fa-retweet"></i></a></li> --}}
                                             <li><a
-                                                    href="{{ route('front.single', ['slug' => $variation->product->slug, 'var' => $variation->id]) }}"><i
-                                                        class="fa fa-shopping-cart"></i></a></li>
+                                                    onclick="document.querySelector('#form-{{ $variation->id }}').submit()"><i
+                                                        class="fa fa-heart @if (auth()->user() &&
+                                                                auth()->user()->loved_products->contains($variation->product->id)) text-danger @endif"></i></a>
+                                            </li>
+                                            <form hidden id="form-{{ $variation->id }}"
+                                                action="{{ route('front.store_love', ['product' => $variation->product->id]) }}"
+                                                method="post">
+                                                @csrf
+                                            </form> {{-- <li><a href="#"><i class="fa fa-retweet"></i></a></li>  --}}
+                                            <li>
+                                                @if (intval($variation->stock) > 0)
+                                                    <a
+                                                        href="{{ route('front.single', ['slug' => $variation->product->slug, 'var' => $variation->id]) }}"><i
+                                                            class="fa fa-shopping-cart"></i></a>
+                                                @else
+                                                    <p class="p-1 border-rounded bg-warning text-white">Out of Stock</p>
+                                                    {{-- <a class="disabled bg-warning" href="#"><i
+                                                            class="fa fa-shopping-cart"></i></a> --}}
+                                                @endif
+                                            </li>
                                         </ul>
                                     </div>
                                     <div class="product__discount__item__text">
-                                        <h5><a
+                                        <h5>
+                                            <a
                                                 href="{{ route('front.single', ['slug' => $variation->product->slug, 'var' => $variation->id]) }}">{{ $variation->product['name_' . app()->getLocale()] }}</a>
                                         </h5>
                                         <div class="product__item__price">
                                             {{ $variation->weight }} KG /
-                                            ${{ $variation->current_district[0]->pivot->price }}
-                                            <span>${{ $variation->current_district[0]->pivot->discounted_from_price }}</span>
+                                            ৳{{ $variation->price }}
+                                            <span>৳{{ $variation->discounted_from_price }}</span>
                                         </div>
                                     </div>
                                 </div>

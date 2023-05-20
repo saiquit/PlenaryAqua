@@ -1,10 +1,12 @@
 @extends('layouts.frontend.base')
-
+@section('title')
+    Profile
+@endsection
 @section('main')
     <section class="py-5 my-5">
-        <div class="container-fluid px-5">
-            <div class="bg-white shadow rounded-lg d-block d-sm-flex">
-                <div class="profile-tab-nav border-right">
+        <div class="container px-5">
+            <div class="bg-white shadow rounded-lg row">
+                <div class="col-12 col-md-3 profile-tab-nav border-right">
                     <div class="p-4">
                         <h4 class="text-center">Point: {{ $profile->point }}</h4>
                     </div>
@@ -12,7 +14,12 @@
                         <a class="nav-link active show" id="account-tab" data-toggle="pill" href="#account" role="tab"
                             aria-controls="account" aria-selected="true">
                             <i class="fa fa-home text-center mr-1"></i>
-                            Account
+                            My Account
+                        </a>
+                        <a class="nav-link" id="address-tab" data-toggle="pill" href="#address" role="tab"
+                            aria-controls="address" aria-selected="true">
+                            <i class="fa fa-home text-center mr-1"></i>
+                            Address Book
                         </a>
                         <a class="nav-link" id="security-tab" data-toggle="pill" href="#security" role="tab"
                             aria-controls="security" aria-selected="false">
@@ -31,7 +38,7 @@
                         </a>
                     </div>
                 </div>
-                <div class="tab-content p-4 p-md-5 w-100" id="v-pills-tabContent">
+                <div class="col-12 col-md-9 tab-content p-4 p-md-5 w-100" id="v-pills-tabContent">
                     <div class="tab-pane fade active show" id="account" role="tabpanel" aria-labelledby="account-tab">
                         <form action="{{ route('front.update_profile') }}" method="post">
                             @csrf
@@ -72,7 +79,7 @@
                                         <textarea class="form-control" rows="4" name="bio">{{ auth()->user()->profile->bio }}</textarea>
                                     </div>
                                 </div>
-                                <div class="col-md-6">
+                                {{-- <div class="col-md-6">
                                     <p>District/City<span>*</span></p>
                                     <select name="district" class="w-100 wide mb-3" id="">
                                         <option disabled selected value>None</option>
@@ -94,13 +101,114 @@
                                     <p>Address<span>*</span></p>
                                     <input type="text" name="address" value="{{ auth()->user()->profile->address }}"
                                         id="address" placeholder="Street Address" class="form-control">
-                                </div>
+                                </div> --}}
                             </div>
                             <div>
                                 <button type="submit" class="btn btn-primary">Update</button>
                                 <button class="btn btn-light">Cancel</button>
                             </div>
                         </form>
+                    </div>
+                    <div class="tab-pane fade" id="address" role="tabpanel" aria-labelledby="address-tab">
+                        <h3 class="mb-4">Address Book</h3>
+                        <div class="row">
+                            <div class="col-md-4">
+                                <form action="{{ route('front.store_address') }}" method="post">
+                                    @csrf
+                                    <div class="checkout__input">
+                                        <p>Type<span>*</span></p>
+                                        <select name="type" class="w-100 wide mb-3" id="">
+                                            <option disabled selected value>None</option>
+                                            <option value="home">
+                                                Home</option>
+                                            <option value="work">
+                                                Work</option>
+                                            <option value="others">
+                                                Other</option>
+                                        </select>
+                                    </div>
+                                    <div class="checkout__input">
+                                        <p>District/City<span>*</span></p>
+                                        <select name="district" class="w-100 wide mb-3" id="">
+                                            <option disabled selected value>None</option>
+                                            <option @selected(session('district') == 1) value="1">
+                                                Dhaka</option>
+                                            <option @selected(session('district') == 2) value="2">
+                                                Khulna</option>
+                                        </select>
+                                    </div>
+                                    <div class="checkout__input">
+                                        <p>Upazila/Thana<span>*</span></p>
+                                        <select name="upazila" class="w-100 wide mb-3" id="">
+                                            <option disabled selected value="">Select a
+                                                Upzila/Thaka</option>
+                                            @foreach (DB::table('delivery')->get() as $item)
+                                                @if ($item->district_id == session('district'))
+                                                    <option value="{{ $item->id }}">
+                                                        {{ $item->name_en }}</option>
+                                                @endif
+                                            @endforeach
+                                        </select>
+                                    </div>
+                                    <div class="checkout__input">
+                                        <p>Address<span>*</span></p>
+                                        <input type="text" name="address" id="address" placeholder="Street Address"
+                                            class="checkout__input__add">
+                                    </div>
+                                    <button type="submit" class="btn btn-primary">Update / Create New</button>
+
+                                </form>
+                            </div>
+                            <div class="col-md-8">
+                                <h4>Previously Added</h4>
+                                @if (auth()->user()->profile->addresses->count())
+                                    @foreach (auth()->user()->profile->addresses as $key => $address)
+                                        <ul class="list-group my-2">
+                                            {{-- <li class="list-group-item d-flex justify-content-between">
+                                                <span>ID: </span>
+                                                <span>{{ $key + 1 }}</span>
+                                            </li> --}}
+                                            <li class="list-group-item d-flex justify-content-between">
+                                                <span>Type: </span>
+                                                <span>
+                                                    <div
+                                                        class="badge text-capitalize @switch($address->type) @case('home')badge-primary @break @case('work')badge-secondary @break @default badge-info @endswitch">
+                                                        {{ $address->type }}
+                                                    </div>
+                                                </span>
+                                            </li>
+                                            <li class="list-group-item d-flex justify-content-between">
+                                                <span>District: </span>
+                                                <span>{{ collect(DB::table('districts')->find($address->district))['name_' . app()->getLocale()] }}</span>
+                                            </li>
+                                            <li class="list-group-item d-flex justify-content-between">
+                                                <span>Upazila: </span>
+                                                <span>{{ collect(DB::table('delivery')->find($address->upazila))['name_' . app()->getLocale()] }}</span>
+                                            </li>
+                                            <li class="list-group-item d-flex justify-content-between">
+                                                <span>Location: </span>
+                                                <span>{{ $address->location }}</span>
+                                            </li>
+                                            <li class="list-group-item d-flex justify-content-between">
+                                                <span> </span>
+                                                <span>
+                                                    <form
+                                                        action="{{ route('front.address_delete', ['address' => $address->id]) }}"
+                                                        method="post">
+                                                        @csrf
+                                                        @method('DELETE')
+                                                        <button class="btn btn-danger" type="submit">Delete</button>
+                                                    </form>
+                                                </span>
+                                            </li>
+                                        </ul>
+                                    @endforeach
+                                @endif
+
+                            </div>
+
+                        </div>
+
                     </div>
                     <div class="tab-pane fade" id="security" role="tabpanel" aria-labelledby="security-tab">
                         <h3 class="mb-4">Security Settings</h3>
@@ -140,7 +248,7 @@
                                                             <td>{{ $order->first_name . ' ' . $order->last_name }}</td>
                                                             <td>{{ $order->payment_method }}</td>
                                                             <td>{{ $order->created_at->format('d/m/Y') }}</td>
-                                                            <td>${{ $order->total }}</td>
+                                                            <td>৳{{ $order->total }}</td>
                                                             <td>
                                                                 <span
                                                                     class="badge badge-{{ $order->payment == 'pending' ? 'warning' : 'success' }}  badge-boxed badge-soft-warning">{{ $order->payment }}</span>
@@ -172,9 +280,9 @@
                                                                                 x {{ $variation->pivot->qty }}
                                                                             </td>
                                                                             <td>
-                                                                                {{ $variation->current_district[0]->pivot->price }}
+                                                                                {{ $variation->price }}
                                                                             </td>
-                                                                            <td>{{ $variation->current_district[0]->pivot->price * $variation->pivot->qty }}
+                                                                            <td>{{ $variation->price * $variation->pivot->qty }}
                                                                             </td>
                                                                             <td>{{ $order->created_at->format('d/m/Y') }}
                                                                             </td>
@@ -247,5 +355,50 @@
         function showProducts(id) {
             $(`#vars_${id}`).toggle('active');
         }
+        $(function() {
+            var upazilas = @js(DB::table('delivery')->get());
+            $('select[name="district"]').change(function(e) {
+                e.preventDefault();
+                var selectedUpazilas = upazilas.filter(item => item.district_id == $(this).val());
+                var selectUpazilaText = '';
+                selectedUpazilas.forEach(element => {
+                    selectUpazilaText +=
+                        `<option value="${element.id}">${element.name_en}</option>`;
+                });
+
+                $('select[name="upazila"]').empty().append(
+                    '<option disabled selected value="">Select a Upazila</option>' + selectUpazilaText);
+                $('select').niceSelect('update');
+            });
+
+            $('select[name="upazila"]').change(function(e) {
+                e.preventDefault();
+                var upazilas = @js(DB::table('delivery')->get());
+                var selectedUpazila = upazilas.find(item => item.id == $(this).val());
+
+                $('#delivery_cost').text(selectedUpazila.cost)
+                var subTotal = parseFloat($('#sub_total').text());
+                $('#total_cost').text(subTotal + parseFloat(selectedUpazila.cost) - parseFloat($(
+                    '#discount').text()))
+                $('#order_btn').attr('disabled', false);
+            });
+
+
+            var availableTags = [
+                "Batiaghata", "Dacope", "Dumuria", "Dighalia", "Koyra", "Paikgachha", "Phultala", "Rupsha",
+                "Terokhada", "Daulatpur Thana", "Khalishpur Thana", "Khan Jahan Ali Thana", "Kotwali Thana",
+                "Sonadanga Thana", "Harintana Thana", "Dhamrai", "Dohar", "Keraniganj", "Nawabganj", "Savar",
+                "Tejgaon Circle", "CGS Colony", "Guljan City", "Khan Jahan Ali", "Khorshed Nagar",
+                "Md. Aminul Hoque", "Shaikh Bari", "Bagmara", "Baliadanga", "Banorgati", "Basupara",
+                "Batiaghata", "Charabati", "Chhoto Boyra", "Denarabad", "Dubi", "Gallamari", "Gangarampur",
+                "Goborchaka", "Horintana", "Jora Gate", "Kholabaria", "Khulna", "Khulna University Gate",
+                "Labanchara", "Mathavanga", "Mohammad Nagar", "Nij Khamar", "Nirala", "Roypara", "Sachibunia",
+                "Surkhali", "Tetultola", "Thikrabad", "Tootpara", "sadar", "Road", "Street"
+            ];
+            $('#address').autocomplete({
+                source: availableTags
+            });
+
+        });
     </script>
 @endpush

@@ -19,10 +19,7 @@ return new class extends Migration
             $table->foreignId('user_id')->onDelete('cascade');
             $table->string('first_name', 100)->nullable();
             $table->string('last_name', 100)->nullable();
-            $table->longText('address')->nullable();
             $table->longText('bio')->nullable();
-            $table->string('district')->nullable();
-            $table->string('upazila')->nullable();
             $table->integer('point')->nullable()->default(0);
             $table->timestamps();
         });

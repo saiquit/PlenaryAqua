@@ -32,46 +32,30 @@
         <div class="product-wrap">
             <div class="product-detail-wrap mb-30">
                 <div class="row">
-                    <div class="col-lg-6 col-md-12 col-sm-12">
-                        <div class="product-slider slider-arrow">
-                            @foreach ($variation->images as $image)
-                                <div class="product-slide">
-                                    <img src="{{ url('storage/' . $image->filename) }}" alt="" />
-                                </div>
-                            @endforeach
-                        </div>
-                        <div class="product-slider-nav">
-                            @foreach ($variation->images as $image)
-                                <div class="product-slide-nav">
-                                    <img src="{{ url('storage/' . $image->filename) }}" alt="" />
-                                </div>
-                            @endforeach
-                        </div>
-                    </div>
-                    <div class="col-lg-6 col-md-12 col-sm-12">
+                    <div class="col-lg-12 col-md-12 col-sm-12">
                         <div class="product-detail-desc pd-20 card-box height-100-p">
                             <h4 class="mb-20 pt-20">{{ $variation->name_en }}</h4>
                             <p>{{ $variation->desc_en }}</p>
                             <table class="table table-bordered">
                                 <thead>
                                     <tr>
-                                        <th scope="col">District</th>
                                         <th scope="col">Stock</th>
+                                        <th scope="col">Net Weight</th>
+                                        <th scope="col">Gross Weight</th>
                                         <th scope="col">Price</th>
                                         <th scope="col">Discounted From Price</th>
                                         <th scope="col">Discount Percentage</th>
                                     </tr>
                                 </thead>
                                 <tbody>
-                                    @foreach ($variation->districts as $district)
-                                        <tr>
-                                            <td scope="row">{{ $district->name_en }}</th>
-                                            <td scope="row">{{ $district->pivot->stock }}</th>
-                                            <td scope="row">{{ $district->pivot->price }}</th>
-                                            <td scope="row">{{ $district->pivot->discounted_from_price }}</th>
-                                            <td scope="row">{{ $district->pivot->discount }}%</th>
-                                        </tr>
-                                    @endforeach
+                                    <tr>
+                                        <td scope="row">{{ $variation->stock }}</th>
+                                        <td scope="row">{{ $variation->weight }}</th>
+                                        <td scope="row">{{ $variation->gross_weight }}</th>
+                                        <td scope="row">{{ $variation->price }}</th>
+                                        <td scope="row">{{ $variation->discounted_from_price }}</th>
+                                        <td scope="row">{{ $variation->discount }}%</th>
+                                    </tr>
                                 </tbody>
                             </table>
                             <a class="float-right" href="{{ route('admin.variations.edit', $variation) }}"><button

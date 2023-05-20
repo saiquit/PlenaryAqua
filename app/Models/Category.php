@@ -20,6 +20,15 @@ class Category extends Model
     {
         return $this->belongsToMany(Product::class)->orderBy('created_at', 'desc');
     }
+    /**
+     * The blogs that belong to the Category
+     *
+     * @return \Illuminate\Database\Eloquent\Relations\BelongsToMany
+     */
+    public function blogs(): BelongsToMany
+    {
+        return $this->belongsToMany(Blog::class);
+    }
 
     public function subcategory()
     {

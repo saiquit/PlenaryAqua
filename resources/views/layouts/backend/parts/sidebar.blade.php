@@ -91,7 +91,7 @@
 <div class="left-side-bar">
     <div class="brand-logo">
         <a href="{{ route('front.home') }}">
-            <img src="/static/b/vendors/images/deskapp-logo.svg" alt="" class="dark-logo" />
+            <img src="/static/b/vendors/images/logo.png" alt="" class="dark-logo" />
             <img src="/static/b/vendors/images/deskapp-logo-white.svg" alt="" class="light-logo" />
         </a>
         <div class="close-sidebar" data-toggle="left-sidebar-close">
@@ -118,6 +118,12 @@
                     </ul>
                 </li>
                 <li>
+                    <a href="{{ route('admin.blogs.index') }}"
+                        class="dropdown-toggle no-arrow @if (Route::is('admin.blogs.index')) active @endif">
+                        <span class="micon bi bi-diagram-3"></span><span class="mtext">Blogs</span>
+                    </a>
+                </li>
+                <li>
                     <a href="{{ route('admin.categories.index') }}"
                         class="dropdown-toggle no-arrow @if (Route::is('admin.categories.index')) active @endif">
                         <span class="micon bi bi-diagram-3"></span><span class="mtext">Category</span>
@@ -137,10 +143,44 @@
                 </li>
 
                 <li>
+                    <a href="{{ route('admin.coupons.index') }}"
+                        class="dropdown-toggle no-arrow @if (Route::is('admin.coupons.index')) active @endif">
+                        <span class="micon bi bi-diagram-3"></span><span class="mtext">Coupons</span>
+                    </a>
+                </li>
+
+                <li>
                     <a href="{{ route('admin.orders.index') }}"
                         class="dropdown-toggle no-arrow @if (Route::is('admin.orders.index')) active @endif">
                         <span class="micon bi bi-diagram-3"></span><span class="mtext">Orders</span>
                     </a>
+                </li>
+
+                <li>
+                    <a href="{{ route('admin.page.index') }}"
+                        class="dropdown-toggle no-arrow @if (Route::is('admin.page.index')) active @endif">
+                        <span class="micon bi bi-diagram-3"></span><span class="mtext">Pages</span>
+                    </a>
+                </li>
+
+                <li class="dropdown">
+                    <a href="javascript:;" class="dropdown-toggle">
+                        <span class="micon bi bi-view-list"></span><span class="mtext">UI</span>
+                    </a>
+                    <ul class="submenu">
+                        <li>
+                            <a class="@if (Route::is('admin.ui.slides')) active @endif"
+                                href="{{ route('admin.ui.slides') }}">Slides</a>
+                        </li>
+                        <li>
+                            <a class="@if (Route::is('admin.ui.offers')) active @endif"
+                                href="{{ route('admin.ui.offers') }}">Offers</a>
+                        </li>
+                        <li>
+                            <a class="@if (Route::is('admin.ui.newsletter')) active @endif"
+                                href="{{ route('admin.ui.newsletter') }}">Newsletters</a>
+                        </li>
+                    </ul>
                 </li>
 
                 <li>

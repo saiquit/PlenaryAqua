@@ -55,11 +55,13 @@
                      </div>
                      <div class="hero__search__phone">
                          <div class="hero__search__phone__icon">
-                             <i class="fa fa-phone"></i>
+                             <a href="tel:+8801984955695">
+                                 <i class="fa fa-phone"></i>
+                             </a>
                          </div>
                          <div class="hero__search__phone__text">
-                             <h5>+65 11.188.888</h5>
-                             <span>support 24/7 time</span>
+                             <h5>01984955695</h5>
+                             <span>support business hours</span>
                          </div>
                      </div>
                  </div>
@@ -71,22 +73,19 @@
                      </ul>
                  </div>
                  <div class="hero__slider owl-carousel ">
-                     <div class="hero__item set-bg" data-setbg="/static/f/img/hero/banner.jpg">
-                         <div class="hero__text">
-                             <span>FRUIT FRESH</span>
-                             <h2>Vegetable <br />100% Organic</h2>
-                             <p>Free Pickup and Delivery Available</p>
-                             <a href="#" class="primary-btn">SHOP NOW</a>
-                         </div>
-                     </div>
-                     <div class="hero__item set-bg" data-setbg="/static/f/img/hero/banner.jpg">
-                         <div class="hero__text">
-                             <span>FRUIT FRESH</span>
-                             <h2>Meat <br />100% Organic</h2>
-                             <p>Free Pickup and Delivery Available</p>
-                             <a href="#" class="primary-btn">SHOP NOW</a>
-                         </div>
-                     </div>
+                     @foreach (DB::table('slides')->orderBy('created_at', 'desc')->get() as $item)
+                         @if ($item->active)
+                             <div class="hero__item set-bg" data-setbg="{{ url('storage/' . $item->image) }}">
+                                 {{-- <div class="hero__text">
+                                     <span>{{ App\Models\Category::where('id', $item->category_id)->first()['name_' . app()->getLocale()] }}</span>
+                                     <h2>{{ collect($item)['heading_' . app()->getLocale()] }}</h2>
+                                     <p>{{ collect($item)['sub_heading_' . app()->getLocale()] }}</p>
+                                     <a href="{{ route('front.shop', ['category_id' => $item->category_id]) }}"
+                                         class="primary-btn">SHOP NOW</a>
+                                 </div> --}}
+                             </div>
+                         @endif
+                     @endforeach
                  </div>
              </div>
          </div>

@@ -5,6 +5,7 @@ namespace App\Http\Controllers\Backend;
 use App\Http\Controllers\Controller;
 use App\Models\Category;
 use App\Models\Product;
+use Carbon\Carbon;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Storage;
 use Illuminate\Support\Str;
@@ -56,6 +57,7 @@ class ProductController extends Controller
             'name_bn' => $request->product_name_bn,
             'desc_en' => $request->product_desc_en,
             'desc_bn' => $request->product_desc_bn,
+            'sku' => sprintf('%04d', Carbon::now()->format('my')) . sprintf('%04d', Product::count() + 1),
         ]);
         if ($request->has('images')) {
             foreach ($request->images as $key => $image) {
@@ -77,7 +79,8 @@ class ProductController extends Controller
      */
     public function show(Product $product)
     {
-        return view('backend.products.show', compact('product'));
+        $variation_groups = $product->variations->groupBy('district_id');
+        return view('backend.products.show', compact('product', 'variation_groups'));
     }
 
     /**

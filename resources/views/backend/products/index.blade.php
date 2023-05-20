@@ -19,6 +19,7 @@
                         <th class="table-plus datatable-nosort">Image</th>
                         <th class="table-plus datatable-nosort">Name</th>
                         <th>Number of Variation</th>
+                        <th>Number of Comments</th>
                         <th>Start Date</th>
                         <th>Action</th>
                     </tr>
@@ -29,8 +30,10 @@
                             <td class="table-plus">{{ $product->id }}</td>
                             <td><img src="{{ isset($product->images[0]->filename) ? url('storage/' . $product->images[0]->filename) : '' }}"
                                     width="80" alt=""></td>
-                            <td>{{ $product->name_en }}</td>
+                            <td><a href="{{ route('admin.products.show', $product) }}">
+                                    {{ $product->name_en }}</a></td>
                             <td>{{ $product->variations->count() }}</td>
+                            <td>{{ $product->comments->count() }}</td>
                             <td>{{ $product->created_at->format('d/m/Y') }}</td>
                             <td>
                                 <div class="dropdown">

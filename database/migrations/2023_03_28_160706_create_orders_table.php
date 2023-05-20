@@ -31,6 +31,7 @@ return new class extends Migration
             $table->float('total')->nullable();
             $table->integer('qty_total')->nullable();
             $table->float('sub_total')->nullable();
+            $table->float('discount')->nullable()->default(0);
             $table->float('dl_total')->nullable();
             $table->float('wt_total')->nullable();
             $table->timestamps();

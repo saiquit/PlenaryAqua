@@ -22,10 +22,15 @@ class VariationFactory extends Factory
             "name_en" => $name,
             "name_bn" => "বাংলা" . $name,
             "slug" => Str::slug($name),
+            'district_id' => fake()->randomElement(['1', '2']),
             "desc_en" => $this->faker->sentences(4, true),
             "desc_bn" => "বাংলা" . $this->faker->sentences(4, true),
-            "sku" => str($this->faker->numberBetween(100, 2000)),
-            "weight" => str($this->faker->numberBetween(1, 3))
+            "weight" => str($this->faker->randomFloat(2, 2, 5)),
+            "gross_weight" => str($this->faker->randomFloat(2, 3, 5)),
+            'stock' => random_int(0, 10),
+            'price' => floatval(random_int(10, 100)),
+            'discounted_from_price' => floatval(random_int(10, 100)),
+            'discount' => floatval(random_int(10, 100)),
         ];
     }
 }

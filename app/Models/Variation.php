@@ -22,31 +22,11 @@ class Variation extends Model
         return $this->belongsTo(Product::class);
     }
 
-    /**
-     * The districts that belong to the Variation
-     *
-     * @return \Illuminate\Database\Eloquent\Relations\BelongsToMany
-     */
-    public function current_district(): BelongsToMany
+    public function district(): BelongsTo
     {
-        return $this->belongsToMany(District::class)->where('district_id', session('district'))->withPivot(['stock', 'price', 'discounted_from_price', 'discount'])->withTimestamps();
+        return $this->belongsTo(District::class);
     }
 
-    public function districts(): BelongsToMany
-    {
-        return $this->belongsToMany(District::class)->withPivot(['stock', 'price', 'discounted_from_price', 'discount'])->withTimestamps();
-    }
-
-    public function get_price()
-    {
-        return $this->current_district[0]->pivot->price;
-    }
-    public function get_distirct_products()
-    {
-        return $this->whereHas('districts', function ($d) {
-            $d->where('district_id', session('district'));
-        });
-    }
     /**
      * The order that belong to the Variation
      *
@@ -65,14 +45,5 @@ class Variation extends Model
     public function tags(): BelongsToMany
     {
         return $this->belongsToMany(Tag::class)->withTimestamps();
-    }
-    /**
-     * The images that belong to the Product
-     *
-     * @return \Illuminate\Database\Eloquent\Relations\BelongsToMany
-     */
-    public function images(): BelongsToMany
-    {
-        return $this->belongsToMany(Image::class)->withTimestamps();
     }
 }

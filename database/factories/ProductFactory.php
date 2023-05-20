@@ -20,6 +20,7 @@ class ProductFactory extends Factory
         $name = $this->faker->words(3, true);
         return [
             "name_en" => $name,
+            "sku" => str($this->faker->numberBetween(100, 2000)),
             "name_bn" => "বাংলা" . $name,
             "slug" => Str::slug($name),
             "desc_en" => $this->faker->sentences(4, true),

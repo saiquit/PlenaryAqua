@@ -21,7 +21,7 @@
     <link rel="stylesheet" type="text/css" href="{{ asset('static/b/vendors/styles/core.css') }}" />
     <link rel="stylesheet" type="text/css" href="{{ asset('static/b/vendors/styles/icon-font.min.css') }}" />
     @stack('css')
-    <link rel="stylesheet" type="text/css" href="{{ asset('static/b/vendors/styles/style.css') }}" />
+    <link rel="stylesheet" type="text/css" href="{{ asset('static/b/vendors/styles/style.min.css') }}" />
 
 </head>
 
@@ -29,7 +29,7 @@
     <div class="pre-loader">
         <div class="pre-loader-box">
             <div class="loader-logo">
-                <img src="{{ asset('/static/b/vendors/images/deskapp-logo.svg') }}" alt="" />
+                <img src="{{ asset('/static/b/vendors/images/logo.png') }}" alt="" />
             </div>
             <div class="loader-progress" id="progress_div">
                 <div class="bar" id="bar1"></div>
@@ -43,7 +43,7 @@
         <div class="container-fluid d-flex justify-content-between align-items-center">
             <div class="brand-logo">
                 <a href="{{ route('front.home') }}">
-                    <img src="/static/b/vendors/images/deskapp-logo.svg" alt="" />
+                    <img src="/static/b/vendors/images/logo.png" alt="" />
                 </a>
             </div>
         </div>

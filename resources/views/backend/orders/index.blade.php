@@ -9,7 +9,7 @@
     <!-- Export Datatable start -->
     <div class="card-box mb-30">
         <div class="pd-20">
-            <h4 class="text-blue h4">All Products</h4>
+            <h4 class="text-blue h4">All Orders</h4>
         </div>
         <div class="pb-20">
             <table class="table hover data-table-export nowrap">
@@ -55,7 +55,7 @@
                             </td>
                             <td>{{ $order->phone }}</td>
                             <td>{{ $order->user->name }}</td>
-                            <td>${{ $order->total }}</td>
+                            <td>৳{{ $order->total }}</td>
                             <td>{{ $order->qty_total }}</td>
                             <td>{{ $order->wt_total }} KG</td>
                             <td><span

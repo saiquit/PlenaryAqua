@@ -1,8 +1,5 @@
 @extends('layouts.backend.base')
-@push('css')
-    <link rel="stylesheet" type="text/css" href="{{ asset('static/b/src/plugins/switchery/switchery.min.css') }}" />
-    <link rel="stylesheet" type="text/css" href="{{ asset('static/b/src/styles/image-uploader.min.css') }}" />
-@endpush
+
 @section('main')
     <form action="{{ route('admin.variations.update', $variation) }}" method="POST" enctype="multipart/form-data">
         @csrf
@@ -32,21 +29,63 @@
                 <div class="clearfix"></div>
                 <div class="form">
                     <div class="row card-box pd-30 mb-15">
-                        <div class="col-12 col-md-6">
+                        <div class="col-12 col-md-12">
                             <div class="form-group">
                                 <label>Product</label>
                                 <input readonly class="form-control" type="text"
                                     placeholder="{{ $variation->product->name_en }}">
                             </div>
-
                         </div>
                         <div class="col-12 col-md-6">
                             <div class="form-group">
-                                <label>Weight</label>
-                                <input name="weight" value="{{ $variation->weight }}" class="form-control" type="number"
+                                <label>Distict</label>
+                                <input readonly class="form-control" type="text"
+                                    placeholder="{{ $variation->district->name_en }}">
+                            </div>
+                        </div>
+                        <div class="col-12 col-md-6">
+                            <div class="form-group">
+                                <label>Net Weight</label>
+                                <input name="weight" value="{{ $variation->weight }}" class="form-control" type="text"
                                     placeholder="Weight">
                             </div>
                         </div>
+                        <div class="col-12 col-md-6">
+                            <div class="form-group">
+                                <label>Gross Weight</label>
+                                <input name="gross_weight" value="{{ $variation->gross_weight }}" class="form-control"
+                                    type="text" placeholder="Gross Weight">
+                            </div>
+                        </div>
+                        <div class="col-12 col-md-6">
+                            <div class="form-group">
+                                <label>Price</label>
+                                <input name="price" value="{{ $variation->price }}" class="form-control" type="number"
+                                    placeholder="price">
+                            </div>
+                        </div>
+                        <div class="col-12 col-md-6">
+                            <div class="form-group">
+                                <label>Stock</label>
+                                <input name="stock" value="{{ $variation->stock }}" class="form-control" type="number"
+                                    placeholder="stock">
+                            </div>
+                        </div>
+                        <div class="col-12 col-md-6">
+                            <div class="form-group">
+                                <label>Discountend From</label>
+                                <input name="discounted_from_price" value="{{ $variation->discounted_from_price }}"
+                                    class="form-control" type="number" placeholder="Discounted From Price">
+                            </div>
+                        </div>
+                        <div class="col-12 col-md-6">
+                            <div class="form-group">
+                                <label>Discountend Percent %</label>
+                                <input name="discount" value="{{ $variation->discount }}" class="form-control"
+                                    type="number" placeholder="discount">
+                            </div>
+                        </div>
+                        <div class="w-100 border my-4"></div>
                         <div class="col-12 col-md-6">
                             <div class="form-group">
                                 <label>Variation Name (English)</label>
@@ -85,12 +124,7 @@
                                 </select>
                             </div>
                         </div>
-                        <div class="col-12 col-md-12">
-                            <div class="form-group">
-                                <div class="input-images" style="padding-top: .5rem;"></div>
-                            </div>
-                        </div>
-                        <div class="col-12 col-md-6" style="padding: 1rem">
+                        {{-- <div class="col-12 col-md-6" style="padding: 1rem">
                             <div class="col-12 card border-danger">
                                 <div class="row mb-20 mt-30">
                                     <div class="col-8">
@@ -210,7 +244,7 @@
                                     </div>
                                 </div>
                             </div>
-                        </div>
+                        </div> --}}
                     </div>
                 </div>
             </div>
@@ -222,41 +256,3 @@
         </div>
     </form>
 @endsection
-
-@push('js')
-    <script src="{{ asset('static/b/src/plugins/switchery/switchery.min.js') }}"></script>
-    <script src="{{ asset('static/b/src/scripts/image-uploader.min.js') }}"></script>
-
-    <script>
-        $(function() {
-            let preloaded = [];
-            @json($variation->images).forEach(element => {
-                preloaded.push({
-                    id: element.id,
-                    src: $(location).attr('origin') + '/storage/' + element.filename
-                })
-            });
-
-            $('.input-images').imageUploader({
-                preloaded: preloaded,
-                imagesInputName: 'images',
-
-            });
-            $('.items').hide();
-            var elems = Array.prototype.slice.call(document.querySelectorAll('.switch-btn'));
-            $('.switch-btn').each(function() {
-                new Switchery($(this)[0], $(this).data());
-                if ($(this).is(':checked')) {
-                    $(this).parent().parent().siblings('.items').show();
-                }
-            });
-        });
-        $('.switch-btn').on('change', function() {
-            if ($(this).is(':checked')) {
-                $(this).parent().parent().siblings('.items').show()
-            } else {
-                $(this).parent().parent().siblings('.items').hide()
-            }
-        })
-    </script>
-@endpush

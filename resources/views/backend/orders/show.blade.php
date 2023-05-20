@@ -175,10 +175,10 @@
                                                     {{ $variation->pivot->qty }}
                                                 </td>
                                                 <td class="text-end">
-                                                    ${{ $variation->districts()->find($order->district)->pivot->price }}
+                                                    ${{ $variation->price }}
                                                 </td>
                                                 <td class="text-end" style="text-align: right; font-weight: bold">
-                                                    ${{ $variation->districts()->find($order->district)->pivot->price * $variation->pivot->qty }}
+                                                    ${{ $variation->price * $variation->pivot->qty }}
                                                 </td>
                                             </tr>
                                         @endforeach

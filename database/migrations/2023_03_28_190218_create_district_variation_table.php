@@ -17,10 +17,10 @@ return new class extends Migration
             $table->id();
             $table->foreignId('district_id');
             $table->foreignId('variation_id');
-            $table->integer('stock')->unsigned()->nullable()->default(0);
-            $table->float('price')->nullable();
-            $table->float('discounted_from_price')->nullable();
-            $table->float('discount')->nullable();
+            // $table->integer('stock')->unsigned()->nullable()->default(0);
+            // $table->float('price')->nullable();
+            // $table->float('discounted_from_price')->nullable();
+            // $table->float('discount')->nullable();
             $table->timestamps();
         });
     }

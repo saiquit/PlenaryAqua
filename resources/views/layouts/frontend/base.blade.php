@@ -8,12 +8,17 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
     <meta name="csrf-token" content="{{ csrf_token() }}" />
-    <title>Ogani | Template</title>
-
+    <title>Plenary Aqua | @yield('title')</title>
+    <!-- Site favicon -->
+    <link rel="apple-touch-icon" sizes="180x180" href="{{ asset('static/f/apple-touch-icon.png') }}" />
+    <link rel="icon" type="image/png" sizes="32x32" href="{{ asset('static/f/favicon-32x32.png') }}" />
+    <link rel="icon" type="image/png" sizes="16x16" href="{{ asset('static/f/favicon-16x16.png') }}" />
     <!-- Google Font -->
     <link href="https://fonts.googleapis.com/css2?family=Cairo:wght@200;300;400;600;900&display=swap" rel="stylesheet">
 
     <!-- Css Styles -->
+    {{-- <link rel="stylesheet" type="text/css"
+        href="https://cdn.jsdelivr.net/npm/botman-web-widget@0/build/assets/css/chat.min.css"> --}}
     <link rel="stylesheet" href="{{ asset('static/f/css/bootstrap.min.css') }}" type="text/css">
     <link rel="stylesheet" href="{{ asset('static/f/css/font-awesome.min.css') }}" type="text/css">
     <link rel="stylesheet" href="{{ asset('static/f/css/elegant-icons.css') }}" type="text/css">
@@ -59,7 +64,45 @@
             </button>
         </div>
     @endforeach
+    <!-- Messenger Chat Plugin Code -->
+    <div id="fb-root"></div>
+
+    <!-- Your Chat Plugin code -->
+    <div id="fb-customer-chat" class="fb-customerchat">
+    </div>
+
+    <script>
+        var chatbox = document.getElementById('fb-customer-chat');
+        chatbox.setAttribute("page_id", "671343526235224");
+        chatbox.setAttribute("attribution", "biz_inbox");
+    </script>
+
+    <!-- Your SDK code -->
+    <script>
+        window.fbAsyncInit = function() {
+            FB.init({
+                xfbml: true,
+                version: 'v16.0'
+            });
+        };
+
+        (function(d, s, id) {
+            var js, fjs = d.getElementsByTagName(s)[0];
+            if (d.getElementById(id)) return;
+            js = d.createElement(s);
+            js.id = id;
+            js.src = 'https://connect.facebook.net/en_US/sdk/xfbml.customerchat.js';
+            fjs.parentNode.insertBefore(js, fjs);
+        }(document, 'script', 'facebook-jssdk'));
+    </script>
+
     <!-- Js Plugins -->
+    {{-- <script>
+        var botmanWidget = {
+            aboutText: 'Hi',
+            introMessage: "✋ Hi! I'm form ItSolutionStuff.com"
+        };
+    </script> --}}
     <script src="{{ asset('static/f/js/jquery-3.3.1.min.js') }}"></script>
     <script src="{{ asset('static/f/js/bootstrap.min.js') }}"></script>
     <script src="{{ asset('static/f/js/jquery.nice-select.min.js') }}"></script>
@@ -69,18 +112,16 @@
     <script src="{{ asset('static/f/js/owl.carousel.min.js') }}"></script>
     {{-- <script src="{{ asset('static/f/js/alpine.min.js') }}"></script> --}}
     <script src="{{ asset('static/f/js/main.js') }}"></script>
+    {{-- <script src='https://cdn.jsdelivr.net/npm/botman-web-widget@0/build/js/widget.js'></script> --}}
     @vite(['resources/js/front.js'])
     <script>
         $(document).ready(function() {
             $($('.alert-dismissible').get().reverse()).each(function(indexInArray, valueOfElement) {
-                // console.log($(this), indexInArray, valueOfElement);
                 $(this).delay(2000 * (indexInArray + 1)).fadeOut(1000);
             });
-            // .delay(3000).fadeOut(1000);
         });
     </script>
     @stack('js')
-
 </body>
 
 </html>

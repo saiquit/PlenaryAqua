@@ -4,12 +4,13 @@
 <head>
     <!-- Basic Page Info -->
     <meta charset="utf-8" />
-    <title>DeskApp - Bootstrap Admin Dashboard HTML Template</title>
+    <title>Plenary Aqua | Dashboard</title>
 
     <!-- Site favicon -->
-    <link rel="apple-touch-icon" sizes="180x180" href="/static/b/vendors/images/apple-touch-icon.png" />
-    <link rel="icon" type="image/png" sizes="32x32" href="/static/b/vendors/images/favicon-32x32.png" />
-    <link rel="icon" type="image/png" sizes="16x16" href="/static/b/vendors/images/favicon-16x16.png" />
+    <link rel="apple-touch-icon" sizes="180x180" href="{{ asset('static/b/vendors/images/apple-touch-icon.png') }}" />
+    <link rel="icon" type="image/png" sizes="32x32" href="{{ asset('static/b/vendors/images/favicon-32x32.png') }}" />
+    <link rel="icon" type="image/png" sizes="16x16"
+        href="{{ asset('static/b/vendors/images/favicon-16x16.png') }}" />
 
     <!-- Mobile Specific Metas -->
     <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1" />
@@ -25,11 +26,11 @@
 
 </head>
 
-<body>
+<body class="sidebar-light">
     <div class="pre-loader">
         <div class="pre-loader-box">
             <div class="loader-logo">
-                <img src="{{ asset('/static/b/vendors/images/deskapp-logo.svg') }}" alt="" />
+                <img src="{{ asset('/static/b/vendors/images/logo.png') }}" alt="" />
             </div>
             <div class="loader-progress" id="progress_div">
                 <div class="bar" id="bar1"></div>

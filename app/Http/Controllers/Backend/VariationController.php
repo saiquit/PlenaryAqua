@@ -3,6 +3,7 @@
 namespace App\Http\Controllers\Backend;
 
 use App\Http\Controllers\Controller;
+use App\Models\District;
 use App\Models\Product;
 use App\Models\Variation;
 use Illuminate\Http\Request;
@@ -44,47 +45,34 @@ class VariationController extends Controller
     public function store(Request $request)
     {
         $request->validate([
+            'vars'              => 'array|required',
             'variation_name_en' => 'required',
             'variation_name_bn' => 'required',
             'weight' => 'required|numeric',
+            'gross_weight' => 'required|numeric',
             'variation_desc_en' => 'required',
             'variation_desc_bn' => 'required',
         ]);
         $product = Product::findOrFail($request->product);
-        $newVar = $product->variations()->create([
-            'sku' => sprintf('%04d', $product->id) . $product->variations()->count() + 1,
-            'weight' => floatval($request['weight']),
-            'slug' => Str::slug($request['variation_name_en']),
-            'name_en' => $request['variation_name_en'],
-            'name_bn' => $request['variation_name_bn'],
-            'desc_en' => $request['variation_desc_en'],
-            'desc_bn' => $request['variation_desc_bn'],
-        ]);
-        if ($request->has('images')) {
-            foreach ($request->images as $key => $image) {
-                $image = Storage::put('variation', $image);
-                $newVar->images()->create([
-                    'filename' => $image,
+        foreach ($request->vars as $key => $var) {
+            if (isset($var['active'])) {
+                $district = District::where('name_en', $key)->first();
+                $newVar = $product->variations()->create([
+                    'weight' => floatval($request['weight']),
+                    'gross_weight' => floatval($request['gross_weight']),
+                    'slug' => Str::slug($request['variation_name_en']),
+                    'name_en' => $request['variation_name_en'],
+                    'name_bn' => $request['variation_name_bn'],
+                    'desc_en' => $request['variation_desc_en'],
+                    'desc_bn' => $request['variation_desc_bn'],
+                    'district_id'   => $district->id,
+                    'stock' => intval($var['stock']),
+                    'price' => floatval($var['price']),
+                    'discounted_from_price' => floatval($var['discount']),
+                    'discount' => floatval($var['discount_pc']),
                 ]);
+                $newVar->tags()->attach($request->tags);
             }
-        }
-        $newVar->tags()->attach($request->tags);
-
-        if ($request->has('dhaka_active')) {
-            $newVar->districts()->attach(1, [
-                'stock' => $request['dhaka_stock'],
-                'price' => $request['dhaka_price'],
-                'discounted_from_price' => $request['dhaka_discount'],
-                'discount' => $request['dhaka_discount_pc'],
-            ]);
-        }
-        if ($request->has('khulna_active')) {
-            $newVar->districts()->attach(2, [
-                'stock' => $request['khulna_stock'],
-                'price' => $request['khulna_price'],
-                'discounted_from_price' => $request['khulna_discount'],
-                'discount' => $request['khulna_discount_pc'],
-            ]);
         }
         return redirect()->route('admin.products.show', compact('product'));
     }
@@ -120,52 +108,29 @@ class VariationController extends Controller
      */
     public function update(Request $request, Variation $variation)
     {
-        // dd($request->all());
-        $updatedVar = $variation->update([
+        $request->validate([
+            'variation_name_en' => 'required',
+            'variation_name_bn' => 'required',
+            'weight' => 'required|numeric',
+            'gross_weight' => 'required|numeric',
+            'variation_desc_en' => 'required',
+            'variation_desc_bn' => 'required',
+        ]);
+        $variation->update([
             'weight' => floatval($request['weight']),
+            'gross_weight' => floatval($request['gross_weight']),
             'slug' => Str::slug($request['variation_name_en']),
             'name_en' => $request['variation_name_en'],
             'name_bn' => $request['variation_name_bn'],
             'desc_en' => $request['variation_desc_en'],
             'desc_bn' => $request['variation_desc_bn'],
+            'stock' => intval($request['stock']),
+            'price' => floatval($request['price']),
+            'discounted_from_price' => floatval($request['discounted_from_price']),
+            'discount' => floatval($request['discount']),
         ]);
-
-        if ($request->has('preloaded')) {
-            $variation->images()->sync($request->preloaded);
-        }
-        if ($request->has('images')) {
-            foreach ($request->images as $key => $image) {
-                $image = Storage::put('variation', $image);
-                $variation->images()->create([
-                    'filename' => $image,
-                ]);
-            }
-        }
         $variation->tags()->sync($request->tags);
-
-        if ($request->has('dhaka_active')) {
-            $variation->districts()->detach("1");
-            $variation->districts()->attach(["1" => [
-                'stock' => $request['dhaka_stock'],
-                'price' => $request['dhaka_price'],
-                'discounted_from_price' => $request['dhaka_discount'],
-                'discount' => $request['dhaka_discount_pc'],
-            ]]);
-        } else {
-            $variation->districts()->detach("1");
-        }
-        if ($request->has('khulna_active')) {
-            $variation->districts()->detach("2");
-            $variation->districts()->attach(["2" => [
-                'stock' => $request['khulna_stock'],
-                'price' => $request['khulna_price'],
-                'discounted_from_price' => $request['khulna_discount'],
-                'discount' => $request['khulna_discount_pc'],
-            ]]);
-        } else {
-            $variation->districts()->detach("2");
-        }
-        return redirect()->back();
+        return redirect()->route('admin.products.show', $variation->product->id);
     }
 
     /**

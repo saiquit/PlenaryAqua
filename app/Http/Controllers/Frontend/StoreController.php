@@ -3,18 +3,20 @@
 namespace App\Http\Controllers\Frontend;
 
 use App\Http\Controllers\Controller;
+use App\Models\Blog;
 use App\Models\Category;
 use App\Models\District;
 use App\Models\Product;
 use App\Models\Variation;
+use Carbon\Carbon;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\DB;
 
 class StoreController extends Controller
 {
     public function home(Request $request)
     {
-        $all_categories = Category::all(['id', 'name_en', 'name_bn']);
-
+        $all_categories = Category::all(['id', 'name_en', 'name_bn', 'cover_img']);
         $top_categories = Category::limit(5)->get(['id', 'name_en', 'name_bn']);
         $products = Product::whereHas('categories', function ($p) use ($top_categories) {
             $p->whereIn('category_id', $top_categories->pluck('id')->toArray());
@@ -23,12 +25,10 @@ class StoreController extends Controller
 
         $featured = $var_q->whereHas('tags', function ($q) {
             $q->where('slug', 'featured');
-        })->whereIn('product_id', $products->pluck('id')->toArray())->inRandomOrder()->limit(60)->get();
+        })->whereIn('product_id', $products->pluck('id')->toArray())->inRandomOrder()->limit(12)->get();
 
         $top_rated = $var_q->whereHas('tags', function ($q) {
             $q->where('slug', 'top-rated');
-        })->whereHas('current_district', function ($q) {
-            $q->where('district_id', session('district'));
         })->latest()->inRandomOrder()->limit(9)->get()->chunk(3);
 
         $latest = $var_q->latest()->get()->chunk(3);
@@ -37,9 +37,7 @@ class StoreController extends Controller
     public function shop(Request $request)
     {
         $variations_q = Variation::query();
-        $variations_q->whereHas('current_district', function ($d) {
-            $d->where('district_id', session('district'));
-        });
+        $variations_q->where('district_id', session('district'));
 
         if ($request->category_id) {
             $variations_q->whereHas('product', function ($p) use ($request) {
@@ -52,32 +50,27 @@ class StoreController extends Controller
             $variations_q->where('name_' . app()->getLocale(), 'LIKE', '%' . $request->product_name . '%');
         }
         if ($request->minPrice) {
-            $variations_q->whereHas('current_district', function ($d) use ($request) {
-                $d->where('price', '>=', $request->minPrice);
-            });
+            $variations_q->where('price', '>=', $request->minPrice);
         }
         if ($request->maxPrice) {
-            $variations_q->whereHas('current_district', function ($d) use ($request) {
-                $d->where('price', '<=', $request->maxPrice);
-            });
+            $variations_q->where('price', '<=', $request->maxPrice);
         }
-        // if ($request->sort) {
-        //     $sort_arr = explode('_', $request->sort);
-        //     $sorted = $variations_q->with('current_district')->whereHas('current_district')('price', 'desc');
-        //     dd($sorted->paginate(10));
-        // }
+        if ($request->sort) {
+            $sort = explode('_', $request->sort);
+            $variations_q->orderBy($sort[0], $sort[1]);
+        }
         $variations = $variations_q->paginate(24);
         return view('frontend.store.shop', compact('variations'));
     }
     public function single(Request $request, $slug)
     {
         $product = Product::where('slug', $slug)->first();
-        if ($request->has('var')) {
+        if (!$product->variations()->where('district_id', session('district'))->count()) {
+            return redirect()->route('front.shop');
+        } else if ($request->has('var') and $product->variations->where('district_id', session('district'))->contains($request->var)) {
             $variation = $request->var;
         } else {
-            $variation = $product->variations()->whereHas('current_district', function ($d) {
-                $d->where('district_id', session('district'));
-            })->get()[0]->id;
+            $variation = $product->variations()->where('district_id', session('district'))->get()[0]->id;
         }
         return view('frontend.store.single-product', [
             'product' => $product,
@@ -89,7 +82,7 @@ class StoreController extends Controller
         if (District::find($district)->count()) {
             session()->put('district', $district);
         }
-        return redirect()->route('front.shop');
+        return redirect()->back();
     }
     public function cart(Request $request)
     {
@@ -105,5 +98,55 @@ class StoreController extends Controller
             return redirect()->back()->with(['message' => 'No Cart Items.', 'type' => 'alert-success bg-danger text-white border-0']);
         }
         return view('frontend.store.checkout');
+    }
+    public function store_subscriber(Request $request)
+    {
+        $request->validate([
+            'email' => 'email|unique:subscribers,email',
+        ]);
+
+        DB::table('subscribers')->insert([
+            'email' => $request->email,
+            'created_at' => Carbon::now()
+        ]);
+        return back();
+    }
+    public function contact()
+    {
+        return view('frontend.store.contact');
+    }
+    // blogs
+    public function blogs(Request $request)
+    {
+        $blogs_q = Blog::query();
+        if ($request->search) {
+            $blogs_q->where('title', 'LIKE', '%' . $request->search . '%')->orWhere('content', 'LIKE', '%' . $request->search . '%');
+        }
+        if ($request->category) {
+            $blogs_q->whereHas('categories', function ($q) use ($request) {
+                $q->where('slug', $request->category);
+            });
+        }
+        $blogs = $blogs_q->latest()->paginate(10);
+        return view('frontend.blog.blog', compact('blogs'));
+    }
+    public function single_blog(Request $request, $slug)
+    {
+        $blog = Blog::where('slug', $slug)->first();
+        $blog->increment('views', 1);
+        return view('frontend.blog.single', compact('blog'));
+    }
+
+    public function about()
+    {
+        return view('frontend.additional.about');
+    }
+    public function privacy()
+    {
+        return view('frontend.additional.policy');
+    }
+    public function terms()
+    {
+        return view('frontend.additional.terms');
     }
 }

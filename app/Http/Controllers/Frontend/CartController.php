@@ -5,7 +5,9 @@ namespace App\Http\Controllers\Frontend;
 use App\Http\Controllers\Controller;
 use App\Models\DeliveryCost;
 use App\Models\Variation;
+use Carbon\Carbon;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Session;
 
 class CartController extends Controller
@@ -14,11 +16,11 @@ class CartController extends Controller
     {
         $cart = Session::get('cart.items');
         if (isset($cart[$request->id])) {
-            if ($request->qty > $cart[$request->id]->current_district[0]->pivot->stock) {
+            if ($request->qty > $cart[$request->id]->stock) {
                 if ($request->ajax()) {
-                    return response()->json(['message' => 'More than Stocked! Max ' . $cart[$request->id]->current_district[0]->pivot->stock . ' can be added.', 'type' => 'alert-danger'], 404);
+                    return response()->json(['message' => 'More than Stocked! Max ' . $cart[$request->id]->stock . ' can be added.', 'type' => 'alert-danger'], 404);
                 }
-                return redirect()->back()->with(['message' => 'More than Stocked! Max ' . $cart[$request->id]->current_district[0]->pivot->stock . ' can be added.', 'type' => 'alert-danger']);
+                return redirect()->back()->with(['message' => 'More than Stocked! Max ' . $cart[$request->id]->stock . ' can be added.', 'type' => 'alert-danger']);
             } else {
                 $cart[$request->id]['qty'] = $request->qty;
                 if ($request->qty == 0) {
@@ -28,11 +30,11 @@ class CartController extends Controller
             }
         } else {
             $cart[$request->id] = Variation::findOrFail($request->id);
-            if (intVal($request->qty) > $cart[$request->id]->current_district[0]->pivot->stock) {
+            if (intVal($request->qty) > $cart[$request->id]->stock) {
                 if ($request->ajax()) {
-                    return response()->json(['message' => 'More than Stocked! Max ' . $cart[$request->id]->current_district[0]->pivot->stock . ' can be added.', 'type' => 'alert-danger'], 404);
+                    return response()->json(['message' => 'More than Stocked! Max ' . $cart[$request->id]->stock . ' can be added.', 'type' => 'alert-danger'], 404);
                 }
-                return redirect()->back()->with(['message' => 'More than Stocked! Max ' . $cart[$request->id]->current_district[0]->pivot->stock . 'can be added.', 'type' => 'alert-danger']);
+                return redirect()->back()->with(['message' => 'More than Stocked! Max ' . $cart[$request->id]->stock . 'can be added.', 'type' => 'alert-danger']);
             } else {
                 $cart[$request->id]['qty'] = $request->qty;
                 $updated_cart = $this->updateSessions($request, $cart);
@@ -63,6 +65,23 @@ class CartController extends Controller
         }
     }
 
+    public function discount(Request $request)
+    {
+        $coupon_db = DB::table('coupons')->where(DB::raw("BINARY `key`"), $request->code);
+        if (!$coupon_db->count()) {
+            return redirect()->back()->with(['message' => 'Wrong Code! Try Again.', 'type' => 'alert-danger']);
+        }
+        $coupon = $coupon_db->first();
+        if ($coupon->active and !Carbon::createFromDate($coupon->validity)->isPast() and !Session::has('cart.coupon')) {
+            Session::put('cart.discount', $coupon->amount);
+            Session::put('cart.coupon', $coupon->id);
+            $this->updateSessions($request, session('cart.items'));
+            return redirect()->back();
+        } else {
+            return redirect()->back()->with(['message' => 'Coupon is not valid.', 'type' => 'alert-danger']);
+        }
+    }
+
     protected function updateSessions(Request $request, $cart)
     {
         Session::put('cart.items', $cart);
@@ -73,7 +92,7 @@ class CartController extends Controller
             foreach ($cart as $key => $item) {
                 $cartQty += $item['qty'];
                 $cartWeight += floatval($cart[$item->id]['weight']) * $item['qty'];
-                $subTotal += $cart[$item->id]->current_district[0]->pivot->price  * $item['qty'];
+                $subTotal += $cart[$item->id]->price  * $item['qty'];
             }
             Session::put('cart.qty', $cartQty);
             Session::put('cart.weight', $cartWeight);
@@ -86,7 +105,7 @@ class CartController extends Controller
         return [
             'cart'    => $cart,
             'subTotal' => $subTotal,
-            'total' => $subTotal + ($cartWeight * session('cart.base_dl')),
+            'total' => $subTotal + ($cartWeight * session('cart.base_dl')) - session('cart.discount', 0),
             'weight' => $cartWeight,
             'message' => 'Cart Updated'
         ];
