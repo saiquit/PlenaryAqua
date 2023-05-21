@@ -264,7 +264,7 @@
                                         data-setbg="{{ isset($variation->product->images[0]->filename) ? url('storage/' . $variation->product->images[0]->filename) : asset('static/f/img/product/product-1.jpg') }}">
                                         @isset($variation->discount)
                                             <div class="product__discount__percent">
-                                                -{{ $variation->discount }}%</div>
+                                                -{{ intval($variation->discount) }}%</div>
                                         @endisset
                                         <ul class="product__item__pic__hover">
                                             <li><a onclick="document.querySelector('#form-{{ $variation->id }}').submit()"><i

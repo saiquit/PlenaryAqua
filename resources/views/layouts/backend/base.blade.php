@@ -47,8 +47,8 @@
         <div class="pd-ltr-20">
             @yield('main')
             <div class="footer-wrap pd-20 mb-20 card-box">
-                DeskApp - Bootstrap 4 Admin Template By
-                <a href="https://github.com/dropways" target="_blank">Ankit Hingarajiya</a>
+                Plenary Aqua
+                <a href="https://github.com/saiquit/PlenaryAqua.git" target="_blank">Saiquit</a>
             </div>
 
         </div>

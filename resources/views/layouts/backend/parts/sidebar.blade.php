@@ -163,6 +163,13 @@
                     </a>
                 </li>
 
+                <li>
+                    <a href="{{ route('admin.faqs.index') }}"
+                        class="dropdown-toggle no-arrow @if (Route::is('admin.faqs.index')) active @endif">
+                        <span class="micon bi bi-diagram-3"></span><span class="mtext">FAQ</span>
+                    </a>
+                </li>
+
                 <li class="dropdown">
                     <a href="javascript:;" class="dropdown-toggle">
                         <span class="micon bi bi-view-list"></span><span class="mtext">UI</span>

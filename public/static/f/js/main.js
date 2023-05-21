@@ -401,7 +401,7 @@
         if (parseInt(newVal) != parseInt(oldVal)) {
             setTimeout(() => {
                 var newUrl = path + "?" + "maxPrice=" + slider_input.value;
-                console.log(newUrl);
+                // console.log(newUrl);
                 window.location.href = newUrl;
             }, 1000);
         }
