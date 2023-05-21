@@ -61,7 +61,7 @@
                             </div>
 
                             <form action="{{ route('cart.update', ['id' => $variation->id]) }}" method="post">
-                                @csrf
+                                {{ csrf_field() }}
                                 <div>
                                     <div class="py-3"></div>
                                     {{-- <h3>{{ $variation['name_' . app()->getLocale()] }}</h3> --}}
