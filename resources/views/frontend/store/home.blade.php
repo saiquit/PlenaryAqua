@@ -192,20 +192,20 @@
                         <div class="col-md-6">
                             <div class="row">
                                 <div class="col-md-12 img-hover mb-4"><img
-                                        src="https://www.wrappixel.com/demos/ui-kit/wrapkit/assets/images/features/features12/img1.jpg"
+                                        src="{{ asset('static/f/img/product/discount/pd-1.jpg') }}"
                                         class="rounded img-shadow img-fluid" alt="wrapkit" /></div>
                                 <div class="col-md-12 img-hover mb-4"><img
-                                        src="https://www.wrappixel.com/demos/ui-kit/wrapkit/assets/images/features/features12/img2.jpg"
+                                        src="{{ asset('static/f/img/product/discount/pd-1.jpg') }}"
                                         class="rounded img-shadow img-fluid" alt="wrapkit" /></div>
                             </div>
                         </div>
                         <div class="col-md-6 uneven-box">
                             <div class="row">
                                 <div class="col-md-12 img-hover mb-4"><img
-                                        src="https://www.wrappixel.com/demos/ui-kit/wrapkit/assets/images/features/features12/img3.jpg"
+                                        src="{{ asset('static/f/img/product/discount/pd-1.jpg') }}"
                                         class="rounded img-shadow img-fluid" alt="wrapkit" /></div>
                                 <div class="col-md-12 img-hover mb-4"><img
-                                        src="https://www.wrappixel.com/demos/ui-kit/wrapkit/assets/images/features/features12/img4.jpg"
+                                        src="{{ asset('static/f/img/product/discount/pd-1.jpg') }}"
                                         class="rounded img-shadow img-fluid" alt="wrapkit" /></div>
                             </div>
                         </div>
