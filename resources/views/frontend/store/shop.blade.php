@@ -41,20 +41,15 @@
                         </div>
                         <div class="sidebar__item">
                             <h4>Price</h4>
-                            <div class="price-range-wrap">
-                                <div class="price-range ui-slider ui-corner-all ui-slider-horizontal ui-widget ui-widget-content"
-                                    data-min="{{ DB::table('variations')->min('price') }}"
-                                    data-max="{{ DB::table('variations')->max('price') }}">
-                                    <div class="ui-slider-range ui-corner-all ui-widget-header"></div>
-                                    <span tabindex="0" class="ui-slider-handle ui-corner-all ui-state-default"></span>
-                                    <span tabindex="0" class="ui-slider-handle ui-corner-all ui-state-default"></span>
+                            <div class="range-slider">
+                                <div id="slider_thumb" class="range-slider_thumb"></div>
+                                <div class="range-slider_line">
+                                    <div id="slider_line" class="range-slider_line-fill"></div>
                                 </div>
-                                <div class="range-slider">
-                                    <div class="price-input">
-                                        <input type="text" value="{{ request()->query('minPrice') }}" id="minamount">
-                                        <input type="text" value="{{ request()->query('maxPrice') }}" id="maxamount">
-                                    </div>
-                                </div>
+                                <input id="slider_input" class="range-slider_input" type="range" name="maxPrice"
+                                    value="{{ request()->query('maxPrice') ? request()->query('maxPrice') : '0' }}"
+                                    min="{{ DB::table('variations')->min('price') }}"
+                                    max="{{ DB::table('variations')->max('price') }}">
                             </div>
                         </div>
                         {{-- <div class="sidebar__item">
