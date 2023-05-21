@@ -328,29 +328,6 @@
 @push('js')
     <script>
         $(document).ready(function() {
-            $(".price-range").on(
-                "slidechange",
-                function(event, ui) {
-                    var path = $(location).attr('href').split('?')[0];
-                    var params = {};
-                    location.search.replace(/[?&]+([^=&]+)=([^&]*)/gi, function(s, k, v) {
-                        params[k] = v
-                    });
-                    params['minPrice'] = ui.values[0];
-                    params['maxPrice'] = ui.values[1];
-                    var param_list = '';
-                    for (const key in params) {
-                        if (Object.hasOwnProperty.call(params, key)) {
-                            const element = params[key];
-                            param_list += key + '=' + element + '&';
-                        }
-                    }
-                    var newUrl = path + '?' + param_list;
-                    setTimeout(() => {
-                        window.location.href = newUrl;
-                    }, 1000);
-                }
-            );
             $('#filter_sort_form select').change(function(e) {
                 e.preventDefault();
                 var path = $(location).attr('href').split('?')[0];

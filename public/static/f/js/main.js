@@ -339,7 +339,26 @@
         $("#search_cat").attr("value", $(this).attr('data-id'));
     });
 
-    
+    $(".price-range").on(
+        "slidechange",
+        function (event, ui) {
+            var path = $(location).attr('href').split('?')[0];
+            var params = {}; location.search.replace(/[?&]+([^=&]+)=([^&]*)/gi, function (s, k, v) { params[k] = v });
+            params['minPrice'] = ui.values[0];
+            params['maxPrice'] = ui.values[1];
+            var param_list = '';
+            for (const key in params) {
+                if (Object.hasOwnProperty.call(params, key)) {
+                    const element = params[key];
+                    param_list += key + '=' + element + '&';
+                }
+            }
+            var newUrl = path + '?' + param_list;
+            setTimeout(() => {
+                window.location.href = newUrl;
+            }, 1000);
+        }
+    );
     if (parseInt($($('.fa-shopping-bag').siblings('span')[0]).text()) > 0) {
         setInterval(() => {
             $('.fa-shopping-bag').effect('shake', {
