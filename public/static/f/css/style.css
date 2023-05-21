@@ -2807,6 +2807,7 @@ ol {
     padding: 15px 0;
     overflow: hidden;
     margin-top: 20px;
+    display: flex;justify-content: center;
 }
 
 .footer__copyright__text {

@@ -44,7 +44,8 @@
                                 @foreach (session('cart.items') as $item)
                                     <tr id="{{ $item['id'] }}">
                                         <td class="shoping__cart__item">
-                                            <img src="/static/f/img/cart/cart-1.jpg" alt="">
+                                            <img src="{{ isset($item->product->images[0]->filename) ? url('storage/' . $item->product->images[0]->filename) : asset('static/f/img/product/product-1.jpg') }}"
+                                                alt="">
                                             <h5>{{ $item['name_' . app()->getLocale()] }}</h5>
                                         </td>
                                         <td class="shoping__cart__price">

@@ -68,11 +68,19 @@ class DatabaseSeeder extends Seeder
             'name_bn' => 'সামুদ্রিক মাছ',
         ]);
         \App\Models\Category::factory()->create([
-            'name_en' => 'Organic Dry Fish',
+            'name_en' => 'Dried Fish',
             'name_bn' => 'অর্গানিক শুটকি মাছ',
         ]);
         \App\Models\Category::factory()->create([
-            'name_en' => 'Steaks and Fillets Fish',
+            'name_en' => 'Meat',
+            'name_bn' => 'মাংস/গোসত',
+        ]);
+        \App\Models\Category::factory()->create([
+            'name_en' => 'Student\'s specials',
+            'name_bn' => 'ছোট প্যাক',
+        ]);
+        \App\Models\Category::factory()->create([
+            'name_en' => 'Steaks and Fillets',
             'name_bn' => 'স্টেক এবং ফিলেট',
         ]);
         \App\Models\Category::factory()->create([
