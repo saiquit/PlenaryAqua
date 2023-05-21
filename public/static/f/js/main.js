@@ -112,7 +112,7 @@
     $(".categories__slider").owlCarousel({
         loop: true,
         margin: 0,
-        items: 6,
+        items: 4,
         dots: false,
         nav: true,
         navText: [
@@ -138,7 +138,7 @@
             },
 
             992: {
-                items: 6,
+                items: 4,
             },
         },
     });

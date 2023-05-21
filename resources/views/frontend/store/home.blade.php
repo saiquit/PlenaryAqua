@@ -67,8 +67,9 @@
                 <div class="categories__slider owl-carousel">
                     @foreach ($all_categories as $category)
                         <div class="col-lg-3">
-                            <div class="categories__item set-bg"
-                                data-setbg="{{ isset($category->cover_img) ? url('storage/' . $category->cover_img) : asset('static/f/img/categories/cat-' . rand(1, 5) . '.jpg') }}">
+                            <div class="categories__item">
+                                <img src="{{ isset($category->cover_img) ? url('storage/' . $category->cover_img) : asset('static/f/img/categories/cat-' . rand(1, 5) . '.jpg') }}"
+                                    alt="">
                                 <h5><a
                                         href="{{ route('front.shop', ['category_id' => $category->id]) }}">{{ $category['name_' . app()->getLocale()] }}</a>
                                 </h5>

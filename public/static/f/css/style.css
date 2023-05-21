@@ -762,7 +762,7 @@ ol {
 -----------------------*/
 
 .categories__item {
-    height: 200px;
+    /* height: 200px; */
     position: relative;
 }
 
