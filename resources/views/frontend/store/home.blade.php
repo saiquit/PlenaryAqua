@@ -94,7 +94,7 @@
                         <ul>
                             <li class="active" data-filter="*">{{ __('home.All') }}</li>
                             @foreach ($top_categories as $category)
-                                <li data-filter=".{{ $category['name_' . app()->getLocale()] }}">
+                                <li data-filter=".{{ $category['slug'] }}">
                                     {{ $category['name_' . app()->getLocale()] }}</li>
                             @endforeach
                         </ul>
@@ -104,7 +104,7 @@
             <div class="row featured__filter">
                 @foreach ($featured as $variation)
                     <div
-                        class="col-lg-3 col-md-6 col-sm-6 mix @foreach ($variation->product->categories as $category) {{ $category['name_' . app()->getLocale()] }} @endforeach">
+                        class="col-lg-3 col-md-6 col-sm-6 mix @foreach ($variation->product->categories as $category) {{ $category['slug'] }} @endforeach">
                         <div class="product__discount__item">
                             <div class="product__discount__item__pic set-bg"
                                 data-setbg="{{ isset($variation->product->images[0]->filename) ? url('storage/' . $variation->product->images[0]->filename) : asset('static/f/img/product/product-1.jpg') }}">

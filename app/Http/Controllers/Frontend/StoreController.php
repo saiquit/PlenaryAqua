@@ -19,7 +19,7 @@ class StoreController extends Controller
     public function home(Request $request)
     {
         $all_categories = Category::all(['id', 'name_en', 'name_bn', 'cover_img']);
-        $top_categories = Category::limit(5)->get(['id', 'name_en', 'name_bn']);
+        $top_categories = Category::limit(5)->get(['id', 'name_en', 'name_bn', 'slug']);
         $products = Product::whereHas('categories', function ($p) use ($top_categories) {
             $p->whereIn('category_id', $top_categories->pluck('id')->toArray());
         })->get();
