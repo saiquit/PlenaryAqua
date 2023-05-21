@@ -24,7 +24,7 @@
                            <li><a href="{{ route('front.terms', []) }}">Terms and Conditions</a></li>
                            <li><a href="{{ route('front.policy', []) }}">Return Policy</a></li>
                            {{-- <li><a href="#">Our Sitemap</a></li> --}}
-                           <li><a href="#">FAQ</a></li>
+                           <li><a href="{{ route('front.faq', []) }}">FAQ</a></li>
                            <li><a href="#">Projects</a></li>
                        </ul>
                        <ul>

@@ -50,6 +50,7 @@ Route::group([
         Route::get('/about', 'StoreController@about')->name('about');
         Route::get('/policy', 'StoreController@privacy')->name('policy');
         Route::get('/terms', 'StoreController@terms')->name('terms');
+        Route::get('/faq', 'StoreController@faq')->name('faq');
         //love product
         Route::post('/love_store/{product}', 'LoveController@storeLove')->name('store_love');
     });

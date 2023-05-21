@@ -172,4 +172,8 @@ class StoreController extends Controller
     {
         return view('frontend.additional.terms');
     }
+    public function faq()
+    {
+        return view('frontend.additional.faq');
+    }
 }
