@@ -270,10 +270,10 @@
                                                     <div class="product__discount__item__pic set-bg"
                                                         data-setbg="{{ $product->images->count() ? url('storage/' . $product->images[0]->filename) : asset('static/f/img/product/product-1.jpg') }}">
 
-                                                        {{-- @isset($variation->discount)
-                                                        <div class="product__discount__percent">
-                                                            -{{ intval($variation->discount) }}%</div>
-                                                    @endisset --}}
+                                                        @isset($variation->discount)
+                                                            <div class="product__discount__percent">
+                                                                -{{ intval($variation->discount) }}%</div>
+                                                        @endisset
                                                         <ul class="product__item__pic__hover ">
                                                             <li data-toggle="tooltip" data-placement="top"
                                                                 title="Add to Favorite.">
