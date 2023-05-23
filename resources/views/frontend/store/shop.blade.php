@@ -267,7 +267,8 @@
                                                 -{{ intval($variation->discount) }}%</div>
                                         @endisset
                                         <ul class="product__item__pic__hover">
-                                            <li><a onclick="document.querySelector('#form-{{ $variation->id }}').submit()"><i
+                                            <li data-toggle="tooltip" data-placement="top" title="Add to Favorite.">
+                                                <a onclick="document.querySelector('#form-{{ $variation->id }}').submit()"><i
                                                         class="fa fa-heart @if (auth()->user() &&
                                                                 auth()->user()->loved_products->contains($variation->product->id)) text-danger @endif"></i></a>
                                             </li>
@@ -275,8 +276,10 @@
                                                 action="{{ route('front.store_love', ['product' => $variation->product->id]) }}"
                                                 method="post">
                                                 @csrf
-                                            </form> {{-- <li><a href="#"><i class="fa fa-retweet"></i></a></li>  --}}
-                                            <li>
+                                            </form>
+                                            <li data-placement="top" title="variation"><a href="#"><i
+                                                        class="fa fa-retweet"></i></a></li>
+                                            <li data-placement="top" title="Buy">
                                                 @if (intval($variation->stock) > 0)
                                                     <a
                                                         href="{{ route('front.single', ['slug' => $variation->product->slug, 'var' => $variation->id]) }}"><i

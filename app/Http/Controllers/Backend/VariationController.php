@@ -50,8 +50,8 @@ class VariationController extends Controller
             'variation_name_bn' => 'required',
             'weight' => 'required|numeric',
             'gross_weight' => 'required|numeric',
-            'variation_desc_en' => 'required',
-            'variation_desc_bn' => 'required',
+            // 'variation_desc_en' => 'required',
+            // 'variation_desc_bn' => 'required',
         ]);
         $product = Product::findOrFail($request->product);
         foreach ($request->vars as $key => $var) {
@@ -113,8 +113,8 @@ class VariationController extends Controller
             'variation_name_bn' => 'required',
             'weight' => 'required|numeric',
             'gross_weight' => 'required|numeric',
-            'variation_desc_en' => 'required',
-            'variation_desc_bn' => 'required',
+            // 'variation_desc_en' => 'required',
+            // 'variation_desc_bn' => 'required',
         ]);
         $variation->update([
             'weight' => floatval($request['weight']),

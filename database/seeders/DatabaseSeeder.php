@@ -70,6 +70,10 @@ class DatabaseSeeder extends Seeder
             'name_bn' => 'সামুদ্রিক মাছ',
         ]);
         \App\Models\Category::factory()->create([
+            'name_en' => 'Farmed Fush',
+            'name_bn' => 'ঘের মাছ',
+        ]);
+        \App\Models\Category::factory()->create([
             'name_en' => 'Dried Fish',
             'name_bn' => 'অর্গানিক শুটকি মাছ',
         ]);
