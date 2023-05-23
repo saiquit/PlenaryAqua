@@ -55,9 +55,11 @@ class StoreController extends Controller
         if ($request->product_name) {
             $product_q->where('name_' . app()->getLocale(), 'LIKE', '%' . $request->product_name . '%');
         }
-        // if ($request->minPrice) {
-        //     $variations_q->where('price', '>=', $request->minPrice);
-        // }
+        if ($request->minPrice) {
+            $product_q->whereHas('variations', function ($v) use ($request) {
+                $v->where('price', '>=', $request->minPrice);
+            });
+        }
         if ($request->maxPrice) {
             $product_q->whereHas('variations', function ($v) use ($request) {
                 $v->where('price', '<=', $request->maxPrice);
