@@ -53,11 +53,13 @@ class StoreController extends Controller
             });
         }
         if ($request->product_name) {
-            $variations_q->where('name_' . app()->getLocale(), 'LIKE', '%' . $request->product_name . '%');
+            $variations_q->where('name_' . app()->getLocale(), 'LIKE', '%' . $request->product_name . '%')->orWhereHas('product', function ($p) use ($request) {
+                $p->where('name_' . app()->getLocale(), 'LIKE', '%' . $request->product_name . '%');
+            });
         }
-        if ($request->minPrice) {
-            $variations_q->where('price', '>=', $request->minPrice);
-        }
+        // if ($request->minPrice) {
+        //     $variations_q->where('price', '>=', $request->minPrice);
+        // }
         if ($request->maxPrice) {
             $variations_q->where('price', '<=', $request->maxPrice);
         }
