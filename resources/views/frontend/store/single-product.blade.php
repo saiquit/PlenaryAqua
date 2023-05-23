@@ -133,7 +133,7 @@
                                 <div class="tab-pane active" id="tabs-1" role="tabpanel">
                                     <div class="product__details__tab__desc">
                                         <h6>Products Infomation</h6>
-                                        <p>{!! $variation['desc_' . app()->getLocale()] !!}</p>
+                                        <p>{!! $product['desc_' . app()->getLocale()] !!}</p>
                                     </div>
                                 </div>
                                 {{-- <div class="tab-pane" id="tabs-2" role="tabpanel">
