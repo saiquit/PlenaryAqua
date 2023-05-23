@@ -5,7 +5,7 @@
 
 @section('main')
     <!-- Breadcrumb Section Begin -->
-    <section class="breadcrumb-section set-bg" data-setbg="/static/f/img/breadcrumb.jpg">
+    {{-- <section class="breadcrumb-section set-bg" data-setbg="/static/f/img/breadcrumb.jpg">
         <div class="container">
             <div class="row">
                 <div class="col-lg-12 text-center">
@@ -21,7 +21,7 @@
                 </div>
             </div>
         </div>
-    </section>
+    </section> --}}
     <!-- Breadcrumb Section End -->
 
     <!-- Product Details Section Begin -->
