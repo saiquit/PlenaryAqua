@@ -20,11 +20,13 @@ class DatabaseSeeder extends Seeder
             AdditionalPageSeeder::class
         ]);
         \App\Models\User::factory([
-            'email' => 'customer@customer.com',
+            'email' => 'customer@plenaryaqua.com',
+            'password' => bcrypt('GxDNTBtrbE6a'),
         ])->create();
         \App\Models\User::factory([
-            'email' => 'admin@admin.com',
-            'type'  => 'admin'
+            'email' => 'support@plenaryaqua.com',
+            'type'  => 'admin',
+            'password' => bcrypt('7a[NHUF8$P=%'),
         ])->create();
         \App\Models\District::factory()->create([
             'name_en' => 'Dhaka',
