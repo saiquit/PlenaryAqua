@@ -69,7 +69,7 @@
                                     <div class="product__details__price">
                                         @isset($variation->discounted_from_price)
                                             <sup style="text-decoration: line-through">
-                                                ৳{{ $variation->discounted_from_price }}
+                                                ৳{{ intval($variation->discounted_from_price) }}
                                             </sup>
                                         @endisset
                                         <span class="text-dark display-3"><b>

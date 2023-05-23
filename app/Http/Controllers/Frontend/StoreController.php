@@ -47,28 +47,28 @@ class StoreController extends Controller
         //     $q->where('slug', 'top-rated');
         // })->latest()->inRandomOrder()->limit(9)->get()->chunk(3);
 
-        // if ($request->category_id) {
-        //     $variations_q->whereHas('product', function ($p) use ($request) {
-        //         $p->whereHas('categories', function ($q) use ($request) {
-        //             $q->where('category_id', $request->category_id)->orWhere('parent_id', $request->category_id);
-        //         });
-        //     });
-        // }
-        // if ($request->product_name) {
-        //     $variations_q->where('name_' . app()->getLocale(), 'LIKE', '%' . $request->product_name . '%')->orWhereHas('product', function ($p) use ($request) {
-        //         $p->where('name_' . app()->getLocale(), 'LIKE', '%' . $request->product_name . '%');
-        //     });
-        // }
+        if ($request->category_id) {
+            $product_q->whereHas('categories', function ($q) use ($request) {
+                $q->where('category_id', $request->category_id)->orWhere('parent_id', $request->category_id);
+            });
+        }
+        if ($request->product_name) {
+            $product_q->where('name_' . app()->getLocale(), 'LIKE', '%' . $request->product_name . '%');
+        }
         // if ($request->minPrice) {
         //     $variations_q->where('price', '>=', $request->minPrice);
         // }
-        // if ($request->maxPrice) {
-        //     $variations_q->where('price', '<=', $request->maxPrice);
-        // }
-        // if ($request->sort) {
-        //     $sort = explode('_', $request->sort);
-        //     $variations_q->orderBy($sort[0], $sort[1]);
-        // }
+        if ($request->maxPrice) {
+            $product_q->whereHas('variations', function ($v) use ($request) {
+                $v->where('price', '<=', $request->maxPrice);
+            });
+        }
+        if ($request->sort) {
+            $sort = explode('_', $request->sort);
+            $product_q->whereHas('variations', function ($v) use ($sort) {
+                $v->orderBy($sort[0], $sort[1]);
+            });
+        }
         $products = $product_q->paginate(24);
         return view('frontend.store.shop', compact('products'));
     }
