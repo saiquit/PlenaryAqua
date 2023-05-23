@@ -43,8 +43,8 @@
                             <h4>Price</h4>
                             <div class="price-range-wrap">
                                 <div class="price-range ui-slider ui-corner-all ui-slider-horizontal ui-widget ui-widget-content"
-                                    data-min="{{ DB::table('variations')->where('district_id', session('district'))->min('price') }}"
-                                    data-max="{{ DB::table('variations')->where('district_id', session('district'))->max('price') }}">
+                                    data-min="{{ intval(DB::table('variations')->where('district_id', session('district'))->min('price')) }}"
+                                    data-max="{{ intval(DB::table('variations')->where('district_id', session('district'))->max('price')) }}">
                                     <div class="ui-slider-range ui-corner-all ui-widget-header"></div>
                                     <span tabindex="0" class="ui-slider-handle ui-corner-all ui-state-default"></span>
                                     <span tabindex="0" class="ui-slider-handle ui-corner-all ui-state-default"></span>
