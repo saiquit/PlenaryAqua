@@ -287,10 +287,10 @@
                                                                 method="post">
                                                                 @csrf
                                                             </form>
-                                                            <li class="var_change" data-var="{{ $key }}"
+                                                            {{-- <li class="var_change" data-var="{{ $key }}"
                                                                 data-placement="top" title="variation"><a href="#"><i
                                                                         class="fa fa-retweet"></i></a>
-                                                            </li>
+                                                            </li> --}}
                                                             <li data-placement="top" title="Buy">
                                                                 @if (intval($variation->stock) > 0)
                                                                     <a

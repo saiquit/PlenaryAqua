@@ -73,7 +73,7 @@
                                             </sup>
                                         @endisset
                                         <span class="text-dark display-3"><b>
-                                                ৳{{ $variation->price }}
+                                                ৳{{ intval($variation->price) }}
                                             </b>
                                         </span>
                                     </div>
