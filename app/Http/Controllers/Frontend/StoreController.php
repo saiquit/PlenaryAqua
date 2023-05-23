@@ -39,36 +39,38 @@ class StoreController extends Controller
     }
     public function shop(Request $request)
     {
-        $variations_q = Variation::query();
-        $variations_q->where('district_id', session('district'));
-        $top_rated = $variations_q->whereHas('tags', function ($q) {
-            $q->where('slug', 'top-rated');
-        })->latest()->inRandomOrder()->limit(9)->get()->chunk(3);
+        $product_q = Product::query();
+        $product_q->whereHas('variations', function ($p) use ($request) {
+            $p->where('district_id', session('district'));
+        });
+        // $top_rated = $variations_q->whereHas('tags', function ($q) {
+        //     $q->where('slug', 'top-rated');
+        // })->latest()->inRandomOrder()->limit(9)->get()->chunk(3);
 
-        if ($request->category_id) {
-            $variations_q->whereHas('product', function ($p) use ($request) {
-                $p->whereHas('categories', function ($q) use ($request) {
-                    $q->where('category_id', $request->category_id)->orWhere('parent_id', $request->category_id);
-                });
-            });
-        }
-        if ($request->product_name) {
-            $variations_q->where('name_' . app()->getLocale(), 'LIKE', '%' . $request->product_name . '%')->orWhereHas('product', function ($p) use ($request) {
-                $p->where('name_' . app()->getLocale(), 'LIKE', '%' . $request->product_name . '%');
-            });
-        }
+        // if ($request->category_id) {
+        //     $variations_q->whereHas('product', function ($p) use ($request) {
+        //         $p->whereHas('categories', function ($q) use ($request) {
+        //             $q->where('category_id', $request->category_id)->orWhere('parent_id', $request->category_id);
+        //         });
+        //     });
+        // }
+        // if ($request->product_name) {
+        //     $variations_q->where('name_' . app()->getLocale(), 'LIKE', '%' . $request->product_name . '%')->orWhereHas('product', function ($p) use ($request) {
+        //         $p->where('name_' . app()->getLocale(), 'LIKE', '%' . $request->product_name . '%');
+        //     });
+        // }
         // if ($request->minPrice) {
         //     $variations_q->where('price', '>=', $request->minPrice);
         // }
-        if ($request->maxPrice) {
-            $variations_q->where('price', '<=', $request->maxPrice);
-        }
-        if ($request->sort) {
-            $sort = explode('_', $request->sort);
-            $variations_q->orderBy($sort[0], $sort[1]);
-        }
-        $variations = $variations_q->paginate(24);
-        return view('frontend.store.shop', compact('variations', 'top_rated'));
+        // if ($request->maxPrice) {
+        //     $variations_q->where('price', '<=', $request->maxPrice);
+        // }
+        // if ($request->sort) {
+        //     $sort = explode('_', $request->sort);
+        //     $variations_q->orderBy($sort[0], $sort[1]);
+        // }
+        $products = $product_q->paginate(24);
+        return view('frontend.store.shop', compact('products'));
     }
     public function single(Request $request, $slug)
     {

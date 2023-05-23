@@ -83,23 +83,25 @@
                             <div class="latest-product__text">
                                 <h4>Top Products</h4>
                                 <div class="latest-product__slider owl-carousel">
-                                    @foreach ($top_rated as $item)
-                                        <div class="latest-prdouct__slider__item">
-                                            @foreach ($item as $variation)
-                                                <a href="{{ route('front.single', ['slug' => $variation->product->slug, 'var' => $variation->id]) }}"
-                                                    class="latest-product__item">
-                                                    <div class="latest-product__item__pic">
-                                                        <img src="{{ isset($variation->product->images[0]->filename) ? url('storage/' . $variation->product->images[0]->filename) : asset('static/f/img/product/product-1.jpg') }}"
-                                                            alt="">
-                                                    </div>
-                                                    <div class="latest-product__item__text">
-                                                        <h6>{{ $variation['name_' . app()->getLocale()] }}</h6>
-                                                        <span>৳{{ $variation->price }}</span>
-                                                    </div>
-                                                </a>
-                                            @endforeach
-                                        </div>
-                                    @endforeach
+                                    {{-- @if ($top_rated->count())
+                                        @foreach ($top_rated as $item)
+                                            <div class="latest-prdouct__slider__item">
+                                                @foreach ($item as $variation)
+                                                    <a href="{{ route('front.single', ['slug' => $variation->product->slug, 'var' => $variation->id]) }}"
+                                                        class="latest-product__item">
+                                                        <div class="latest-product__item__pic">
+                                                            <img src="{{ isset($variation->product->images[0]->filename) ? url('storage/' . $variation->product->images[0]->filename) : asset('static/f/img/product/product-1.jpg') }}"
+                                                                alt="">
+                                                        </div>
+                                                        <div class="latest-product__item__text">
+                                                            <h6>{{ $variation['name_' . app()->getLocale()] }}</h6>
+                                                            <span>৳{{ $variation->price }}</span>
+                                                        </div>
+                                                    </a>
+                                                @endforeach
+                                            </div>
+                                        @endforeach
+                                    @endif --}}
                                 </div>
                             </div>
                         </div>
@@ -245,7 +247,7 @@
                             </div>
                             <div class="col-lg-4 col-md-4">
                                 <div class="filter__found">
-                                    <h6><span>{{ $variations->total() }}</span> Products found</h6>
+                                    <h6><span>{{ $products->total() }}</span> Products found</h6>
                                 </div>
                             </div>
                             <div class="col-lg-4 col-md-3">
@@ -256,59 +258,74 @@
                             </div>
                         </div>
                     </div>
-                    <div class="row">
-                        @foreach ($variations as $key => $variation)
-                            <div class="col-lg-4 col-md-6 col-sm-6">
-                                <div class="product__discount__item">
-                                    <div class="product__discount__item__pic set-bg"
-                                        data-setbg="{{ isset($variation->product->images[0]->filename) ? url('storage/' . $variation->product->images[0]->filename) : asset('static/f/img/product/product-1.jpg') }}">
-                                        @isset($variation->discount)
-                                            <div class="product__discount__percent">
-                                                -{{ intval($variation->discount) }}%</div>
-                                        @endisset
-                                        <ul class="product__item__pic__hover">
-                                            <li data-toggle="tooltip" data-placement="top" title="Add to Favorite.">
-                                                <a onclick="document.querySelector('#form-{{ $variation->id }}').submit()"><i
-                                                        class="fa fa-heart @if (auth()->user() &&
-                                                                auth()->user()->loved_products->contains($variation->product->id)) text-danger @endif"></i></a>
-                                            </li>
-                                            <form hidden id="form-{{ $variation->id }}"
-                                                action="{{ route('front.store_love', ['product' => $variation->product->id]) }}"
-                                                method="post">
-                                                @csrf
-                                            </form>
-                                            <li data-placement="top" title="variation"><a href="#"><i
-                                                        class="fa fa-retweet"></i></a></li>
-                                            <li data-placement="top" title="Buy">
-                                                @if (intval($variation->stock) > 0)
-                                                    <a
-                                                        href="{{ route('front.single', ['slug' => $variation->product->slug, 'var' => $variation->id]) }}"><i
-                                                            class="fa fa-shopping-cart"></i></a>
-                                                @else
-                                                    <p class="p-1 border-rounded bg-warning text-white">Out of Stock</p>
-                                                    {{-- <a class="disabled bg-warning" href="#"><i
-                                                            class="fa fa-shopping-cart"></i></a> --}}
-                                                @endif
-                                            </li>
-                                        </ul>
+                    <div class="row ">
+                        @foreach ($products as $key => $product)
+                            <div class="col-lg-4 col-md-6 col-sm-6{{ $product->id }}">
+                                <div class="carousel slide" data-ride="carousel">
+                                    <div class="carousel-inner ">
+                                        @foreach ($product->variations->where('district_id', session('district')) as $var_key => $variation)
+                                            <div
+                                                class="carousel-item @if ($loop->index == 0) active @endif {{ $var_key }}">
+                                                <div class="product__discount__item ">
+                                                    <div class="product__discount__item__pic set-bg"
+                                                        data-setbg="{{ $product->images->count() ? url('storage/' . $product->images[0]->filename) : asset('static/f/img/product/product-1.jpg') }}">
+
+                                                        {{-- @isset($variation->discount)
+                                                        <div class="product__discount__percent">
+                                                            -{{ intval($variation->discount) }}%</div>
+                                                    @endisset --}}
+                                                        <ul class="product__item__pic__hover ">
+                                                            <li data-toggle="tooltip" data-placement="top"
+                                                                title="Add to Favorite.">
+                                                                <a
+                                                                    onclick="document.querySelector('#form-{{ $variation->id . $product->id }}').submit()"><i
+                                                                        class="fa fa-heart @if (auth()->user() &&
+                                                                                auth()->user()->loved_products->contains($product->id)) text-danger @endif"></i></a>
+                                                            </li>
+                                                            <form hidden id="form-{{ $variation->id . $product->id }}"
+                                                                action="{{ route('front.store_love', ['product' => $product->id]) }}"
+                                                                method="post">
+                                                                @csrf
+                                                            </form>
+                                                            <li class="var_change" data-var="{{ $key }}"
+                                                                data-placement="top" title="variation"><a href="#"><i
+                                                                        class="fa fa-retweet"></i></a>
+                                                            </li>
+                                                            <li data-placement="top" title="Buy">
+                                                                @if (intval($variation->stock) > 0)
+                                                                    <a
+                                                                        href="{{ route('front.single', ['slug' => $product->slug, 'var' => $variation->id]) }}"><i
+                                                                            class="fa fa-shopping-cart"></i></a>
+                                                                @else
+                                                                    <p class="p-1 border-rounded bg-warning text-white">Out
+                                                                        of Stock</p>
+                                                                @endif
+                                                            </li>
+                                                        </ul>
+                                                    </div>
+                                                    <div class="product__discount__item__text">
+                                                        <h5>
+                                                            <a
+                                                                href="{{ route('front.single', ['slug' => $variation->product->slug, 'var' => $variation->id]) }}">{{ $variation->product['name_' . app()->getLocale()] }}</a>
+                                                        </h5>
+                                                        <div class="product__item__price">
+                                                            {{ $variation->weight }} KG /
+                                                            ৳{{ $variation->price }}
+                                                            <span>৳{{ $variation->discounted_from_price }}</span>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        @endforeach
                                     </div>
-                                    <div class="product__discount__item__text">
-                                        <h5>
-                                            <a
-                                                href="{{ route('front.single', ['slug' => $variation->product->slug, 'var' => $variation->id]) }}">{{ $variation->product['name_' . app()->getLocale()] }}</a>
-                                        </h5>
-                                        <div class="product__item__price">
-                                            {{ $variation->weight }} KG /
-                                            ৳{{ $variation->price }}
-                                            <span>৳{{ $variation->discounted_from_price }}</span>
-                                        </div>
-                                    </div>
+
                                 </div>
+
                             </div>
                         @endforeach
                     </div>
                     <div class="custom_pagination">
-                        {{ $variations->appends($_GET)->links('pagination::bootstrap-5') }}
+                        {{ $products->appends($_GET)->links('pagination::bootstrap-5') }}
                     </div>
                     {{-- <div class="product__pagination">
                         <a href="#">1</a>
@@ -360,6 +377,7 @@
                     }
                 }
             })
+
         });
     </script>
 @endpush
