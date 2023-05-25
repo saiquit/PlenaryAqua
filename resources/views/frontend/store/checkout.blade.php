@@ -442,22 +442,6 @@
                     '#discount').text()))
             });
 
-
-            var availableTags = [
-                "Batiaghata", "Dacope", "Dumuria", "Dighalia", "Koyra", "Paikgachha", "Phultala", "Rupsha",
-                "Terokhada", "Daulatpur Thana", "Khalishpur Thana", "Khan Jahan Ali Thana", "Kotwali Thana",
-                "Sonadanga Thana", "Harintana Thana", "Dhamrai", "Dohar", "Keraniganj", "Nawabganj", "Savar",
-                "Tejgaon Circle", "CGS Colony", "Guljan City", "Khan Jahan Ali", "Khorshed Nagar",
-                "Md. Aminul Hoque", "Shaikh Bari", "Bagmara", "Baliadanga", "Banorgati", "Basupara",
-                "Batiaghata", "Charabati", "Chhoto Boyra", "Denarabad", "Dubi", "Gallamari", "Gangarampur",
-                "Goborchaka", "Horintana", "Jora Gate", "Kholabaria", "Khulna", "Khulna University Gate",
-                "Labanchara", "Mathavanga", "Mohammad Nagar", "Nij Khamar", "Nirala", "Roypara", "Sachibunia",
-                "Surkhali", "Tetultola", "Thikrabad", "Tootpara", "sadar", "Road", "Street"
-            ];
-            $('#address').autocomplete({
-                source: availableTags
-            });
-
         });
     </script>
 @endpush

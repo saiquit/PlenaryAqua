@@ -51,6 +51,7 @@ class ProfileController extends Controller
             'upazila' => $request->upazila,
             'location' => $request->address,
             'type' => $request->type,
+            'active' => !$addresses->count() ? true : false,
         ]);
         return redirect()->back();
     }

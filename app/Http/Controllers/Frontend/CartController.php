@@ -73,13 +73,29 @@ class CartController extends Controller
         }
         $coupon = $coupon_db->first();
         if ($coupon->active and !Carbon::createFromDate($coupon->validity)->isPast() and !Session::has('cart.coupon')) {
-            Session::put('cart.discount', $coupon->amount);
+            $discount = session('cart.discount', 0);
+            Session::put('cart.discount',  $discount + $coupon->amount);
             Session::put('cart.coupon', $coupon->id);
             $this->updateSessions($request, session('cart.items'));
             return redirect()->back();
         } else {
             return redirect()->back()->with(['message' => 'Coupon is not valid.', 'type' => 'alert-danger']);
         }
+    }
+    public function redeem(Request $request)
+    {
+        $redeemable_taka = round(auth()->user()->profile->point / 100);
+        if ($redeemable_taka > 50) {
+            $discount = session('cart.discount', 0);
+            $discount += $redeemable_taka;
+            Session::put('cart.discount', $discount);
+            auth()->user()->profile->update([
+                'point' => 0,
+            ]);
+        } else {
+            return redirect()->back()->with(['message' => 'Not Enough Points', 'type' => 'alert-danger']);
+        }
+        return redirect()->back()->with(['message' => 'Points redeemed.', 'type' => 'alert-success']);
     }
 
     protected function updateSessions(Request $request, $cart)

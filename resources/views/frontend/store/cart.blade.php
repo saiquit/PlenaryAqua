@@ -45,12 +45,13 @@
                                 @foreach (session('cart.items') as $item)
                                     <tr id="{{ $item['id'] }}">
                                         <td class="shoping__cart__item">
-                                            <img src="{{ isset($item->product->images[0]->filename) ? url('storage/' . $item->product->images[0]->filename) : asset('static/f/img/product/product-1.jpg') }}"
+                                            <img width="150"
+                                                src="{{ isset($item->product->images[0]->filename) ? url('storage/' . $item->product->images[0]->filename) : asset('static/f/img/product/product-1.jpg') }}"
                                                 alt="">
-                                            <h5>{{ $item['name_' . app()->getLocale()] }}</h5>
+                                            <h5>{{ $item->product['name_' . app()->getLocale()] }}</h5>
                                         </td>
                                         <td class="shoping__cart__price">
-                                            ${{ $item->price }}
+                                            ৳{{ $item->price }}
                                         </td>
                                         <td class="shoping__cart__quantity">
                                             <div class="quantity">
@@ -64,7 +65,7 @@
                                             </form>
                                         </td>
                                         <td class="shoping__cart__total">
-                                            ${{ $item['qty'] * $item->price }}
+                                            ৳{{ $item['qty'] * $item->price }}
                                         </td>
                                         <td class="shoping__cart__item__close">
                                             <form action="{{ route('cart.delete') }}" method="post">
@@ -99,14 +100,31 @@
                             </form>
                         </div>
                     </div>
+
+                    <div class="shoping__continue">
+                        <div class="shoping__discount">
+                            <h5>Redeem points</h5>
+                            <div class="d-flex justify-content-between">
+                                <p><b>Current:</b> {{ auth()->user()->profile->point }}</p>
+                                <p><b>Redeemable:</b> ৳{{ round(auth()->user()->profile->point / 100) }}</p>
+                            </div>
+                            @if (round(auth()->user()->profile->point / 100) >= 50)
+                                <form method="POST" action="{{ route('cart.redeem') }}">
+                                    @csrf
+                                    <button type="submit" class="site-btn btn-block">Redeem
+                                        points</button>
+                                </form>
+                            @endif
+                        </div>
+                    </div>
                 </div>
                 <div class="col-lg-6">
                     <div class="shoping__checkout">
                         <h5>Cart Total</h5>
                         <ul>
-                            <li>Subtotal <span id="sub_total">${{ session('cart.subTotal') }}</span></li>
+                            <li>Subtotal <span id="sub_total">৳{{ session('cart.subTotal') }}</span></li>
                             @if (session('cart.discount'))
-                                <li>Discount <span id="sub_total">- ${{ session('cart.discount') }}</span></li>
+                                <li>Discount <span id="sub_total">- ৳{{ session('cart.discount') }}</span></li>
                             @endif
                             <li>Total <span
                                     id="total">৳{{ session('cart.subTotal') - session('cart.discount') }}</span></li>
@@ -133,7 +151,7 @@
                 var oldVal = selectedInput.val();
                 var id = selectedInput.data('id')
                 var table_row = $(`tr#${id}`)
-                var price = parseFloat(table_row.find('.shoping__cart__price').text().split('$')[1])
+                var price = parseFloat(table_row.find('.shoping__cart__price').text().split('৳')[1])
                 var total = table_row.find('.shoping__cart__total');
                 var newVal;
                 if ($(this).hasClass('dec')) {
@@ -141,15 +159,15 @@
                 } else {
                     newVal = parseInt(oldVal) + 1
                 }
-                total.text('$' + newVal * price)
+                total.text('৳' + newVal * price)
                 $.post("{{ route('cart.update') }}", {
                         id,
                         qty: newVal,
                         _token: $('meta[name="csrf-token"]').attr('content')
                     },
                     function(data, textStatus, jqXHR) {
-                        $('#sub_total').text('$' + data.subTotal);
-                        $('#total').text('$' + data.total);
+                        $('#sub_total').text('৳' + data.subTotal);
+                        $('#total').text('৳' + data.total);
                         $('.shoping-cart').css({
                             'opacity': 1
                         });

@@ -26,9 +26,9 @@
     <section class="product spad">
         <div class="container">
             <div class="row">
-                <div class="col-lg-3 col-md-5">
-                    <div class="sidebar">
-                        <div class="sidebar__item">
+                <div class="col-lg-3 col-md-5" style="position: relative">
+                    <div class="row sidebar">
+                        <div class="d-none d-md-block sidebar__item">
                             <h4>Department</h4>
                             <ul>
                                 @foreach (request()->categories as $category)
@@ -39,7 +39,21 @@
                                 @endforeach
                             </ul>
                         </div>
-                        <div class="sidebar__item">
+                        <div class="col-6 col-md-12  d-block d-md-none sidebar__item">
+                            <h4>Department</h4>
+                            <form id="filter_dep_form" action="{{ route('front.shop') }}" method="get">
+                                <div class="dep_sort">
+                                    <select name="category_id">
+                                        <option value="">Default</option>
+                                        @foreach (request()->categories as $category)
+                                            <option @selected(request()->query('category_id') == $category->id) value="{{ $category->id }}">
+                                                {{ $category['name_' . app()->getLocale()] }}</option>
+                                        @endforeach
+                                    </select>
+                                </div>
+                            </form>
+                        </div>
+                        <div class="col-6 col-md-12 sidebar__item p-0">
                             <h4>Price</h4>
                             <div class="price-range-wrap">
                                 <div class="price-range ui-slider ui-corner-all ui-slider-horizontal ui-widget ui-widget-content"
@@ -56,59 +70,6 @@
                                         <input readonly type="text" id="maxamount"
                                             value="{{ request()->query('maxPrice') }}">
                                     </div>
-                                </div>
-                            </div>
-                        </div>
-                        {{-- <div class="sidebar__item">
-                            <h4>Popular Size</h4>
-                            <div class="sidebar__item__size">
-                                <label for="large">
-                                    Large
-                                    <input type="radio" id="large">
-                                </label>
-                            </div>
-                            <div class="sidebar__item__size">
-                                <label for="medium">
-                                    Medium
-                                    <input type="radio" id="medium">
-                                </label>
-                            </div>
-                            <div class="sidebar__item__size">
-                                <label for="small">
-                                    Small
-                                    <input type="radio" id="small">
-                                </label>
-                            </div>
-                            <div class="sidebar__item__size">
-                                <label for="tiny">
-                                    Tiny
-                                    <input type="radio" id="tiny">
-                                </label>
-                            </div>
-                        </div> --}}
-                        <div class="sidebar__item">
-                            <div class="latest-product__text">
-                                <h4>Top Products</h4>
-                                <div class="latest-product__slider owl-carousel">
-                                    {{-- @if ($top_rated->count())
-                                        @foreach ($top_rated as $item)
-                                            <div class="latest-prdouct__slider__item">
-                                                @foreach ($item as $variation)
-                                                    <a href="{{ route('front.single', ['slug' => $variation->product->slug, 'var' => $variation->id]) }}"
-                                                        class="latest-product__item">
-                                                        <div class="latest-product__item__pic">
-                                                            <img src="{{ isset($variation->product->images[0]->filename) ? url('storage/' . $variation->product->images[0]->filename) : asset('static/f/img/product/product-1.jpg') }}"
-                                                                alt="">
-                                                        </div>
-                                                        <div class="latest-product__item__text">
-                                                            <h6>{{ $variation['name_' . app()->getLocale()] }}</h6>
-                                                            <span>৳{{ $variation->price }}</span>
-                                                        </div>
-                                                    </a>
-                                                @endforeach
-                                            </div>
-                                        @endforeach
-                                    @endif --}}
                                 </div>
                             </div>
                         </div>
@@ -267,9 +228,10 @@
                     </div>
                     <div class="row ">
                         @foreach ($products as $key => $product)
-                            <div class="col-lg-4 col-md-6 col-sm-6{{ $product->id }}">
-                                <div class="carousel slide" data-ride="carousel">
-                                    <div class="carousel-inner ">
+                            <div class="col-6 col-lg-4 col-md-6">
+                                <div class="carousel slide" data-ride="carousel" id="carousel_{{ $product->id }}"
+                                    data-touch="true">
+                                    <div class="carousel-inner">
                                         @foreach ($product->variations->where('district_id', session('district')) as $var_key => $variation)
                                             <div
                                                 class="carousel-item @if ($loop->index == 0) active @endif {{ $var_key }}">
@@ -286,8 +248,8 @@
                                                                 title="Add to Favorite.">
                                                                 <a
                                                                     onclick="document.querySelector('#form-{{ $variation->id . $product->id }}').submit()"><i
-                                                                        class="fa fa-heart @if (auth()->user() &&
-                                                                                auth()->user()->loved_products->contains($product->id)) text-danger @endif"></i></a>
+                                                                        class="@if (auth()->user() &&
+                                                                                auth()->user()->loved_products->contains($product->id)) icon_heart text-danger @else icon_heart_alt @endif"></i></a>
                                                             </li>
                                                             <form hidden id="form-{{ $variation->id . $product->id }}"
                                                                 action="{{ route('front.store_love', ['product' => $product->id]) }}"
@@ -368,6 +330,25 @@
                 var newUrl = path + '?' + param_list;
                 window.location.href = newUrl;
             });
+            $('#filter_dep_form select').change(function(e) {
+                e.preventDefault();
+                var path = $(location).attr('href').split('?')[0];
+                var params = {};
+                location.search.replace(/[?&]+([^=&]+)=([^&]*)/gi, function(s, k, v) {
+                    params[k] = v
+                });
+                params['category_id'] = $(this).val();
+                var param_list = '';
+                for (const key in params) {
+                    if (Object.hasOwnProperty.call(params, key)) {
+                        const element = params[key];
+                        param_list += key + '=' + element + '&';
+                    }
+                }
+                var newUrl = path + '?' + param_list;
+                window.location.href = newUrl;
+            });
+
             $('.price_car').owlCarousel({
                 loop: true,
                 margin: 10,
@@ -384,7 +365,14 @@
                     }
                 }
             })
+            var stickyOffset = $(".sidebar").offset().top;
 
+            $(window).scroll(function() {
+                var sticky = $(".sidebar"),
+                    scroll = $(window).scrollTop();
+                if (scroll >= stickyOffset) sticky.addClass("fixed");
+                else sticky.removeClass("fixed");
+            });
         });
     </script>
 @endpush

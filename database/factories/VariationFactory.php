@@ -17,16 +17,16 @@ class VariationFactory extends Factory
      */
     public function definition()
     {
-        $name = $this->faker->words(3, true);
+        $name = $this->faker->randomFloat(2, 2, 5);
         return [
-            "name_en" => $name,
-            "name_bn" => "বাংলা" . $name,
+            "name_en" => $name . 'K.G.',
+            "name_bn" => $name .  'K.G.',
             "slug" => Str::slug($name),
             'district_id' => fake()->randomElement(['1', '2']),
             "desc_en" => $this->faker->sentences(4, true),
             "desc_bn" => "বাংলা" . $this->faker->sentences(4, true),
-            "weight" => str($this->faker->randomFloat(2, 2, 5)),
-            "gross_weight" => str($this->faker->randomFloat(2, 3, 5)),
+            "weight" => str($name),
+            "gross_weight" => str($name),
             'stock' => random_int(0, 10),
             'price' => floatval(random_int(10, 100)),
             'discounted_from_price' => floatval(random_int(10, 100)),

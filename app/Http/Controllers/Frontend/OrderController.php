@@ -27,6 +27,12 @@ class OrderController extends Controller
             'phone' => 'required',
             'email' => 'required',
             'pay' => 'required',
+        ], [
+            'first_name.string' => 'First Name must be a string.',
+            'last_name.string' => 'Last Name must be a string.',
+            'phone.required' => 'A phone number is required.',
+            'email.required' => 'An email number is required.',
+            'pay.required' => 'Select a payment method.',
         ]);
         if ($validate->fails()) {
             return redirect()->back()->withErrors($validate)->withInput();
@@ -67,9 +73,9 @@ class OrderController extends Controller
             DB::table('coupons')->where('id', session('cart.coupon'))->update(['avaliable' => DB::raw('avaliable - 1')]);
         }
         auth()->user()->profile->increment('point', intval($total));
+        session()->forget(['cart.items', 'cart.qty', 'cart.weight', 'cart.subTotal', 'cart.discount', 'cart.coupon']);
         Notification::send(User::where('type', 'admin')->get(), new NewOrderNotification($order));
         Mail::to(auth()->user())->send(new OrderReceivedMail($order));
-        session()->forget(['cart.items', 'cart.qty', 'cart.weight', 'cart.subTotal', 'cart.discount', 'cart.coupon']);
         return redirect()->route('order.invoice', $order->order_id);
     }
 

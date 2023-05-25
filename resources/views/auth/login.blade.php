@@ -62,14 +62,14 @@
                             or sign up using
                         </span>
                     </div>
-                    <div class="login100-form-social flex-c-m">
+                    {{-- <div class="login100-form-social flex-c-m">
                         <a href="#" class="login100-form-social-item flex-c-m bg1 m-r-5">
                             <i class="fa fa-facebook-f" aria-hidden="true"></i>
                         </a>
                         <a href="#" class="login100-form-social-item flex-c-m bg2 m-r-5">
                             <i class="fa fa-twitter" aria-hidden="true"></i>
                         </a>
-                    </div>
+                    </div> --}}
                 </form>
                 <div class="login100-more"
                     style="background-image: url('https://www.hsph.harvard.edu/nutritionsource/wp-content/uploads/sites/30/2021/09/shutterstock_403995229-copy.jpg');">

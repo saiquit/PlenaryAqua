@@ -43,7 +43,7 @@ Route::group([
         Route::delete('/address_delete/{address}', 'ProfileController@delete_address')->name('address_delete')->middleware(['auth', 'verified', 'role:customer']);
         // Route::post('/pass-update', 'ProfileController@update_pass')->name('update_pass')->middleware(['auth', 'verified', 'role:customer']);
         Route::post('/store-sub', 'StoreController@store_subscriber')->name('store-sub');
-        Route::get('/wishes', 'StoreController@love')->name('love');
+        Route::get('/wishes', 'StoreController@love')->name('love')->middleware(['auth', 'verified', 'role:customer']);
         //comment
         Route::post('/comment', 'CommentController@store')->name('store_comment');
         //additional pages
@@ -52,7 +52,7 @@ Route::group([
         Route::get('/terms', 'StoreController@terms')->name('terms');
         Route::get('/faq', 'StoreController@faq')->name('faq');
         //love product
-        Route::post('/love_store/{product}', 'LoveController@storeLove')->name('store_love');
+        Route::post('/love_store/{product}', 'LoveController@storeLove')->name('store_love')->middleware(['auth', 'verified', 'role:customer']);
     });
 
 
@@ -64,6 +64,7 @@ Route::group([
         Route::post('update', 'CartController@updateCart')->name('update');
         Route::post('delete', 'CartController@deleteItemFromCart')->name('delete');
         Route::post('discount', 'CartController@discount')->name('discount');
+        Route::post('redeem', 'CartController@redeem')->name('redeem');
     });
 
     Route::group([

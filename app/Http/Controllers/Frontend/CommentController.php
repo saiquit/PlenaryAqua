@@ -9,6 +9,12 @@ class CommentController extends Controller
 {
     public function store(Request $request)
     {
+        $request->validate([
+            'comment' => 'required|string'
+        ], [
+            'comment.required' => "Write something.",
+            'comment.string' => "Comment must be a string.",
+        ]);
         if (auth()->user()->orders->count()) {
             foreach (auth()->user()->orders as $key => $order) {
                 if (!$order->variations->contains('product_id', $request->product_id)) {

@@ -163,22 +163,22 @@
                                                         <!--begin::Title-->
                                                         <div class="ms-5">
                                                             <a href="/metronic8/demo34/../demo34/apps/ecommerce/catalog/edit-product.html"
-                                                                class="fw-bold text-gray-600 text-hover-primary">{{ $variation->name_en }}</a>
+                                                                class="fw-bold text-gray-600 text-hover-primary">{{ $variation->product->name_en }}</a>
                                                             {{-- <div class="fs-7 text-muted">Delivery Date: 12/04/2023</div> --}}
                                                         </div>
                                                         <!--end::Title-->
                                                     </div>
                                                 </td>
                                                 <td class="text-end">
-                                                    {{ $variation->sku }} </td>
+                                                    {{ $variation->product->sku }} </td>
                                                 <td class="text-end">
                                                     {{ $variation->pivot->qty }}
                                                 </td>
                                                 <td class="text-end">
-                                                    ${{ $variation->price }}
+                                                    ৳{{ $variation->price }}
                                                 </td>
                                                 <td class="text-end" style="text-align: right; font-weight: bold">
-                                                    ${{ $variation->price * $variation->pivot->qty }}
+                                                    ৳{{ $variation->price * $variation->pivot->qty }}
                                                 </td>
                                             </tr>
                                         @endforeach
@@ -187,7 +187,7 @@
                                                 Subtotal
                                             </td>
                                             <td style="text-align: right; font-weight: bold">
-                                                ${{ $order->sub_total }}
+                                                ৳{{ $order->sub_total }}
                                             </td>
                                         </tr>
                                         <tr>
@@ -195,9 +195,19 @@
                                                 Shipping
                                             </td>
                                             <td style="text-align: right; font-weight: bold">
-                                                ${{ $order->dl_total }}
+                                                ৳{{ $order->dl_total }}
                                             </td>
                                         </tr>
+                                        @if ($order->discount)
+                                            <tr>
+                                                <td colspan="4" style="text-align: right">
+                                                    Discount
+                                                </td>
+                                                <td style="text-align: right; font-weight: bold">
+                                                    ৳{{ $order->discount }}
+                                                </td>
+                                            </tr>
+                                        @endif
                                         <tr>
                                             <td colspan="4" class="fs-3 text-dark"
                                                 style="text-align: right; font-weight: bold">
@@ -205,7 +215,7 @@
                                             </td>
                                             <td class="text-dark fs-3 fw-bolder"
                                                 style="text-align: right; font-weight: bold">
-                                                ${{ $order->total }}
+                                                ৳{{ $order->total }}
                                             </td>
                                         </tr>
                                     </tbody>

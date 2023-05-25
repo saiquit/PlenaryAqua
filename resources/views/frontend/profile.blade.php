@@ -2,6 +2,60 @@
 @section('title')
     Profile
 @endsection
+@push('css')
+    <style>
+        .modal-body {
+            background-color: #fff;
+            border-color: #fff;
+
+        }
+
+
+        .close {
+            color: #000;
+            cursor: pointer;
+        }
+
+        .close:hover {
+            color: #000;
+        }
+
+
+        .theme-color {
+
+            color: #1a632d;
+        }
+
+        hr.new1 {
+            border-top: 2px dashed #fff;
+            margin: 0.4rem 0;
+        }
+
+
+        /* .btn-primary {
+                            color: #fff;
+                            background-color: #1a632d;
+                            border-color: #1a632d;
+                            padding: 12px;
+                            padding-right: 30px;
+                            padding-left: 30px;
+                            border-radius: 1px;
+                            font-size: 17px;
+                        }
+
+
+                        .btn-primary:hover {
+                            color: #fff;
+                            background-color: #1a632d;
+                            border-color: #1a632d;
+                            padding: 12px;
+                            padding-right: 30px;
+                            padding-left: 30px;
+                            border-radius: 1px;
+                            font-size: 17px;
+                        } */
+    </style>
+@endpush
 @section('main')
     <section class="py-5 my-5">
         <div class="container px-5">
@@ -118,7 +172,6 @@
                                     <div class="checkout__input">
                                         <p>Type<span>*</span></p>
                                         <select name="type" class="w-100 wide mb-3" id="">
-                                            <option disabled selected value>None</option>
                                             <option value="home">
                                                 Home</option>
                                             <option value="work">
@@ -232,12 +285,11 @@
                                                     <tr class="align-self-center">
                                                         <th>Order ID</th>
                                                         <th>Product Name</th>
-                                                        <th>Payment Type</th>
-                                                        <th>Paid Date</th>
+                                                        <th>Order Date</th>
                                                         <th>Amount</th>
                                                         <th>Transaction</th>
                                                         <th>Shipping</th>
-                                                        <th>Items</th>
+                                                        <th>Show Items</th>
                                                     </tr>
                                                 </thead>
                                                 <tbody>
@@ -246,7 +298,6 @@
                                                             <td>#{{ $order->order_id }}
                                                             </td>
                                                             <td>{{ $order->first_name . ' ' . $order->last_name }}</td>
-                                                            <td>{{ $order->payment_method }}</td>
                                                             <td>{{ $order->created_at->format('d/m/Y') }}</td>
                                                             <td>৳{{ $order->total }}</td>
                                                             <td>
@@ -257,12 +308,80 @@
                                                                 <span
                                                                     class="badge @switch($order->shipping_status) @case('pending') badge-info @break @case('shipping') badge-warning @break @case('shipped') badge-warning @break @default badge-success @endswitch badge-boxed badge-soft-warning">{{ $order->payment }}</span>
                                                             </td>
-                                                            <td onclick="showProducts({{ $order->id }})"><i
-                                                                    class="fa fa-chevron-down"></i>
-                                                            </td>
+                                                            <td><button class="btn btn-primary" data-toggle="modal"
+                                                                    data-target="#vars_{{ $order->id }}"><i
+                                                                        class="icon_bag_alt"></i></button></td>
                                                         </tr>
-                                                        <tr id="vars_{{ $order->id }}" class="card my-3"
-                                                            style="display: none;">
+                                                        <div class="modal fade" id="vars_{{ $order->id }}"
+                                                            tabindex="-1" role="dialog"
+                                                            aria-labelledby="vars_{{ $order->id }}_Label"
+                                                            aria-hidden="true">
+                                                            <div class="modal-dialog">
+                                                                <div class="modal-content">
+                                                                    <div class="modal-body ">
+                                                                        <div class="text-right"> <i
+                                                                                class="fa fa-close close"
+                                                                                data-dismiss="modal"></i> </div>
+
+                                                                        <div class="px-4 py-5">
+                                                                            <h5 class="text-uppercase">
+                                                                                {{ $order->first_name . ' ' . $order->last_name }}
+                                                                            </h5>
+                                                                            <h4 class="mt-5 theme-color mb-5">Thanks for
+                                                                                your order</h4>
+
+                                                                            <span class="theme-color">Payment
+                                                                                Summary</span>
+                                                                            <div class="mb-3">
+                                                                                <hr class="new1">
+                                                                            </div>
+                                                                            @foreach ($order->variations as $variation)
+                                                                                <div
+                                                                                    class="d-flex justify-content-between">
+                                                                                    <span
+                                                                                        class="font-weight-bold">{{ $variation->product->name_en }}(Qty:{{ $variation->pivot->qty }})</span>
+                                                                                    <span
+                                                                                        class="text-muted">৳{{ $variation->pivot->qty * $variation->price }}</span>
+                                                                                </div>
+                                                                            @endforeach
+                                                                            <div class="d-flex justify-content-between">
+                                                                                <small>Sub total</small>
+                                                                                <small>৳{{ $order->sub_total }}.00</small>
+                                                                            </div>
+                                                                            <div class="d-flex justify-content-between">
+                                                                                <small>Shipping</small>
+                                                                                <small>৳{{ $order->dl_total }}</small>
+                                                                            </div>
+                                                                            @if ($order->discount)
+                                                                                <div
+                                                                                    class="d-flex justify-content-between">
+                                                                                    <small>Discount</small>
+                                                                                    <small>৳{{ $order->discount }}</small>
+                                                                                </div>
+                                                                            @endif
+                                                                            <div
+                                                                                class="d-flex justify-content-between mt-3">
+                                                                                <span class="font-weight-bold">Total</span>
+                                                                                <span
+                                                                                    class="font-weight-bold theme-color">৳{{ $order->total }}</span>
+                                                                            </div>
+                                                                            <div class="text-center mt-5">
+                                                                                <button class="btn btn-primary">Track your
+                                                                                    order</button>
+                                                                                <a
+                                                                                    href="{{ route('order.invoice', ['order' => $order->order_id]) }}">
+                                                                                    <button
+                                                                                        class="btn btn-primary">Invoice</button></a>
+                                                                            </div>
+
+                                                                        </div>
+
+
+                                                                    </div>
+                                                                </div>
+                                                            </div>
+                                                        </div>
+                                                        {{-- <tr id="" class="card my-3" style="display: none;">
                                                             <td colspan="100%">
                                                                 <table class="w-100">
                                                                     <tr class="align-self-center">
@@ -291,7 +410,7 @@
                                                                     @endforeach
                                                                 </table>
                                                             </td>
-                                                        </tr>
+                                                        </tr> --}}
                                                     @endforeach
                                                 </tbody>
                                             </table>

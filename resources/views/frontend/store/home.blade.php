@@ -4,7 +4,7 @@
 @endsection
 
 @section('main')
-    <section id="services" class="my-lg-14 my-8">
+    <section id="services" class="my-lg-14 my-8 mx-sm-1">
         <div class="container">
             {{-- <div class="section-title">
                 <h2>Our Services</h2>
@@ -104,7 +104,7 @@
             <div class="row featured__filter">
                 @foreach ($featured as $variation)
                     <div
-                        class="col-lg-3 col-md-6 col-sm-6 mix @foreach ($variation->product->categories as $category) {{ $category['slug'] }} @endforeach">
+                        class="col-6 col-lg-3 col-md-6 mix @foreach ($variation->product->categories as $category) {{ $category['slug'] }} @endforeach">
                         <div class="product__discount__item">
                             <div class="product__discount__item__pic set-bg"
                                 data-setbg="{{ isset($variation->product->images[0]->filename) ? url('storage/' . $variation->product->images[0]->filename) : asset('static/f/img/product/product-1.jpg') }}">
@@ -114,10 +114,8 @@
                                 @endisset
                                 <ul class="product__item__pic__hover">
                                     <li><a onclick="document.querySelector('#form-{{ $variation->id }}').submit()"><i
-                                                class="fa fa-heart 
-                                                @if (auth()->user() &&
-                                                        auth()->user()->loved_products->contains($variation->product->id)) bg-red @endif
-                                                "></i></a>
+                                                class="@if (auth()->user() &&
+                                                        auth()->user()->loved_products->contains($variation->product->id)) icon_heart text-danger @else icon_heart_alt @endif"></i></a>
                                     </li>
                                     <form hidden id="form-{{ $variation->id }}"
                                         action="{{ route('front.store_love', ['product' => $variation->product->id]) }}"
@@ -192,20 +190,20 @@
                     <div class="row wrap-service12">
                         <div class="col-md-6">
                             <div class="row">
-                                <div class="col-md-12 img-hover mb-4"><img
+                                <div class="col-6 col-md-12 img-hover mb-4"><img
                                         src="{{ asset('static/f/img/product/discount/pd-1.jpg') }}"
                                         class="rounded img-shadow img-fluid" alt="wrapkit" /></div>
-                                <div class="col-md-12 img-hover mb-4"><img
+                                <div class="col-6 col-md-12 img-hover mb-4"><img
                                         src="{{ asset('static/f/img/product/discount/pd-1.jpg') }}"
                                         class="rounded img-shadow img-fluid" alt="wrapkit" /></div>
                             </div>
                         </div>
                         <div class="col-md-6 uneven-box">
                             <div class="row">
-                                <div class="col-md-12 img-hover mb-4"><img
+                                <div class="col-6 col-md-12 img-hover mb-4"><img
                                         src="{{ asset('static/f/img/product/discount/pd-1.jpg') }}"
                                         class="rounded img-shadow img-fluid" alt="wrapkit" /></div>
-                                <div class="col-md-12 img-hover mb-4"><img
+                                <div class="col-6 col-md-12 img-hover mb-4"><img
                                         src="{{ asset('static/f/img/product/discount/pd-1.jpg') }}"
                                         class="rounded img-shadow img-fluid" alt="wrapkit" /></div>
                             </div>
@@ -264,7 +262,7 @@
                                                 <img src="/static/f/img/latest-product/lp-1.jpg" alt="">
                                             </div>
                                             <div class="latest-product__item__text">
-                                                <h6>{{ $variation['name_' . app()->getLocale()] }}</h6>
+                                                <h6>{{ $variation->product['name_' . app()->getLocale()] }}</h6>
                                                 <span>৳{{ $variation->price }}</span>
                                             </div>
                                         </a>
@@ -288,7 +286,7 @@
                                                 <img src="/static/f/img/latest-product/lp-1.jpg" alt="">
                                             </div>
                                             <div class="latest-product__item__text">
-                                                <h6>{{ $variation['name_' . app()->getLocale()] }}</h6>
+                                                <h6>{{ $variation->product['name_' . app()->getLocale()] }}</h6>
                                                 <span>৳{{ $variation->price }}</span>
                                             </div>
                                         </a>

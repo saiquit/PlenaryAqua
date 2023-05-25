@@ -21,12 +21,12 @@ class DatabaseSeeder extends Seeder
         ]);
         \App\Models\User::factory([
             'email' => 'customer@plenaryaqua.com',
-            'password' => bcrypt('GxDNTBtrbE6a'),
+            'password' => bcrypt('password'),
         ])->create();
         \App\Models\User::factory([
             'email' => 'support@plenaryaqua.com',
             'type'  => 'admin',
-            'password' => bcrypt('7a[NHUF8$P=%'),
+            'password' => bcrypt('password'),
         ])->create();
         \App\Models\District::factory()->create([
             'name_en' => 'Dhaka',

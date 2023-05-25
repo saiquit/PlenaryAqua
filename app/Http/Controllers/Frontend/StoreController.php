@@ -43,9 +43,6 @@ class StoreController extends Controller
         $product_q->whereHas('variations', function ($p) use ($request) {
             $p->where('district_id', session('district'));
         });
-        // $top_rated = $variations_q->whereHas('tags', function ($q) {
-        //     $q->where('slug', 'top-rated');
-        // })->latest()->inRandomOrder()->limit(9)->get()->chunk(3);
 
         if ($request->category_id) {
             $product_q->whereHas('categories', function ($q) use ($request) {
@@ -84,9 +81,16 @@ class StoreController extends Controller
         } else {
             $variation = $product->variations()->where('district_id', session('district'))->get()[0]->id;
         }
+        $related_products = Product::whereHas('categories', function ($c) use ($product) {
+            $c->whereIn('category_id', $product->categories->pluck('id')->toArray());
+        })->whereHas('variations', function ($p) {
+            $p->where('district_id', session('district'));
+        })->latest()->limit(8)->get();
+
         return view('frontend.store.single-product', [
             'product' => $product,
             'var' => $variation,
+            'related_products' => $related_products
         ]);
     }
     public function selectDistrict(Request $request, $district)
