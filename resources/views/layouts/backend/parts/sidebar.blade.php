@@ -104,7 +104,7 @@
                 <li>
                     <a href="{{ route('admin.dashboard') }}"
                         class="dropdown-toggle no-arrow @if (Route::is('admin.dashboard')) active @endif">
-                        <span class="micon bi bi-diagram-3"></span><span class="mtext">Dashboard</span>
+                        <span class="micon icon-copy dw dw-property"></span><span class="mtext">Dashboard</span>
                     </a>
                 </li>
                 <li class="dropdown">
@@ -120,7 +120,7 @@
                 <li>
                     <a href="{{ route('admin.blogs.index') }}"
                         class="dropdown-toggle no-arrow @if (Route::is('admin.blogs.index')) active @endif">
-                        <span class="micon bi bi-diagram-3"></span><span class="mtext">Blogs</span>
+                        <span class="micon icon-copy dw dw-newspaper"></span><span class="mtext">Blogs</span>
                     </a>
                 </li>
                 <li>
@@ -132,41 +132,42 @@
                 <li>
                     <a href="{{ route('admin.tags.index') }}"
                         class="dropdown-toggle no-arrow @if (Route::is('admin.tags.index')) active @endif">
-                        <span class="micon bi bi-diagram-3"></span><span class="mtext">Tag</span>
+                        <span class="micon icon-copy dw dw-tag"></span><span class="mtext">Tag</span>
                     </a>
                 </li>
                 <li>
                     <a href="{{ route('admin.delivery.index') }}"
                         class="dropdown-toggle no-arrow @if (Route::is('admin.delivery.index')) active @endif">
-                        <span class="micon bi bi-diagram-3"></span><span class="mtext">Delivery Cost</span>
+                        <span class="micon icon-copy dw dw-delivery-truck"></span><span class="mtext">Delivery
+                            Cost</span>
                     </a>
                 </li>
 
                 <li>
                     <a href="{{ route('admin.coupons.index') }}"
                         class="dropdown-toggle no-arrow @if (Route::is('admin.coupons.index')) active @endif">
-                        <span class="micon bi bi-diagram-3"></span><span class="mtext">Coupons</span>
+                        <span class="micon icon-copy dw dw-coupon"></span><span class="mtext">Coupons</span>
                     </a>
                 </li>
 
                 <li>
                     <a href="{{ route('admin.orders.index') }}"
                         class="dropdown-toggle no-arrow @if (Route::is('admin.orders.index')) active @endif">
-                        <span class="micon bi bi-diagram-3"></span><span class="mtext">Orders</span>
+                        <span class="micon icon-copy dw dw-shopping-bag"></span><span class="mtext">Orders</span>
                     </a>
                 </li>
 
                 <li>
                     <a href="{{ route('admin.page.index') }}"
                         class="dropdown-toggle no-arrow @if (Route::is('admin.page.index')) active @endif">
-                        <span class="micon bi bi-diagram-3"></span><span class="mtext">Pages</span>
+                        <span class="micon icon-copy dw dw-page1"></span><span class="mtext">Pages</span>
                     </a>
                 </li>
 
                 <li>
                     <a href="{{ route('admin.faqs.index') }}"
                         class="dropdown-toggle no-arrow @if (Route::is('admin.faqs.index')) active @endif">
-                        <span class="micon bi bi-diagram-3"></span><span class="mtext">FAQ</span>
+                        <span class="micon icon-copy dw dw-question"></span><span class="mtext">FAQ</span>
                     </a>
                 </li>
 
@@ -192,7 +193,7 @@
 
                 <li>
                     <a class="dropdown-toggle no-arrow" onclick="document.querySelector('#logout').submit()">
-                        <span class="micon bi bi-diagram-3"></span><span class="mtext">Logout</span>
+                        <span class="micon icon-copy dw dw-logout1"></span><span class="mtext">Logout</span>
                     </a>
                     <form id="logout" action="{{ route('logout') }}" method="post">
                         @csrf

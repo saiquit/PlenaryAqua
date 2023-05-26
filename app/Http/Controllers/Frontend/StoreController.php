@@ -85,6 +85,8 @@ class StoreController extends Controller
             $c->whereIn('category_id', $product->categories->pluck('id')->toArray());
         })->whereHas('variations', function ($p) {
             $p->where('district_id', session('district'));
+        })->whereDoesntHave('variations', function ($v) use ($variation) {
+            $v->where('id', $variation);
         })->latest()->limit(8)->get();
 
         return view('frontend.store.single-product', [

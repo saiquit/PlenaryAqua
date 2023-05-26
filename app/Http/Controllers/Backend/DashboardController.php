@@ -36,10 +36,10 @@ class DashboardController extends Controller
         $order_var = DB::table('order_variation')->get();
         foreach ($order_var as $key => $item) {
             // dump(Variation::find($item->variation_id)->name_en);
-            if (isset($pi_data[Variation::find($item->variation_id)->name_en])) {
-                $pi_data[Variation::find($item->variation_id)->name_en] += 1;
+            if (isset($pi_data[Variation::find($item->variation_id)->product->name_en])) {
+                $pi_data[Variation::find($item->variation_id)->product->name_en] += 1;
             } else {
-                $pi_data[Variation::find($item->variation_id)->name_en] = 1;
+                $pi_data[Variation::find($item->variation_id)->product->name_en] = 1;
             }
         }
         $orders = Order::where('shipping_status', '!=', 'delivered')->latest()->get();

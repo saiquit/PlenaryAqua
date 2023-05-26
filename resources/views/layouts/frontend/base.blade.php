@@ -3,11 +3,13 @@
 
 <head>
     <meta charset="UTF-8">
-    <meta name="description" content="Ogani Template">
-    <meta name="keywords" content="Ogani, unica, creative, html">
+    <meta name="description" content="Plenary Aqua">
+    <meta name="keywords"
+        content="Plenary Aqua, plenary, aqua, fish, {{ join(', ',request()->categories->pluck('name_en')->toArray()) }}">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
     <meta name="csrf-token" content="{{ csrf_token() }}" />
+    @yield('meta')
     <title>Plenary Aqua | @yield('title')</title>
     <!-- Site favicon -->
     <link rel="apple-touch-icon" sizes="180x180" href="{{ asset('static/f/apple-touch-icon.png') }}" />
@@ -26,7 +28,7 @@
     <link rel="stylesheet" href="{{ asset('static/f/css/jquery-ui.min.css') }}" type="text/css">
     <link rel="stylesheet" href="{{ asset('static/f/css/owl.carousel.min.css') }}" type="text/css">
     <link rel="stylesheet" href="{{ asset('static/f/css/slicknav.min.css') }}" type="text/css">
-    <link rel="stylesheet" href="{{ asset('static/f/css/style.css') }}" type="text/css">
+    <link rel="stylesheet" href="{{ asset('static/f/css/style.min.css') }}" type="text/css">
     {{-- @vite(['resources/css/rfront.css']) --}}
     @stack('css')
 
@@ -149,7 +151,7 @@
     <script src="{{ asset('static/f/js/mixitup.min.js') }}"></script>
     <script src="{{ asset('static/f/js/owl.carousel.min.js') }}"></script>
     {{-- <script src="{{ asset('static/f/js/alpine.min.js') }}"></script> --}}
-    <script src="{{ asset('static/f/js/main.js') }}"></script>
+    <script src="{{ asset('static/f/js/main.min.js') }}"></script>
     {{-- <script src='https://cdn.jsdelivr.net/npm/botman-web-widget@0/build/js/widget.js'></script> --}}
     {{-- @vite(['resources/js/front.js']) --}}
     <script>

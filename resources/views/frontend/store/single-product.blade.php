@@ -2,6 +2,10 @@
 @section('title')
     {{ $product->name_en }}
 @endsection
+@section('meta')
+    <meta name="keywords"
+        content="{{ $product->name_en }} , {{ $product->name_bn }}, {{ $product->name_en . ' in Bangladesh.' }}">
+@endsection
 
 @section('main')
     <!-- Breadcrumb Section Begin -->

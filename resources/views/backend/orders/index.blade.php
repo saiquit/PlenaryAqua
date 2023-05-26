@@ -18,12 +18,10 @@
                         <th class="table-plus">ID</th>
                         <th class="table-plus datatable-nosort">Shiping</th>
                         <th class="table-plus datatable-nosort">Phone</th>
-                        <th class="table-plus datatable-nosort">User</th>
                         <th>Total</th>
                         <th>Quantity</th>
                         <th>Weight</th>
                         <th>Payment Status</th>
-                        <th>Method</th>
                         <th>District, Upazila</th>
                         <th>Area</th>
                         <th>Order Date</th>
@@ -54,21 +52,19 @@
                                 </form>
                             </td>
                             <td>{{ $order->phone }}</td>
-                            <td>{{ $order->user->name }}</td>
                             <td>৳{{ $order->total }}</td>
                             <td>{{ $order->qty_total }}</td>
                             <td>{{ $order->wt_total }} KG</td>
                             <td><span
                                     class="badge badge-pill @switch($order->payment) @case('pending') badge-info @break  @default badge-success @endswitch">{{ Str::ucfirst($order->payment) }}</span>
                             </td>
-                            <td>{{ $order->payment_method }}</td>
                             <td>{{ App\Models\District::find($order->district)->name_en }},
                                 {{ collect(DB::table('delivery')->find($order->upazila))['name_en'] }}</td>
                             <td>{{ $order->address }}</td>
                             <td>{{ $order->created_at->format('d/m/Y') }}</td>
                             <td>
                                 @foreach ($order->variations as $key => $variation)
-                                    <p>{{ $key + 1 }}.{{ $variation->name_en }} x <span
+                                    <p>{{ $key + 1 }} . {{ $variation->product->name_en }} x <span
                                             class="badge badge-pill badge-primary">{{ $variation->pivot->qty }}</span></p>
                                 @endforeach
                             </td>

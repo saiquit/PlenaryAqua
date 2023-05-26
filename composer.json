@@ -10,6 +10,7 @@
         "botman/driver-facebook": "^1.11",
         "botman/driver-web": "^1.5",
         "guzzlehttp/guzzle": "^7.5",
+        "karim007/laravel-bkash": "^2.0",
         "laravel/framework": "^9.19",
         "laravel/sanctum": "^3.0",
         "laravel/tinker": "^2.7",
