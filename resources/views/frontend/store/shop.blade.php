@@ -193,6 +193,9 @@
 @endsection
 
 @push('js')
+    <script type="text/javascript"
+        src="//cdnjs.cloudflare.com/ajax/libs/jqueryui-touch-punch/0.2.3/jquery.ui.touch-punch.min.js"></script>
+
     <script>
         $(document).ready(function() {
             $('#filter_sort_form select').change(function(e) {

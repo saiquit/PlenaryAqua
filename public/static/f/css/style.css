@@ -2519,6 +2519,12 @@ ul {
     .shoping__discount form input {
         width: 240px;
     }
+    .breadcrumb-section {
+        height: 150px;
+    }
+    .breadcrumb__text h2 {
+        font-size: 4rem;
+    }
 }
 @media only screen and (min-width: 768px) and (max-width: 991px) {
     .hero__categories {
@@ -2748,6 +2754,12 @@ ul {
     .product__discount__item__pic.set-bg {
         background-position: center;
         height: 160px;
+    }
+    .breadcrumb-section {
+        height: 150px;
+    }
+    .breadcrumb__text h2 {
+        font-size: 2rem;
     }
 }
 @media only screen and (max-width: 767px) {
