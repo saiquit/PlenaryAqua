@@ -2744,6 +2744,10 @@ ul {
     .hero__slider.owl-carousel.owl-carousel .owl-nav button.owl-prev {
         left: 5%;
     }
+    .product__discount__item__pic.set-bg {
+        background-position: center;
+        height: 160px;
+    }
 }
 @media only screen and (max-width: 767px) {
     .hero__categories {
@@ -3021,6 +3025,10 @@ ul {
         color: #fff;
         font-weight: 700;
     }
+    .product__discount__item__pic.set-bg {
+        background-position: center;
+        height: 160px;
+    }
 }
 @media only screen and (max-width: 479px) {
     .hero__search__form form .hero__search__categories {
@@ -3069,6 +3077,7 @@ ul {
     }
     .product__discount__item__pic.set-bg {
         background-position: center;
+        height: 160px;
     }
     #services {
         padding: 0 10px;

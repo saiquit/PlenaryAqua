@@ -50,6 +50,8 @@
                     </div>
                     <div class="col-lg-6 col-md-6">
                         <div class="product__details__text">
+                            <h3>{{ $product['name_' . app()->getLocale()] }}</h3>
+
                             <div class="btn-group" role="group" aria-label="">
                                 @foreach ($product->variations as $item)
                                     @if ($item->district_id == session('district'))
@@ -68,7 +70,6 @@
                                 @csrf
                                 <div>
                                     <div class="py-3"></div>
-                                    <h3>{{ $product['name_' . app()->getLocale()] }}</h3>
 
                                     <div class="product__details__price">
                                         @isset($variation->discounted_from_price)
