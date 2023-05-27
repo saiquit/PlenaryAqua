@@ -76,6 +76,7 @@
                 </g>
             </g>
         </svg>
+        <img src="{{ asset('/static/f/img/logo.png') }}" alt=""></a>
     </div>
     @include('layouts.frontend.parts.nav')
     @if (Route::is('front.home'))
