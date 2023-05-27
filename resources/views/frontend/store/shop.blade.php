@@ -198,6 +198,7 @@
 
     <script>
         $(document).ready(function() {
+            $('.price-range').draggable();
             $('#filter_sort_form select').change(function(e) {
                 e.preventDefault();
                 var path = $(location).attr('href').split('?')[0];
@@ -237,22 +238,7 @@
                 }
             });
 
-            $('.price_car').owlCarousel({
-                loop: true,
-                margin: 10,
-                nav: true,
-                responsive: {
-                    0: {
-                        items: 1
-                    },
-                    600: {
-                        items: 3
-                    },
-                    1000: {
-                        items: 5
-                    }
-                }
-            })
+
             var stickyOffset = $(".sidebar").offset().top;
 
             $(window).scroll(function() {
