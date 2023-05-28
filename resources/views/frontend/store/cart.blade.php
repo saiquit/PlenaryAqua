@@ -90,33 +90,35 @@
                     </div>
                 </div>
                 <div class="col-lg-6">
-                    <div class="shoping__continue">
-                        <div class="shoping__discount">
-                            <h5>Discount Codes</h5>
-                            <form method="POST" action="{{ route('cart.discount') }}">
-                                @csrf
-                                <input name="code" type="text" placeholder="Enter your coupon code">
-                                <button type="submit" class="site-btn">APPLY COUPON</button>
-                            </form>
-                        </div>
-                    </div>
-
-                    <div class="shoping__continue">
-                        <div class="shoping__discount">
-                            <h5>Redeem points</h5>
-                            <div class="d-flex justify-content-between">
-                                <p><b>Current:</b> {{ auth()->user()->profile->point }}</p>
-                                <p><b>Redeemable:</b> ৳{{ round(auth()->user()->profile->point / 100) }}</p>
-                            </div>
-                            @if (round(auth()->user()->profile->point / 100) >= 50)
-                                <form method="POST" action="{{ route('cart.redeem') }}">
+                    @auth
+                        <div class="shoping__continue">
+                            <div class="shoping__discount">
+                                <h5>Discount Codes</h5>
+                                <form method="POST" action="{{ route('cart.discount') }}">
                                     @csrf
-                                    <button type="submit" class="site-btn btn-block">Redeem
-                                        points</button>
+                                    <input name="code" type="text" placeholder="Enter your coupon code">
+                                    <button type="submit" class="site-btn">APPLY COUPON</button>
                                 </form>
-                            @endif
+                            </div>
                         </div>
-                    </div>
+
+                        <div class="shoping__continue">
+                            <div class="shoping__discount">
+                                <h5>Redeem points</h5>
+                                <div class="d-flex justify-content-between">
+                                    <p><b>Current:</b> {{ auth()->user()->profile->point }}</p>
+                                    <p><b>Redeemable:</b> ৳{{ round(auth()->user()->profile->point / 100) }}</p>
+                                </div>
+                                @if (round(auth()->user()->profile->point / 100) >= 50)
+                                    <form method="POST" action="{{ route('cart.redeem') }}">
+                                        @csrf
+                                        <button type="submit" class="site-btn btn-block">Redeem
+                                            points</button>
+                                    </form>
+                                @endif
+                            </div>
+                        </div>
+                    @endauth
                 </div>
                 <div class="col-lg-6">
                     <div class="shoping__checkout">

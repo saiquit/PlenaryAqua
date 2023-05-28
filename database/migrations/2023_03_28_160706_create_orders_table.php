@@ -27,6 +27,7 @@ return new class extends Migration
 
             $table->enum('payment', ['paid', 'pending'])->nullable()->default('pending');
             $table->enum('payment_method', ['bkash', 'cod', 'nagad'])->nullable();
+            $table->string('transection_id')->nullable();
             $table->enum('shipping_status', ['shipping', 'pending', 'shipped', 'delivered'])->nullable()->default('pending');
             $table->float('total')->nullable();
             $table->integer('qty_total')->nullable();
