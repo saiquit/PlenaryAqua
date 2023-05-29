@@ -100,16 +100,25 @@
             </div>
         </div>
     </section>
-
+    <section>
+        <div class="row loader_cover">
+            <div id="loading" class=" position-fixed" style="left: 50%;">
+                <div class="spinner-border" role="status">
+                    <span class="sr-only">Loading...</span>
+                </div>
+            </div>
+        </div>
+    </section>
     <section class="checkout spad">
         <div class="container">
-            {{-- <div class="row">
+            <div class="row">
                 <div class="col-lg-12">
-                    <h6><span class="icon_tag_alt"></span> Have a coupon? <a href="#">Click here</a> to enter your
+                    <h6><span class="icon_tag_alt"></span> Have a coupon? <a href="{{ route('front.cart', []) }}">Click
+                            here</a> to enter your
                         code
                     </h6>
                 </div>
-            </div> --}}
+            </div>
             <div class="checkout__form">
                 <h4>Billing/Shipping Details</h4>
                 <form id="checkout_form" action="{{ route('order.store') }}" method="POST">
@@ -269,7 +278,7 @@
                                 @endif
                                 <h5><b>Choose a Payment method</b></h5>
                                 <section class="payment mt-5">
-                                    <div>
+                                    {{-- <div>
                                         <input type="radio" id="control_01" name="pay" value="bkash" checked>
                                         <label for="control_01">
                                             <p>Bkash</p>
@@ -284,9 +293,9 @@
                                             <img src="https://logos-download.com/wp-content/uploads/2022/01/Nagad_Logo_full-498x700.png"
                                                 width="80" alt="">
                                         </label>
-                                    </div>
+                                    </div> --}}
                                     <div>
-                                        <input type="radio" id="control_03" name="pay" value="cod">
+                                        <input type="radio" id="control_03" name="pay" value="cod" checked>
                                         <label for="control_03">
                                             <p>Cash of delivery</p>
                                             <img src="https://icon-library.com/images/cash-on-delivery-icon/cash-on-delivery-icon-13.jpg"
@@ -295,8 +304,11 @@
                                     </div>
 
                                 </section>
-                                <button id="order_btn" type="submit" disabled class="btn btn-primary">PLACE
-                                    ORDER</button>
+                                <button id="order_btn" type="submit" disabled class="btn btn-primary">
+                                    <div class="spinner-border" role="status"><span class="sr-only">Loading...</span>
+                                    </div>
+                                    PLACE ORDER
+                                </button>
                             </div>
                         </div>
                     </div>
@@ -408,6 +420,7 @@
 @push('js')
     <script id="myScript" src="https://scripts.sandbox.bka.sh/versions/1.2.0-beta/checkout/bKash-checkout-sandbox.js">
     </script>
+    <!--checkout -->
     <script>
         $(function() {
             @if (auth()->user()->profile->addresses->where('active', 1)->count())
@@ -438,18 +451,18 @@
                 $('#total_cost').text(subTotal + parseFloat(selectedUpazila.cost) - parseFloat($(
                     '#discount').text()))
             });
-
-
-
         });
 
         let paymentID = '';
         let merchantInvoiceNumber = '';
 
         $('#checkout_form').on('submit', function(e) {
+            $('.loader_cover').css('display', 'flex');
+            $('#order_btn').attr('disabled', true);
+            // $('#preloder').show();
             e.preventDefault();
             var form_data = $(this).serializeArray();
-            var payment_m = $('input[name="pay"]', $(this)).val();
+            var payment_m = form_data.filter(i => i['name'] == 'pay')[0]['value'];
             $.post($(this).attr('action'), form_data,
                 function(data, textStatus, jqXHR) {
                     let request = {};
@@ -458,6 +471,13 @@
                     if (payment_m == 'bkash') {
                         // createPayment(request);
                         BkashPayment()
+                    } else if (payment_m == 'nagad') {
+                        url = "{{ route('nagad.pay') }}" + "?order_id=" + merchantInvoiceNumber;
+                        window.location.href = url;
+                    } else if (payment_m == 'cod') {
+                        url = "{{ route('order.invoice') }}" + "/" + merchantInvoiceNumber;
+                        window.location.href = url;
+
                     }
                 },
             );
@@ -469,12 +489,11 @@
             }
         });
 
-
         function BkashPayment() {
             //showLoading();
             // get token
             $.ajax({
-                url: "http://plenaryaqua.test/bkash/get-token",
+                url: window.location.origin + "/bkash/get-token",
                 type: 'POST',
                 contentType: 'application/json',
                 success: function(data) {
@@ -499,7 +518,7 @@
             },
             executeRequestOnAuthorization: function(request) {
                 $.ajax({
-                    url: 'http://plenaryaqua.test/bkash/execute-payment',
+                    url: window.location.origin + '/bkash/execute-payment',
                     type: 'POST',
                     contentType: 'application/json',
                     data: JSON.stringify({
@@ -514,7 +533,7 @@
                                 bKash.execute().onError();
                             }
                         } else {
-                            $.get('http://plenaryaqua.test/bkash/query-payment', {
+                            $.get(window.location.origin + '/bkash/query-payment', {
                                 payment_info: {
                                     payment_id: paymentID
                                 }
@@ -544,7 +563,7 @@
             // let request;
             // request['merchantInvoiceNumber'] = merchantInvoiceNumber
             $.ajax({
-                url: 'http://plenaryaqua.test/bkash/create-payment',
+                url: window.location.origin + '/bkash/create-payment',
                 data: JSON.stringify(request),
                 type: 'POST',
                 contentType: 'application/json',
@@ -566,7 +585,7 @@
         }
 
         function BkashSuccess(data) {
-            $.post('http://plenaryaqua.test/bkash/success', {
+            $.post(window.location.origin + '/bkash/success', {
                 payment_info: data
             }, function(res) {
                 location.reload()

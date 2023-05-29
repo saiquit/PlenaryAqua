@@ -162,13 +162,20 @@ Auth::routes(['verify' => true]);
 
 Route::group(['middleware' => ['auth']], function () {
     // Payment Routes for bKash
-    Route::get('/bkash/payment', [BkashPaymentController::class, 'index']);
-    Route::post('/bkash/get-token', [BkashPaymentController::class, 'getToken'])->name('bkash-get-token');
-    Route::post('/bkash/create-payment', [BkashPaymentController::class, 'createPayment'])->name('bkash-create-payment');
-    Route::post('/bkash/execute-payment', [BkashPaymentController::class, 'executePayment'])->name('bkash-execute-payment');
-    Route::get('/bkash/query-payment', [BkashPaymentController::class, 'queryPayment'])->name('bkash-query-payment');
-    Route::post('/bkash/success', [BkashPaymentController::class, 'bkashSuccess'])->name('bkash-success');
-    // Refund Routes for bKash
-    Route::get('/bkash/refund', [BkashPaymentController::class, 'refundPage'])->name('bkash-refund');
-    Route::post('/bkash/refund', [BkashPaymentController::class, 'refund'])->name('bkash-refund');
+    Route::get('/bkash/payment', [App\Http\Controllers\Frontend\BkashPaymentController::class, 'index']);
+    Route::get('/bkash/create-payment', [App\Http\Controllers\Frontend\BkashPaymentController::class, 'createPayment'])->name('bkash-create-payment');
+    Route::get('/bkash/callback', [App\Http\Controllers\Frontend\BkashPaymentController::class, 'callBack'])->name('bkash-callBack');
+
+    //search payment
+    Route::get('/bkash/search/{trxID}', [App\Http\Controllers\Frontend\BkashPaymentController::class, 'searchTnx'])->name('bkash-serach');
+
+    //refund payment routes
+    Route::get('/bkash/refund', [App\Http\Controllers\Frontend\BkashPaymentController::class, 'refund'])->name('bkash-refund');
+    Route::get('/bkash/refund/status', [App\Http\Controllers\Frontend\BkashPaymentController::class, 'refundStatus'])->name('bkash-refund-status');
+
+
+    //payment route for nagad
+    Route::get('nagad/pay', [App\Http\Controllers\Frontend\NagadController::class, 'pay'])->name('nagad.pay');
+    Route::get('nagad/callback', [App\Http\Controllers\Frontend\NagadController::class, 'callback']);
+    Route::get('nagad/refund/{paymentRefId}', [App\Http\Controllers\Frontend\NagadController::class, 'refund']);
 });

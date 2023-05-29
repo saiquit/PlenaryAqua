@@ -228,7 +228,8 @@
                                     @foreach ($order->variations as $variation)
                                         <tr>
                                             <td>1</td>
-                                            <td>{{ $variation['name_' . app()->getLocale()] }}</td>
+                                            <td>{{ $variation->product['name_' . app()->getLocale()] }}
+                                                ({{ $variation['name_' . app()->getLocale()] }})</td>
                                             <td>{{ $variation->pivot->qty }}</td>
                                             <td class="text-95">৳{{ $variation->price }}</td>
                                             <td class="text-secondary-d2">
@@ -291,7 +292,7 @@
 
                         <div>
                             <span class="text-secondary-d1 text-105">Thank you for your business</span>
-                            @if ($order->payment != 'paid')
+                            @if ($order->payment != 'paid' && $order->payment_method != 'cod')
                                 <a href="#" class="btn btn-info btn-bold px-4 float-right mt-3 mt-lg-0">Pay Now</a>
                             @endif
                         </div>

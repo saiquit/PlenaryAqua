@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "a7d9551055ec0840c37570e3247bb2d9",
+    "content-hash": "39cd0b95d7b2675d876107708edecc4f",
     "packages": [
         {
             "name": "botman/botman",
@@ -1366,17 +1366,17 @@
             "time": "2021-10-07T12:57:01+00:00"
         },
         {
-            "name": "karim007/laravel-bkash",
-            "version": "v2.0.0",
+            "name": "karim007/laravel-bkash-tokenize",
+            "version": "v2.0",
             "source": {
                 "type": "git",
-                "url": "https://github.com/karim-007/laravel-bkash.git",
-                "reference": "26d6a750304b55e4543d4a10d7ae9174cea1aebe"
+                "url": "https://github.com/karim-007/laravel-bkash-tokenize.git",
+                "reference": "4f1c9453448b1de85c875bae619d7d09bfe48e2e"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/karim-007/laravel-bkash/zipball/26d6a750304b55e4543d4a10d7ae9174cea1aebe",
-                "reference": "26d6a750304b55e4543d4a10d7ae9174cea1aebe",
+                "url": "https://api.github.com/repos/karim-007/laravel-bkash-tokenize/zipball/4f1c9453448b1de85c875bae619d7d09bfe48e2e",
+                "reference": "4f1c9453448b1de85c875bae619d7d09bfe48e2e",
                 "shasum": ""
             },
             "require": {
@@ -1388,16 +1388,16 @@
             "extra": {
                 "laravel": {
                     "providers": [
-                        "Karim007\\LaravelBkash\\BkashServiceProvider"
+                        "Karim007\\LaravelBkashTokenize\\BkashTokenizeServiceProvider"
                     ],
                     "aliases": {
-                        "LaravelBkash": "Karim007\\LaravelBkash\\LaravelBkash"
+                        "LaravelBkashTokenize": "Karim007\\LaravelBkashTokenize\\LaravelBkashTokenize"
                     }
                 }
             },
             "autoload": {
                 "psr-4": {
-                    "Karim007\\LaravelBkash\\": "src/"
+                    "Karim007\\LaravelBkashTokenize\\": "src/"
                 }
             },
             "notification-url": "https://packagist.org/downloads/",
@@ -1410,19 +1410,79 @@
                     "email": "karim.cse007@gmail.com"
                 }
             ],
-            "description": "This is bKash payment gateway for laravel",
+            "description": "This is bKash tokenize payment gateway for laravel",
             "keywords": [
                 "bkash",
                 "bkash-payment",
                 "bkash-payment-gateway",
                 "laravel-bkash",
-                "laravel-bkash-payment"
+                "laravel-bkash-payment",
+                "laravel-bkash-payment-tokenize"
             ],
             "support": {
-                "issues": "https://github.com/karim-007/laravel-bkash/issues",
-                "source": "https://github.com/karim-007/laravel-bkash/tree/v2.0.0"
+                "issues": "https://github.com/karim-007/laravel-bkash-tokenize/issues",
+                "source": "https://github.com/karim-007/laravel-bkash-tokenize/tree/v2.0"
             },
-            "time": "2023-05-18T10:18:41+00:00"
+            "time": "2023-05-19T10:11:27+00:00"
+        },
+        {
+            "name": "karim007/laravel-nagad",
+            "version": "v1.1",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/karim-007/laravel-nagad.git",
+                "reference": "5f3edf6d7c9ee8d436ba8380710ab7ce81591f5b"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/karim-007/laravel-nagad/zipball/5f3edf6d7c9ee8d436ba8380710ab7ce81591f5b",
+                "reference": "5f3edf6d7c9ee8d436ba8380710ab7ce81591f5b",
+                "shasum": ""
+            },
+            "require": {
+                "ext-openssl": "*",
+                "illuminate/support": "^6|^7|^8|^9|^10",
+                "php": "^7.4|^8.0|^8.1|^8.2"
+            },
+            "type": "library",
+            "extra": {
+                "laravel": {
+                    "providers": [
+                        "Karim007\\LaravelNagad\\NagadServiceProvider"
+                    ],
+                    "aliases": {
+                        "LaravelNagad": "Karim007\\LaravelNagad\\LaravelNagad"
+                    }
+                }
+            },
+            "autoload": {
+                "psr-4": {
+                    "Karim007\\LaravelNagad\\": "src/"
+                }
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "MIT"
+            ],
+            "authors": [
+                {
+                    "name": "Md abdul karim",
+                    "email": "karim.cse007@gmail.com"
+                }
+            ],
+            "description": "This is nagad payment gateway for laravel",
+            "keywords": [
+                "laravel-nagad",
+                "laravel-nagad-payment",
+                "nagad",
+                "nagad-payment",
+                "nagad-payment-gateway"
+            ],
+            "support": {
+                "issues": "https://github.com/karim-007/laravel-nagad/issues",
+                "source": "https://github.com/karim-007/laravel-nagad/tree/v1.1"
+            },
+            "time": "2023-05-18T19:16:30+00:00"
         },
         {
             "name": "laravel/framework",

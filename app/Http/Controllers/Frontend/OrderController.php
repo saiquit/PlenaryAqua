@@ -73,15 +73,14 @@ class OrderController extends Controller
             DB::table('coupons')->where('id', session('cart.coupon'))->update(['avaliable' => DB::raw('avaliable - 1')]);
         }
         auth()->user()->profile->increment('point', intval($total));
+        session()->forget(['cart.items', 'cart.qty', 'cart.weight', 'cart.subTotal', 'cart.discount', 'cart.coupon']);
+        Notification::send(User::where('type', 'admin')->get(), new NewOrderNotification($order));
+        Mail::to(auth()->user())->send(new OrderReceivedMail($order));
         if ($request->ajax()) {
             return response()->json([
                 'invoice_id' => $order->order_id,
             ], 200);
         }
-        // TODO: fix session on json
-        session()->forget(['cart.items', 'cart.qty', 'cart.weight', 'cart.subTotal', 'cart.discount', 'cart.coupon']);
-        Notification::send(User::where('type', 'admin')->get(), new NewOrderNotification($order));
-        Mail::to(auth()->user())->send(new OrderReceivedMail($order));
         return redirect()->route('order.invoice', $order->order_id);
     }
 
