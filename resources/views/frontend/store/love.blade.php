@@ -31,7 +31,7 @@
                                                 <div class="display-flex align-center">
                                                     <div class="img-product">
                                                         <img width="150"
-                                                            src="{{ isset($variation->product->images[0]->filename) ? url('storage/' . $variation->product->images[0]->filename) : asset('static/f/img/product/product-1.jpg') }}"
+                                                            src="{{ isset($variation->product->images[0]->filename) ? url('storage/' . $variation->product->images[0]->filename) : asset('static/default.jpg') }}"
                                                             alt="">
                                                     </div>
 
