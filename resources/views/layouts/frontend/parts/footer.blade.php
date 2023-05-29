@@ -25,10 +25,10 @@
                            <li><a href="{{ route('front.policy', []) }}">Return Policy</a></li>
                            {{-- <li><a href="#">Our Sitemap</a></li> --}}
                            <li><a href="{{ route('front.faq', []) }}">FAQ</a></li>
-                           <li><a href="#">Projects</a></li>
+                           <li><a href="{{ route('front.projects', []) }}">Projects</a></li>
+                           <li><a href="{{ route('front.contact', []) }}">Contact</a></li>
                        </ul>
                        <ul>
-                           <li><a href="{{ route('front.contact', []) }}">Contact</a></li>
                            {{-- <li><a href="#">Our Services</a></li> --}}
                            {{-- <li><a href="#">Innovation</a></li> --}}
                            {{-- <li><a href="#">Testimonials</a></li> --}}

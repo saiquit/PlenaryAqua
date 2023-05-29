@@ -8,6 +8,7 @@ use App\Models\Blog;
 use App\Models\Category;
 use App\Models\District;
 use App\Models\Product;
+use App\Models\Project;
 use App\Models\Variation;
 use Carbon\Carbon;
 use Illuminate\Http\Request;
@@ -187,5 +188,10 @@ class StoreController extends Controller
     public function faq()
     {
         return view('frontend.additional.faq');
+    }
+    public function projects()
+    {
+        $projects = Project::all();
+        return view('frontend.projects', compact('projects'));
     }
 }

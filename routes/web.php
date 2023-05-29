@@ -4,6 +4,7 @@ use App\Http\Controllers\Backend\BlogController;
 use App\Http\Controllers\Backend\CategoryController;
 use App\Http\Controllers\Backend\FAQController;
 use App\Http\Controllers\Backend\ProductController;
+use App\Http\Controllers\Backend\ProjectController;
 use App\Http\Controllers\Backend\VariationController;
 use App\Http\Controllers\Frontend\BkashPaymentController;
 use Illuminate\Support\Facades\Route;
@@ -47,6 +48,8 @@ Route::group([
         Route::get('/wishes', 'StoreController@love')->name('love')->middleware(['auth', 'verified', 'role:customer']);
         //comment
         Route::post('/comment', 'CommentController@store')->name('store_comment');
+        //projects
+        Route::get('/projects', 'StoreController@projects')->name('projects');
         //additional pages
         Route::get('/about', 'StoreController@about')->name('about');
         Route::get('/policy', 'StoreController@privacy')->name('policy');
@@ -96,6 +99,7 @@ Route::group([
         Route::resource('blogs', BlogController::class);
         Route::resource('tags', TagController::class);
         Route::resource('orders', OrderController::class);
+        Route::resource('projects', ProjectController::class);
         Route::resource('faqs', FAQController::class);
 
         //Pages Data
