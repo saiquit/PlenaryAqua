@@ -37,7 +37,8 @@
                             <td>{{ $product->comments->count() }}</td>
                             <td>
                                 @foreach ($product->categories as $cat)
-                                    <span class="badge badge-info">{{ $cat->name_en }}</span>
+                                    <span
+                                        class="badge @if ($cat->id % 2 == 0) badge-info @else badge-danger @endif">{{ $cat->name_en }}</span>
                                 @endforeach
                             </td>
                             <td>{{ $product->created_at->format('d/m/Y') }}</td>
