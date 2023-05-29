@@ -20,6 +20,7 @@
                         <th class="table-plus datatable-nosort">Name</th>
                         <th>Number of Variation</th>
                         <th>Number of Comments</th>
+                        <th>Categories</th>
                         <th>Start Date</th>
                         <th>Action</th>
                     </tr>
@@ -34,6 +35,11 @@
                                     {{ $product->name_en }}</a></td>
                             <td>{{ $product->variations->count() }}</td>
                             <td>{{ $product->comments->count() }}</td>
+                            <td>
+                                @foreach ($product->categories as $cat)
+                                    <span class="badge badge-info">{{ $cat->name_en }}</span>
+                                @endforeach
+                            </td>
                             <td>{{ $product->created_at->format('d/m/Y') }}</td>
                             <td>
                                 <div class="dropdown">
