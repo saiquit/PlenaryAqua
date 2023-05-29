@@ -87,7 +87,7 @@
                     </div>
                 </div>
             </div>
-            <form action="{{ route('front.contact') }}" method="POST">
+            <form action="{{ route('front.do_contact') }}" method="POST">
                 @csrf
                 <div class="row">
                     <div class="col-lg-6 col-md-6">

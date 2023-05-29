@@ -35,7 +35,7 @@ Route::group([
         Route::get('/set-district/{district?}', 'StoreController@selectDistrict')->name('set_district');
         Route::get('/cart', 'StoreController@cart')->name('cart');
         Route::get('/contact', 'StoreController@contact')->name('contact');
-        Route::post('/contact', 'StoreController@do_contact')->name('contact');
+        Route::post('/contact', 'StoreController@do_contact')->name('do_contact');
         Route::get('/checkout', 'StoreController@checkout')->name('checkout')->middleware(['auth', 'verified']);
         Route::get('/profile', 'ProfileController@profile')->name('profile')->middleware(['auth', 'verified', 'role:customer']);
         Route::post('/profile', 'ProfileController@update')->name('update_profile')->middleware(['auth', 'verified', 'role:customer']);
