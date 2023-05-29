@@ -249,79 +249,85 @@
     <section class="latest-product spad">
         <div class="container">
             <div class="row">
-                <div class="col-lg-4 col-md-6">
-                    <div class="latest-product__text">
-                        <h4>Latest Products</h4>
-                        <div class="latest-product__slider owl-carousel">
-                            @foreach ($latest as $item)
-                                <div class="latest-prdouct__slider__item">
-                                    @foreach ($item as $variation)
-                                        <a href="{{ route('front.single', ['slug' => $variation->product->slug, 'var' => $variation->id]) }}"
-                                            class="latest-product__item">
-                                            <div class="latest-product__item__pic">
-                                                <img src="{{ isset($variation->product->images[0]->filename) ? url('storage/' . $variation->product->images[0]->filename) : url('storage/default.jpg') }}"
-                                                    alt="">
-                                            </div>
-                                            <div class="latest-product__item__text">
-                                                <h6>{{ $variation->product['name_' . app()->getLocale()] }}</h6>
-                                                <span>৳{{ $variation->price }}</span>
-                                            </div>
-                                        </a>
-                                    @endforeach
-                                </div>
-                            @endforeach
+                @if ($latest->count())
+                    <div class="col-lg-4 col-md-6">
+                        <div class="latest-product__text">
+                            <h4>Latest Products</h4>
+                            <div class="latest-product__slider owl-carousel">
+                                @foreach ($latest as $item)
+                                    <div class="latest-prdouct__slider__item">
+                                        @foreach ($item as $variation)
+                                            <a href="{{ route('front.single', ['slug' => $variation->product->slug, 'var' => $variation->id]) }}"
+                                                class="latest-product__item">
+                                                <div class="latest-product__item__pic">
+                                                    <img src="{{ isset($variation->product->images[0]->filename) ? url('storage/' . $variation->product->images[0]->filename) : url('storage/default.jpg') }}"
+                                                        alt="">
+                                                </div>
+                                                <div class="latest-product__item__text">
+                                                    <h6>{{ $variation->product['name_' . app()->getLocale()] }}</h6>
+                                                    <span>৳{{ $variation->price }}</span>
+                                                </div>
+                                            </a>
+                                        @endforeach
+                                    </div>
+                                @endforeach
 
+                            </div>
                         </div>
                     </div>
-                </div>
-                <div class="col-lg-4 col-md-6">
-                    <div class="latest-product__text">
-                        <h4>Top Rated Products</h4>
-                        <div class="latest-product__slider owl-carousel">
-                            @foreach ($top_rated as $item)
-                                <div class="latest-prdouct__slider__item">
-                                    @foreach ($item as $variation)
-                                        <a href="{{ route('front.single', ['slug' => $variation->product->slug, 'var' => $variation->id]) }}"
-                                            class="latest-product__item">
-                                            <div class="latest-product__item__pic">
-                                                <img src="{{ isset($variation->product->images[0]->filename) ? url('storage/' . $variation->product->images[0]->filename) : url('storage/default.jpg') }}"
-                                                    alt="">
-                                            </div>
-                                            <div class="latest-product__item__text">
-                                                <h6>{{ $variation->product['name_' . app()->getLocale()] }}</h6>
-                                                <span>৳{{ $variation->price }}</span>
-                                            </div>
-                                        </a>
-                                    @endforeach
-                                </div>
-                            @endforeach
+                @endif
+                @if ($top_rated->count())
+                    <div class="col-lg-4 col-md-6">
+                        <div class="latest-product__text">
+                            <h4>Top Rated Products</h4>
+                            <div class="latest-product__slider owl-carousel">
+                                @foreach ($top_rated as $item)
+                                    <div class="latest-prdouct__slider__item">
+                                        @foreach ($item as $variation)
+                                            <a href="{{ route('front.single', ['slug' => $variation->product->slug, 'var' => $variation->id]) }}"
+                                                class="latest-product__item">
+                                                <div class="latest-product__item__pic">
+                                                    <img src="{{ isset($variation->product->images[0]->filename) ? url('storage/' . $variation->product->images[0]->filename) : url('storage/default.jpg') }}"
+                                                        alt="">
+                                                </div>
+                                                <div class="latest-product__item__text">
+                                                    <h6>{{ $variation->product['name_' . app()->getLocale()] }}</h6>
+                                                    <span>৳{{ $variation->price }}</span>
+                                                </div>
+                                            </a>
+                                        @endforeach
+                                    </div>
+                                @endforeach
+                            </div>
                         </div>
                     </div>
-                </div>
-                <div class="col-lg-4 col-md-6">
-                    <div class="latest-product__text">
-                        <h4>Review Products</h4>
-                        <div class="latest-product__slider owl-carousel">
-                            @foreach ($reviewd_products as $item)
-                                <div class="latest-prdouct__slider__item">
-                                    @foreach ($item as $variation)
-                                        <a href="{{ route('front.single', ['slug' => $variation->product->slug, 'var' => $variation->id]) }}"
-                                            class="latest-product__item">
-                                            <div class="latest-product__item__pic">
-                                                <img src="{{ isset($variation->product->images[0]->filename) ? url('storage/' . $variation->product->images[0]->filename) : url('storage/default.jpg') }}"
-                                                    alt="">
-                                            </div>
-                                            <div class="latest-product__item__text">
-                                                <h6>{{ $variation->product['name_' . app()->getLocale()] }}</h6>
-                                                <span>৳{{ $variation->price }}</span>
-                                            </div>
-                                        </a>
-                                    @endforeach
-                                </div>
-                            @endforeach
+                @endif
+                @if ($reviewd_products->count())
+                    <div class="col-lg-4 col-md-6">
+                        <div class="latest-product__text">
+                            <h4>Review Products</h4>
+                            <div class="latest-product__slider owl-carousel">
+                                @foreach ($reviewd_products as $item)
+                                    <div class="latest-prdouct__slider__item">
+                                        @foreach ($item as $variation)
+                                            <a href="{{ route('front.single', ['slug' => $variation->product->slug, 'var' => $variation->id]) }}"
+                                                class="latest-product__item">
+                                                <div class="latest-product__item__pic">
+                                                    <img src="{{ isset($variation->product->images[0]->filename) ? url('storage/' . $variation->product->images[0]->filename) : url('storage/default.jpg') }}"
+                                                        alt="">
+                                                </div>
+                                                <div class="latest-product__item__text">
+                                                    <h6>{{ $variation->product['name_' . app()->getLocale()] }}</h6>
+                                                    <span>৳{{ $variation->price }}</span>
+                                                </div>
+                                            </a>
+                                        @endforeach
+                                    </div>
+                                @endforeach
+                            </div>
                         </div>
                     </div>
-                </div>
+                @endif
             </div>
         </div>
     </section>
