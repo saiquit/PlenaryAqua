@@ -94,6 +94,7 @@
                     <tr>
                         <th class="table-plus datatable-nosort">ID</th>
                         <th class="table-plus datatable-nosort">Name</th>
+                        <th class="table-plus datatable-nosort">Products</th>
                         <th>Start Date</th>
                         <th>Action</th>
                     </tr>
@@ -103,6 +104,7 @@
                         <tr>
                             <td class="table-plus">{{ $category->id }}</td>
                             <td>{{ $category->name_en }}</td>
+                            <td>{{ $category->products->count() }}</td>
                             <td>{{ $category->created_at->format('d/m/Y') }}</td>
                             <td>
                                 <div class="d-inline-flex">
