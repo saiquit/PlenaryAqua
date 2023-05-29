@@ -37,7 +37,7 @@
                         <div class="product__details__pic">
                             <div class="product__details__pic__item">
                                 <img class="product__details__pic__item--large"
-                                    src="{{ isset($variation->product->images[0]->filename) ? url('storage/' . $variation->product->images[0]->filename) : asset('static/b/src/images/product-1.jpg') }}"
+                                    src="{{ isset($variation->product->images[0]->filename) ? url('storage/' . $variation->product->images[0]->filename) : url('storage/default.jpg') }}"
                                     alt="">
                             </div>
                             <div class="product__details__pic__slider owl-carousel">
@@ -259,7 +259,7 @@
                                         class="carousel-item @if ($loop->index == 0) active @endif {{ $var_key }}">
                                         <div class="product__discount__item ">
                                             <div class="product__discount__item__pic set-bg"
-                                                data-setbg="{{ $product->images->count() ? url('storage/' . $product->images[0]->filename) : asset('static/f/img/product/product-1.jpg') }}">
+                                                data-setbg="{{ $product->images->count() ? url('storage/' . $product->images[0]->filename) : url('storage/default.jpg') }}">
 
                                                 @isset($variation->discount)
                                                     <div class="product__discount__percent">

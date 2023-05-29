@@ -107,7 +107,7 @@
                         class="col-6 col-lg-3 col-md-6 mix @foreach ($variation->product->categories as $category) {{ $category['slug'] }} @endforeach">
                         <div class="product__discount__item">
                             <div class="product__discount__item__pic set-bg"
-                                data-setbg="{{ isset($variation->product->images[0]->filename) ? url('storage/' . $variation->product->images[0]->filename) : asset('static/f/img/product/product-1.jpg') }}">
+                                data-setbg="{{ isset($variation->product->images[0]->filename) ? url('storage/' . $variation->product->images[0]->filename) : url('storage/default.jpg') }}">
                                 @isset($variation->discount)
                                     <div class="product__discount__percent">
                                         -{{ intval($variation->discount) }}%</div>
@@ -259,7 +259,8 @@
                                         <a href="{{ route('front.single', ['slug' => $variation->product->slug, 'var' => $variation->id]) }}"
                                             class="latest-product__item">
                                             <div class="latest-product__item__pic">
-                                                <img src="/static/f/img/latest-product/lp-1.jpg" alt="">
+                                                <img src="{{ isset($variation->product->images[0]->filename) ? url('storage/' . $variation->product->images[0]->filename) : url('storage/default.jpg') }}"
+                                                    alt="">
                                             </div>
                                             <div class="latest-product__item__text">
                                                 <h6>{{ $variation->product['name_' . app()->getLocale()] }}</h6>
@@ -283,7 +284,8 @@
                                         <a href="{{ route('front.single', ['slug' => $variation->product->slug, 'var' => $variation->id]) }}"
                                             class="latest-product__item">
                                             <div class="latest-product__item__pic">
-                                                <img src="/static/f/img/latest-product/lp-1.jpg" alt="">
+                                                <img src="{{ isset($variation->product->images[0]->filename) ? url('storage/' . $variation->product->images[0]->filename) : url('storage/default.jpg') }}"
+                                                    alt="">
                                             </div>
                                             <div class="latest-product__item__text">
                                                 <h6>{{ $variation->product['name_' . app()->getLocale()] }}</h6>

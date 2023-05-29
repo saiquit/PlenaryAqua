@@ -15,7 +15,7 @@ return new class extends Migration
     {
         Schema::create('blogs', function (Blueprint $table) {
             $table->id();
-            $table->string('cover_img')->nullable()->default('default.img');
+            $table->string('cover_img')->nullable()->default('default.jpg');
             $table->string('author_name')->nullable();
             $table->string('title')->nullable();
             $table->string('slug')->nullable();

@@ -56,7 +56,8 @@
                                     <a href="{{ route('front.single_blog', ['slug' => $blog->slug]) }}"
                                         class="blog__sidebar__recent__item">
                                         <div class="blog__sidebar__recent__item__pic">
-                                            <img src="/static/f/img/blog/sidebar/sr-1.jpg" alt="">
+                                            <img width="100" src="{{ url('storage/' . $blog->cover_img, []) }}"
+                                                alt="">
                                         </div>
                                         <div class="blog__sidebar__recent__item__text">
                                             <h6>{{ $blog->title }}</h6>
@@ -74,7 +75,7 @@
                             <div class="col-lg-6 col-md-6 col-sm-6">
                                 <div class="blog__item">
                                     <div class="blog__item__pic">
-                                        <img src="/static/f/img/blog/blog-2.jpg" alt="">
+                                        <img src="{{ url('storage/' . $blog->cover_img, []) }}" alt="">
                                     </div>
                                     <div class="blog__item__text">
                                         <ul>
