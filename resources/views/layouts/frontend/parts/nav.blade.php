@@ -77,7 +77,7 @@
       </div>
       <div class="humberger__menu__contact">
           <ul>
-              <li><i class="fa fa-envelope"></i> {{ env('MAIL_FROM_ADDRESS') }} </li>
+              <li><i class="fa fa-envelope"></i> support@plenaryaqua.com </li>
               {{-- <li>Free Shipping for all Order of $99</li> --}}
           </ul>
       </div>
@@ -93,7 +93,7 @@
                       <div class="header__top__left">
                           <ul>
                               <li><i class="fa fa-envelope"></i> <a
-                                      href="mailto:{{ env('MAIL_FROM_ADDRESS') }}">{{ env('MAIL_FROM_ADDRESS') }}</a>
+                                      href="mailto:support@plenaryaqua.com">support@plenaryaqua.com</a>
                               </li>
                               {{-- <li>Free Shipping for all Order of ৳99</li> --}}
                           </ul>
