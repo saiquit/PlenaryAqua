@@ -112,14 +112,14 @@
                                         </li>
                                         <li><b>Net Weight</b> <span>{{ $variation->weight }} kg</span></li>
                                         <li><b>Gross Weight</b> <span>{{ $variation->gross_weight }} kg</span></li>
-                                        <li><b>Share on</b>
+                                        {{-- <li><b>Share on</b>
                                             <div class="share">
                                                 <a href="#"><i class="fa fa-facebook"></i></a>
                                                 <a href="#"><i class="fa fa-twitter"></i></a>
                                                 <a href="#"><i class="fa fa-instagram"></i></a>
                                                 <a href="#"><i class="fa fa-pinterest"></i></a>
                                             </div>
-                                        </li>
+                                        </li> --}}
                                     </ul>
                                 </div>
                             </form>

@@ -227,12 +227,12 @@
             maxamount.attr("value") ? maxamount.attr("value") : maxPrice,
         ],
         slide: function (event, ui) {
-            minamount.val("$" + ui.values[0]);
-            maxamount.val("$" + ui.values[1]);
+            minamount.val("৳" + ui.values[0]);
+            maxamount.val("৳" + ui.values[1]);
         },
     });
-    minamount.val("$" + rangeSlider.slider("values", 0));
-    maxamount.val("$" + rangeSlider.slider("values", 1));
+    minamount.val("৳" + rangeSlider.slider("values", 0));
+    maxamount.val("৳" + rangeSlider.slider("values", 1));
 
     $(".price-range").on("slidechange", function (event, ui) {
         var path = $(location).attr("href").split("?")[0];
