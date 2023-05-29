@@ -108,7 +108,7 @@
                                                 ({{ $variation->stock }})
                                             </span>
                                         </li>
-                                        <li><b>Shipping</b> <span>01 day shipping. <samp>Free pickup today</samp></span>
+                                        <li><b>Shipping</b></span>
                                         </li>
                                         <li><b>Net Weight</b> <span>{{ $variation->weight }} kg</span></li>
                                         <li><b>Gross Weight</b> <span>{{ $variation->gross_weight }} kg</span></li>
