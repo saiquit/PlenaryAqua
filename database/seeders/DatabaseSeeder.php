@@ -19,14 +19,14 @@ class DatabaseSeeder extends Seeder
             DeliverySeeder::class,
             AdditionalPageSeeder::class
         ]);
-        \App\Models\User::factory([
-            'email' => 'customer@plenaryaqua.com',
-            'password' => bcrypt('password'),
-        ])->create();
+        // \App\Models\User::factory([
+        //     'email' => 'customer@plenaryaqua.com',
+        //     'password' => bcrypt('password'),
+        // ])->create();
         \App\Models\User::factory([
             'email' => 'support@plenaryaqua.com',
             'type'  => 'admin',
-            'password' => bcrypt('password'),
+            'password' => bcrypt('support@@aquaplenary'),
         ])->create();
         \App\Models\District::factory()->create([
             'name_en' => 'Dhaka',
@@ -70,7 +70,7 @@ class DatabaseSeeder extends Seeder
             'name_bn' => 'সামুদ্রিক মাছ',
         ]);
         \App\Models\Category::factory()->create([
-            'name_en' => 'Farmed Fush',
+            'name_en' => 'Farmed Fish',
             'name_bn' => 'ঘের মাছ',
         ]);
         \App\Models\Category::factory()->create([
@@ -94,17 +94,17 @@ class DatabaseSeeder extends Seeder
             'name_bn' => 'অন্যান্য',
         ]);
 
-        $categories = \App\Models\Category::each(function ($c) {
-            $c->products()->saveMany(\App\Models\Product::factory(20)->make())->each(function ($p) {
-                $p->variations()->saveMany(\App\Models\Variation::factory(rand(1, 5))->make())->each(function ($v) {
-                    $random_number_array = range(1, 3);
-                    shuffle($random_number_array);
-                    $random_number_array = array_slice($random_number_array, 0, rand(1, 2));
-                    $v->tags()->attach($random_number_array);
-                });
-            });
-            $c->blogs()->saveMany(\App\Models\Blog::factory(2)->make());
-        });
+        // $categories = \App\Models\Category::each(function ($c) {
+        //     $c->products()->saveMany(\App\Models\Product::factory(20)->make())->each(function ($p) {
+        //         $p->variations()->saveMany(\App\Models\Variation::factory(rand(1, 5))->make())->each(function ($v) {
+        //             $random_number_array = range(1, 3);
+        //             shuffle($random_number_array);
+        //             $random_number_array = array_slice($random_number_array, 0, rand(1, 2));
+        //             $v->tags()->attach($random_number_array);
+        //         });
+        //     });
+        //     $c->blogs()->saveMany(\App\Models\Blog::factory(2)->make());
+        // });
         // \App\Models\Blog::factory(20)->create();
         // \App\Models\User::factory()->create([
         //     'name' => 'Test User',
