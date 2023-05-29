@@ -33,9 +33,9 @@ class StoreController extends Controller
         $top_rated = $var_q->whereHas('tags', function ($q) {
             $q->where('slug', 'top-rated');
         })->latest()->inRandomOrder()->limit(9)->get()->chunk(3);
-
+        $reviewd_products = $var_q->with('product.comments')->latest()->inRandomOrder()->limit(9)->get()->chunk(3);
         $latest = $var_q->latest()->get()->chunk(3);
-        return view('frontend.store.home', compact('top_categories', 'featured', 'top_rated', 'latest', 'all_categories'));
+        return view('frontend.store.home', compact('top_categories', 'featured', 'top_rated', 'latest', 'all_categories', 'reviewd_products'));
     }
     public function shop(Request $request)
     {
