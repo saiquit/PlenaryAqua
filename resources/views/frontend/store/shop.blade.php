@@ -122,10 +122,10 @@
                                                     <div class="product__discount__item__pic set-bg"
                                                         data-setbg="{{ isset($variation->product->images[0]->filename) ? url('storage/' . $variation->product->images[0]->filename) : url('storage/default.jpg') }}">
 
-                                                        @isset($variation->discount)
+                                                        @if ($variation->discount > 0)
                                                             <div class="product__discount__percent">
                                                                 -{{ intval($variation->discount) }}%</div>
-                                                        @endisset
+                                                        @endif
                                                         <ul class="product__item__pic__hover ">
                                                             <li data-toggle="tooltip" data-placement="top"
                                                                 title="Add to Favorite.">

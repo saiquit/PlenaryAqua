@@ -72,7 +72,7 @@
                                     <div class="py-3"></div>
 
                                     <div class="product__details__price">
-                                        @if ($variation->discounted_from_price)
+                                        @if ($variation->discounted_from_price > 0)
                                             <sup style="text-decoration: line-through">
                                                 ৳{{ intval($variation->discounted_from_price) }}
                                             </sup>
