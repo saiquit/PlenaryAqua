@@ -101,10 +101,10 @@
                                     <tr>
                                         <td class="text-muted">
                                             <div class="d-flex align-items-center">
-                                                Shipping Status
+                                                Cut/Slice
                                             </div>
                                         </td>
-                                        <td class="fw-bold text-end">{{ $order->shipping_status }}</td>
+                                        <td class="fw-bold text-end">{{ $order->cut ? 'Cut' : 'Raw' }}</td>
                                     </tr>
                                 </tbody>
                             </table>
@@ -115,6 +115,7 @@
                     <div class="card card-box">
                         <div class="card-body">
                             <h5 class="card-title">Order {{ $order->order_id }}</h5>
+                            <p>Note: {{ $order->note }}</p>
                             <div class="row">
                                 <div class="col-md-8">
                                     {{ $order->address }},<br>
