@@ -222,7 +222,7 @@
                                                                                                     style="padding:0;Margin:0">
                                                                                                     <p
                                                                                                         style="Margin:0;-webkit-text-size-adjust:none;-ms-text-size-adjust:none;mso-line-height-rule:exactly;font-family:arial, 'helvetica neue', helvetica, sans-serif;line-height:21px;color:#333333;font-size:14px">
-                                                                                                        <strong>{{ $variation->name_en }}</strong>
+                                                                                                        <strong>{{ $variation->product->name_en }}</strong>
                                                                                                     </p>
                                                                                                 </td>
                                                                                             </tr>
@@ -330,7 +330,17 @@
                                                                                 style="padding:0;Margin:0;padding-top:10px;padding-bottom:20px">
                                                                                 <p
                                                                                     style="Margin:0;-webkit-text-size-adjust:none;-ms-text-size-adjust:none;mso-line-height-rule:exactly;font-family:arial, 'helvetica neue', helvetica, sans-serif;line-height:21px;color:#333333;font-size:14px">
-                                                                                    Subtotal:&nbsp;<strong>৳{{ $order->sub_total }}</strong><br>Shipping:&nbsp;<strong>৳{{ $order->dl_total }}</strong><br>Total:&nbsp;<strong>৳{{ $order->total }}</strong>
+                                                                                    Subtotal:&nbsp;<strong>৳{{ $order->sub_total }}</strong><br>
+                                                                                    Shipping:&nbsp;<strong>৳{{ $order->dl_total }}</strong><br>
+                                                                                    @if ($order->cut)
+                                                                                        Cut/slice:&nbsp;<strong>৳{{ round($order->wt_total * 10) }}</strong><br>
+                                                                                    @endif
+                                                                                    @if ($order->discount)
+                                                                                        <span style="color: red">
+                                                                                            Discount:&nbsp;<strong>৳{{ $order->discount }}</strong><br>
+                                                                                        </span>
+                                                                                    @endif
+                                                                                    Total:&nbsp;<strong>৳{{ $order->total }}</strong>
                                                                                 </p>
                                                                             </td>
                                                                         </tr>

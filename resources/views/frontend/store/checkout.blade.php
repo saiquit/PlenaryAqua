@@ -5,6 +5,54 @@
 
 @push('css')
     <style>
+        /* Basic Rules */
+        .switch input {
+            display: none;
+        }
+
+        .switch {
+            display: inline-block;
+            width: 50px;
+            height: 20px;
+            transform: translateY(10%);
+            position: relative;
+        }
+
+        /* Style Wired */
+        .slider {
+            position: absolute;
+            top: 0;
+            bottom: 0;
+            left: 0;
+            right: 0;
+            border-radius: 30px;
+            box-shadow: 0 0 0 2px #777, 0 0 4px #777;
+            cursor: pointer;
+            border: 4px solid transparent;
+            overflow: hidden;
+            transition: .4s;
+        }
+
+        .slider:before {
+            position: absolute;
+            content: "";
+            width: 100%;
+            height: 100%;
+            background: #777;
+            border-radius: 30px;
+            transform: translateX(-30px);
+            transition: .4s;
+        }
+
+        input:checked+.slider:before {
+            transform: translateX(30px);
+            background: #1a632d;
+        }
+
+        input:checked+.slider {
+            box-shadow: 0 0 0 2px #1a632d, 0 0 2px #1a632d;
+        }
+
         .payment {
             display: flex;
             flex-flow: row wrap;
@@ -162,10 +210,10 @@
                                         @if (!auth()->user()->profile->addresses->contains('active', '1'))
                                             <p class="text-danger">Select/Create a address*</p>
                                         @endif
-                                        @isset(auth()->user()->profile->addresses)
+                                        @if (auth()->user()->profile->addresses->count())
                                             <a class="btn btn-primary text-light" data-toggle="modal"
                                                 data-target="#update_address">Change Shipping Address</a>
-                                        @endisset
+                                        @endif
                                         <a class="btn btn-secondary text-light" data-toggle="modal"
                                             data-target="#createAddress" class="">Create</a>
                                     </div>
@@ -237,12 +285,23 @@
                                 <div class="checkout__order__products">Products <span>Total ৳</span></div>
                                 <ul>
                                     @foreach (session('cart.items') as $variation)
-                                        <li>{{ $variation['name_' . app()->getLocale()] }} x <b>{{ $variation->qty }}</b>
+                                        <li>{{ $variation->product['name_' . app()->getLocale()] }} x
+                                            <b>{{ $variation->qty }}</b>
                                             <span>{{ $variation->price * $variation->qty }}</span>
                                         </li>
                                     @endforeach
                                 </ul>
-                                <div class="checkout__order__subtotal">Subtotal <span
+                                <div class="checkout__order__subtotal mb-0">Cut/Slice (10৳/kg)
+                                    <span>
+                                        <div>
+                                            <label class="switch">
+                                                <input name="cut" type="checkbox">
+                                                <span class="slider"></span>
+                                            </label>
+                                        </div>
+                                    </span>
+                                </div>
+                                <div class="checkout__order__subtotal mb-0">Subtotal <span
                                         id="sub_total">{{ session('cart.subTotal') }}</span>
                                 </div>
                                 <div class="checkout__order__subtotal">+Delivery Cost
@@ -305,8 +364,6 @@
 
                                 </section>
                                 <button id="order_btn" type="submit" disabled class="btn btn-primary">
-                                    <div class="spinner-border" role="status"><span class="sr-only">Loading...</span>
-                                    </div>
                                     PLACE ORDER
                                 </button>
                             </div>
@@ -423,6 +480,21 @@
     <!--checkout -->
     <script>
         $(function() {
+            $('#checkout_form').submit(function(e) {
+                $('#preloader').show();
+                $('#preloader loader').show();
+            });
+            $('input[name="cut"]').change(function(e) {
+                e.preventDefault();
+                var total = parseFloat($('#total_cost').text());
+                var cut_price = Math.round(parseFloat('{{ session('cart.weight') }}' * 10));
+                if ($(this).is(':checked')) {
+                    $('#total_cost').text(total + cut_price)
+                } else {
+                    $('#total_cost').text(total - cut_price)
+                }
+
+            });
             @if (auth()->user()->profile->addresses->where('active', 1)->count())
                 $('#order_btn').attr('disabled', false);
             @endif
@@ -452,161 +524,5 @@
                     '#discount').text()))
             });
         });
-
-        let paymentID = '';
-        let merchantInvoiceNumber = '';
-
-        $('#checkout_form').on('submit', function(e) {
-            $('.loader_cover').css('display', 'flex');
-            $('#order_btn').attr('disabled', true);
-            // $('#preloder').show();
-            e.preventDefault();
-            var form_data = $(this).serializeArray();
-            var payment_m = form_data.filter(i => i['name'] == 'pay')[0]['value'];
-            $.post($(this).attr('action'), form_data,
-                function(data, textStatus, jqXHR) {
-                    let request = {};
-                    // request['merchantInvoiceNumber'] = data.invoice_id
-                    merchantInvoiceNumber = data.invoice_id;
-                    if (payment_m == 'bkash') {
-                        // createPayment(request);
-                        BkashPayment()
-                    } else if (payment_m == 'nagad') {
-                        url = "{{ route('nagad.pay') }}" + "?order_id=" + merchantInvoiceNumber;
-                        window.location.href = url;
-                    } else if (payment_m == 'cod') {
-                        url = "{{ route('order.invoice') }}" + "/" + merchantInvoiceNumber;
-                        window.location.href = url;
-
-                    }
-                },
-            );
-        });
-
-        $.ajaxSetup({
-            headers: {
-                'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
-            }
-        });
-
-        function BkashPayment() {
-            //showLoading();
-            // get token
-            $.ajax({
-                url: window.location.origin + "/bkash/get-token",
-                type: 'POST',
-                contentType: 'application/json',
-                success: function(data) {
-                    $('pay-with-bkash-button').trigger('click');
-                    if (data.hasOwnProperty('msg')) {
-                        showErrorMessage(data) // unknown error
-                    }
-                },
-                error: function(err) {
-                    //hideLoading();
-                    showErrorMessage(err);
-                }
-            });
-        }
-        bKash.init({
-            paymentMode: 'checkout',
-            paymentRequest: {},
-            createRequest: function(request) {
-                setTimeout(function() {
-                    createPayment(request);
-                }, 30)
-            },
-            executeRequestOnAuthorization: function(request) {
-                $.ajax({
-                    url: window.location.origin + '/bkash/execute-payment',
-                    type: 'POST',
-                    contentType: 'application/json',
-                    data: JSON.stringify({
-                        "paymentID": paymentID
-                    }),
-                    success: function(data) {
-                        if (data) {
-                            if (data.paymentID != null) {
-                                BkashSuccess(data);
-                            } else {
-                                showErrorMessage(data);
-                                bKash.execute().onError();
-                            }
-                        } else {
-                            $.get(window.location.origin + '/bkash/query-payment', {
-                                payment_info: {
-                                    payment_id: paymentID
-                                }
-                            }, function(data) {
-                                if (data.transactionStatus === 'Completed') {
-                                    BkashSuccess(data);
-                                } else {
-                                    createPayment(request);
-                                }
-                            });
-                        }
-                    },
-                    error: function(err) {
-                        bKash.execute().onError();
-                    }
-                });
-            },
-            onClose: function() {
-                // for error handle after close bKash Popup
-            }
-        });
-
-        function createPayment(request) {
-            // Amount already checked and verified by the controller
-            // because of createRequest function finds amount from this request
-            // request['amount'] = "100"; // max two decimal points allowed
-            // let request;
-            // request['merchantInvoiceNumber'] = merchantInvoiceNumber
-            $.ajax({
-                url: window.location.origin + '/bkash/create-payment',
-                data: JSON.stringify(request),
-                type: 'POST',
-                contentType: 'application/json',
-                success: function(data) {
-                    //hideLoading();
-                    if (data && data.paymentID != null) {
-                        paymentID = data.paymentID;
-                        bKash.create().onSuccess(data);
-                    } else {
-                        bKash.create().onError();
-                    }
-                },
-                error: function(err) {
-                    // hideLoading();
-                    showErrorMessage(err.responseJSON);
-                    bKash.create().onError();
-                }
-            });
-        }
-
-        function BkashSuccess(data) {
-            $.post(window.location.origin + '/bkash/success', {
-                payment_info: data
-            }, function(res) {
-                location.reload()
-            });
-        }
-
-        function showErrorMessage(response) {
-            let message = 'Unknown Error';
-            if (response.hasOwnProperty('errorMessage')) {
-                let errorCode = parseInt(response.errorCode);
-                let bkashErrorCode = [2001, 2002, 2003, 2004, 2005, 2006, 2007, 2008, 2009, 2010, 2011, 2012, 2013, 2014,
-                    2015, 2016, 2017, 2018, 2019, 2020, 2021, 2022, 2023, 2024, 2025, 2026, 2027, 2028, 2029, 2030,
-                    2031, 2032, 2033, 2034, 2035, 2036, 2037, 2038, 2039, 2040, 2041, 2042, 2043, 2044, 2045, 2046,
-                    2047, 2048, 2049, 2050, 2051, 2052, 2053, 2054, 2055, 2056, 2057, 2058, 2059, 2060, 2061, 2062,
-                    2063, 2064, 2065, 2066, 2067, 2068, 2069, 503,
-                ];
-                if (bkashErrorCode.includes(errorCode)) {
-                    message = response.errorMessage
-                }
-            }
-            alert(message)
-        }
     </script>
 @endpush

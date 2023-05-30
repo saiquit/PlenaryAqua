@@ -171,6 +171,13 @@
                     </a>
                 </li>
 
+                <li>
+                    <a href="{{ route('admin.projects.index') }}"
+                        class="dropdown-toggle no-arrow @if (Route::is('admin.projects.index')) active @endif">
+                        <span class="micon icon-copy dw dw-page"></span><span class="mtext">Projects</span>
+                    </a>
+                </li>
+
                 <li class="dropdown">
                     <a href="javascript:;" class="dropdown-toggle">
                         <span class="micon bi bi-view-list"></span><span class="mtext">UI</span>

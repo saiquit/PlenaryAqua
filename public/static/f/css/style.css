@@ -55,7 +55,7 @@ a:focus,
 a:hover {
     text-decoration: none;
     outline: 0;
-    color: #fff;
+    color: #3cc032;
 }
 ol,
 ul {
@@ -112,6 +112,9 @@ ul {
     font-weight: 700;
     background: #1a632d;
     letter-spacing: 2px;
+}
+.primary-btn:hover {
+    color: white !important;
 }
 .site-btn {
     font-size: 14px;

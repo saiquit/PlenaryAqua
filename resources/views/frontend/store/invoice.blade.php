@@ -229,7 +229,8 @@
                                         <tr>
                                             <td>1</td>
                                             <td>{{ $variation->product['name_' . app()->getLocale()] }}
-                                                ({{ $variation['name_' . app()->getLocale()] }})</td>
+                                                ({{ $variation['name_' . app()->getLocale()] }})
+                                            </td>
                                             <td>{{ $variation->pivot->qty }}</td>
                                             <td class="text-95">৳{{ $variation->price }}</td>
                                             <td class="text-secondary-d2">
@@ -243,7 +244,7 @@
 
                         <div class="row mt-3">
                             <div class="col-12 col-sm-7 text-grey-d2 text-95 mt-2 mt-lg-0">
-                                Extra note such as company or payment information...
+                                {{ $order->note }}
                             </div>
 
                             <div class="col-12 col-sm-5 text-grey text-90 order-first order-sm-last">
@@ -256,6 +257,17 @@
                                         <span class="text-120 text-secondary-d1">৳{{ $order->sub_total }}</span>
                                     </div>
                                 </div>
+                                @if ($order->cut)
+                                    <div class="row my-2">
+                                        <div class="col-7 text-right">
+                                            Cut/Slice
+                                        </div>
+                                        <div class="col-5">
+                                            <span
+                                                class="text-120 text-secondary-d1">৳{{ round($order->wt_total * 10) }}</span>
+                                        </div>
+                                    </div>
+                                @endif
                                 <div class="row my-2">
                                     <div class="col-7 text-right">
                                         Delivery
@@ -265,6 +277,8 @@
                                         <span class="text-110 text-secondary-d1">৳{{ $order->dl_total }}</span>
                                     </div>
                                 </div>
+
+
                                 @if ($order->discount)
                                     <div class="row my-2 text-danger">
                                         <div class="col-7 text-right">

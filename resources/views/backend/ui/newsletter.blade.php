@@ -1,5 +1,7 @@
 @extends('layouts.backend.base')
 @push('css')
+    <link rel="stylesheet" type="text/css"
+        href="{{ asset('static/b/src/plugins/bootstrap-tagsinput/bootstrap-tagsinput.css') }}" />
     <style>
         #display_code {
             padding: 1rem;
@@ -36,6 +38,11 @@
                                 @csrf
                                 <div class="form">
                                     <div class="row">
+                                        <div class="col-12">
+                                            <div class="form-group">
+                                                <input type="text" name="emails" value="" data-role="tagsinput" />
+                                            </div>
+                                        </div>
                                         <div class="col-12">
                                             <div class="form-group">
                                                 <label>Select Recivers</label>
@@ -98,6 +105,8 @@
 @endsection
 
 @push('js')
+    <script src="{{ asset('static/b/src/plugins/bootstrap-tagsinput/bootstrap-tagsinput.js') }}"></script>
+
     <script>
         $(document).ready(function() {
             $('#newsletter').keyup(function(e) {

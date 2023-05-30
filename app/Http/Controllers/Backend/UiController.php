@@ -154,15 +154,20 @@ class UiController extends Controller
     public function store_news(Request $request)
     {
         $request->validate([
-            'receivers' => 'required',
-            'iframe_text' => 'required'
+            // 'receivers' => 'required',
+            // 'iframe_text' => 'required'
         ]);
         $receivers = [];
-        if (in_array('customers', $request->receivers)) {
+        if ($request->receivers && in_array('customers', $request->receivers)) {
             $receivers +=  DB::table('users')->where('type', 'customer')->pluck('email')->toArray();
         }
-        if (in_array('subscribers', $request->receivers)) {
+        if ($request->receivers && in_array('subscribers', $request->receivers)) {
             $receivers += DB::table('subscribers')->get()->pluck('email')->toArray();;
+        }
+        foreach (explode(',', $request->emails) as $key => $email) {
+            if (filter_var($email, FILTER_VALIDATE_EMAIL)) {
+                array_push($receivers, $email);
+            }
         }
         foreach ($receivers as $key => $reciver) {
             Mail::to($reciver)->queue(new NewsletterMail($request->iframe_text));

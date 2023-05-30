@@ -108,8 +108,8 @@
                                                 ({{ $variation->stock }})
                                             </span>
                                         </li>
-                                        <li><b>Shipping</b></span>
-                                        </li>
+                                        {{-- <li><b>Shipping</b></span>
+                                        </li> --}}
                                         <li><b>Net Weight</b> <span>{{ $variation->weight }} kg</span></li>
                                         <li><b>Gross Weight</b> <span>{{ $variation->gross_weight }} kg</span></li>
                                         {{-- <li><b>Share on</b>

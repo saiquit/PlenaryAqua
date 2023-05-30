@@ -6,10 +6,7 @@ use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 use Karim007\LaravelBkashTokenize\Facade\BkashPaymentTokenize;
 
-// use Karim007\LaravelBkash\Facade\BkashPayment;
-// use Karim007\LaravelBkash\Facade\BkashRefund;
-
-class BkashPaymentController extends Controller
+class BkashTokenizePaymentController extends Controller
 {
     public function index()
     {
@@ -17,14 +14,18 @@ class BkashPaymentController extends Controller
     }
     public function createPayment(Request $request)
     {
-        $inv = uniqid();
+        if (!auth()->user()->orders->contains('order_id', $request->order_id)) {
+            abort(404, 'Wrong order!');
+        }
+        $order = auth()->user()->orders->where('order_id', $request->order_id)->first();
+        $inv = $order->order_id;
         $request['intent'] = 'sale';
         $request['mode'] = '0011';
         $request['payerReference'] = $inv;
         $request['currency'] = 'BDT';
-        $request['amount'] = 100;
+        $request['amount'] = $order->total;
         $request['merchantInvoiceNumber'] = $inv;
-        $request['callbackURL'] = config("bkash.callbackURL");;
+        $request['callbackURL'] = config("bkash.callbackURL");
 
         $request_data_json = json_encode($request->all());
 
@@ -70,20 +71,6 @@ class BkashPaymentController extends Controller
     }
     public function searchTnx($trxID)
     {
-        //response
-        /*{
-        "trxID":"AAN60A8IOQ",
-       "initiationTime":"2023-01-23T12:06:05:000 GMT+0600",
-       "completedTime":"2023-01-23T12:06:05:000 GMT+0600",
-       "transactionType":"bKash Tokenized Checkout via API",
-       "customerMsisdn":"01877722345",
-       "transactionStatus":"Completed",
-       "amount":"20",
-       "currency":"BDT",
-       "organizationShortCode":"50022",
-       "statusCode":"0000",
-       "statusMessage":"Successful"
-    }*/
         return BkashPaymentTokenize::searchTransaction($trxID);
         //return BkashPaymentTokenize::searchTransaction($trxID,1); //last parameter is your account number for multi account its like, 1,2,3,4,cont..
 
@@ -95,18 +82,6 @@ class BkashPaymentController extends Controller
         $amount = 5;
         $reason = 'this is test reason';
         $sku = 'abc';
-        //response
-        /*{
-            "statusCode":"0000",
-           "statusMessage":"Successful",
-           "originalTrxID":"AAN30A8M4T",
-           "refundTrxID":"AAN30A8M5N",
-           "transactionStatus":"Completed",
-           "amount":"5",
-           "currency":"BDT",
-           "charge":"0.00",
-           "completedTime":"2023-01-23T15:53:29:120 GMT+0600"
-        }*/
         return BkashRefundTokenize::refund($paymentID, $trxID, $amount, $reason, $sku);
         //return BkashRefundTokenize::refund($paymentID,$trxID,$amount,$reason,$sku, 1); //last parameter is your account number for multi account its like, 1,2,3,4,cont..
 
@@ -115,17 +90,6 @@ class BkashPaymentController extends Controller
     {
         $paymentID = 'paymentID';
         $trxID = 'trxID';
-        /*{
-            "statusCode":"0000",
-           "statusMessage":"Successful",
-           "originalTrxID":"AAN30A8M4T",
-           "refundTrxID":"AAN30A8M5N",
-           "transactionStatus":"Completed",
-           "amount":"5",
-           "currency":"BDT",
-           "charge":"0.00",
-           "completedTime":"2023-01-23T15:53:29:120 GMT+0600"
-        }*/
         return BkashRefundTokenize::refundStatus($paymentID, $trxID);
         //return BkashRefundTokenize::refundStatus($paymentID,$trxID, 1); //last parameter is your account number for multi account its like, 1,2,3,4,cont..
 

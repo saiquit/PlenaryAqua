@@ -22,14 +22,14 @@ class OrderController extends Controller
     {
         // dd($request->all());
         $validate = Validator::make($request->all(), [
-            'first_name' => 'string',
-            'last_name' => 'string',
+            'first_name' => 'required',
+            'last_name' => 'required',
             'phone' => 'required',
             'email' => 'required',
             'pay' => 'required',
         ], [
-            'first_name.string' => 'First Name must be a string.',
-            'last_name.string' => 'Last Name must be a string.',
+            'first_name.string' => 'First Name is required.',
+            'last_name.string' => 'Last Name is required.',
             'phone.required' => 'A phone number is required.',
             'email.required' => 'An email number is required.',
             'pay.required' => 'Select a payment method.',
@@ -37,13 +37,27 @@ class OrderController extends Controller
         if ($validate->fails()) {
             return redirect()->back()->withErrors($validate)->withInput();
         }
+        if (!isset(auth()->user()->profile->first_name)) {
+            auth()->user()->profile->update([
+                'first_name' => $request->first_name
+            ]);
+        }
+        if (!isset(auth()->user()->profile->last_name)) {
+            auth()->user()->profile->update([
+                'last_name' => $request->last_name
+            ]);
+        }
 
         $qty_total = session('cart.qty');
         $wt_total = session('cart.weight');
         $sub_total = session('cart.subTotal');
         $discount = session('cart.discount', 0);
         $dl_cost = DB::table('delivery')->find($request->upazila)->cost;
-        $total = $sub_total + $dl_cost - $discount;
+        $cut =  0;
+        if ($request->has('cut')) {
+            $cut = round($wt_total * 10);
+        }
+        $total = $sub_total + $dl_cost + $cut - $discount;
         $order_count = Order::whereMonth('created_at', Carbon::now()->month)->count();
 
         $order = Order::create([
@@ -51,6 +65,7 @@ class OrderController extends Controller
             'user_id' => auth() ?  auth()->id() : null,
             'total' => $total,
             'qty_total' => $qty_total,
+            'cut'       => $cut > 0 ? true : false,
             'sub_total' => $sub_total,
             'dl_total' => $dl_cost,
             'wt_total' => $wt_total,
@@ -63,6 +78,7 @@ class OrderController extends Controller
             'upazila' => $request->upazila,
             'address' => $request->address,
             'email' => $request->email,
+            'note' => $request->note,
         ]);
         foreach (session('cart.items') as $key => $item) {
             $order->variations()->attach($item->id, [
@@ -76,12 +92,18 @@ class OrderController extends Controller
         session()->forget(['cart.items', 'cart.qty', 'cart.weight', 'cart.subTotal', 'cart.discount', 'cart.coupon']);
         Notification::send(User::where('type', 'admin')->get(), new NewOrderNotification($order));
         Mail::to(auth()->user())->send(new OrderReceivedMail($order));
-        if ($request->ajax()) {
-            return response()->json([
-                'invoice_id' => $order->order_id,
-            ], 200);
+        switch ($request->pay) {
+            case 'cod':
+                return redirect()->route('order.invoice', $order->order_id);
+                break;
+            case 'bkash':
+                return redirect()->route('bkash.pay', ['order_id' => $order->order_id]);
+            case 'nagad':
+                return redirect()->route('nagad.pay', ['order_id' => $order->order_id]);
+            default:
+                return redirect()->route('order.invoice', $order->order_id);
+                break;
         }
-        return redirect()->route('order.invoice', $order->order_id);
     }
 
     public function invoice(Request $request, $order_id)

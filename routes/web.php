@@ -5,8 +5,11 @@ use App\Http\Controllers\Backend\CategoryController;
 use App\Http\Controllers\Backend\FAQController;
 use App\Http\Controllers\Backend\ProductController;
 use App\Http\Controllers\Backend\ProjectController;
+use App\Http\Controllers\Backend\UserController;
 use App\Http\Controllers\Backend\VariationController;
 use App\Http\Controllers\Frontend\BkashPaymentController;
+use App\Http\Controllers\Frontend\BkashTokenizePaymentController;
+use App\Http\Controllers\Frontend\NagadController;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -101,6 +104,7 @@ Route::group([
         Route::resource('orders', OrderController::class);
         Route::resource('projects', ProjectController::class);
         Route::resource('faqs', FAQController::class);
+        Route::resource('users', UserController::class);
 
         //Pages Data
         Route::group([
@@ -164,22 +168,17 @@ Auth::routes(['verify' => true]);
 
 //payment
 
-Route::group(['middleware' => ['auth']], function () {
-    // Payment Routes for bKash
-    Route::get('/bkash/payment', [App\Http\Controllers\Frontend\BkashPaymentController::class, 'index']);
-    Route::get('/bkash/create-payment', [App\Http\Controllers\Frontend\BkashPaymentController::class, 'createPayment'])->name('bkash-create-payment');
-    Route::get('/bkash/callback', [App\Http\Controllers\Frontend\BkashPaymentController::class, 'callBack'])->name('bkash-callBack');
+// Route::get('/bkash/payment', [BkashTokenizePaymentController::class, 'index'])->name('bkash.pay');
+Route::get('/bkash/create-payment', [BkashTokenizePaymentController::class, 'createPayment'])->name('bkash-create-payment');
+Route::get('/bkash/callback', [BkashTokenizePaymentController::class, 'callBack'])->name('bkash-callBack');
 
-    //search payment
-    Route::get('/bkash/search/{trxID}', [App\Http\Controllers\Frontend\BkashPaymentController::class, 'searchTnx'])->name('bkash-serach');
+//search payment
+Route::get('/bkash/search/{trxID}', [BkashTokenizePaymentController::class, 'searchTnx'])->name('bkash-serach');
 
-    //refund payment routes
-    Route::get('/bkash/refund', [App\Http\Controllers\Frontend\BkashPaymentController::class, 'refund'])->name('bkash-refund');
-    Route::get('/bkash/refund/status', [App\Http\Controllers\Frontend\BkashPaymentController::class, 'refundStatus'])->name('bkash-refund-status');
+//refund payment routes
+Route::get('/bkash/refund', [BkashTokenizePaymentController::class, 'refund'])->name('bkash-refund');
+Route::get('/bkash/refund/status', [BkashTokenizePaymentController::class, 'refundStatus'])->name('bkash-refund-status');
 
-
-    //payment route for nagad
-    Route::get('nagad/pay', [App\Http\Controllers\Frontend\NagadController::class, 'pay'])->name('nagad.pay');
-    Route::get('nagad/callback', [App\Http\Controllers\Frontend\NagadController::class, 'callback']);
-    Route::get('nagad/refund/{paymentRefId}', [App\Http\Controllers\Frontend\NagadController::class, 'refund']);
-});
+Route::get('/nagad/pay', [NagadController::class, 'pay'])->name('nagad.pay');
+Route::get('/nagad/callback', [NagadController::class, 'callback']);
+Route::get('/nagad/refund/{paymentRefId}', [NagadController::class, 'refund']);

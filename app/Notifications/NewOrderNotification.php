@@ -42,9 +42,9 @@ class NewOrderNotification extends Notification implements ShouldQueue
     public function toMail($notifiable)
     {
         return (new MailMessage)
-            ->line('The introduction to the notification.')
-            ->action('Notification Action', url('/'))
-            ->line('Thank you for using our application!');
+            ->line('A new order has been placed.')
+            ->action('Show Order', route('admin.orders.show', $this->order))
+            ->line('Find order Details on the button.');
     }
 
     /**
