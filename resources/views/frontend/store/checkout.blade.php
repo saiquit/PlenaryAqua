@@ -481,8 +481,9 @@
     <script>
         $(function() {
             $('#checkout_form').submit(function(e) {
-                $('#preloader').show();
-                $('#preloader loader').show();
+                $('#preloder').show();
+                $('#preloder .loader').show();
+                $('#preloder').append('<p>Loading...</p>');
             });
             $('input[name="cut"]').change(function(e) {
                 e.preventDefault();
