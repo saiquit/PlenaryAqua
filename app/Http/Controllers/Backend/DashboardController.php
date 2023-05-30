@@ -45,4 +45,12 @@ class DashboardController extends Controller
         $orders = Order::where('shipping_status', '!=', 'delivered')->latest()->get();
         return view('backend.dashboard', compact('data', 'pi_data', 'orders'));
     }
+
+    public function read_notification(Request $request)
+    {
+        auth()->user()->unreadNotifications->markAsRead();
+        return response()->json([
+            'read' => true
+        ], 200);
+    }
 }

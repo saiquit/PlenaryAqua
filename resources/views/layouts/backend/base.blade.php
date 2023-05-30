@@ -73,11 +73,27 @@
         </div>
     @endforeach
 
+
     <!-- js -->
+
     <script src="{{ asset('static/b/vendors/scripts/core.min.js') }}"></script>
     <script src="{{ asset('static/b/vendors/scripts/script.js') }}"></script>
     <script src="{{ asset('static/b/vendors/scripts/process.js') }}"></script>
     <script src="{{ asset('static/b/vendors/scripts/layout-settings.js') }}"></script>
+    <script>
+        $(document).ready(function() {
+            $('.user-notification').click(function(e) {
+                e.preventDefault();
+                $.get("{{ route('admin.read') }}", {},
+                    function(data, textStatus, jqXHR) {
+                        if (jqXHR.status == 200) {
+                            $('.badge.notification-active').remove();
+                        }
+                    },
+                );
+            });
+        });
+    </script>
     @stack('js')
 </body>
 

@@ -153,6 +153,7 @@ Route::group([
             Route::delete('offers/{id}', 'UiController@delete_offer')->name('offers_delete');
         });
     });
+    Route::get('/read_notification', 'DashboardController@read_notification')->name('read');
 });
 
 Route::group([

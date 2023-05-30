@@ -7,7 +7,8 @@
     <div class="header-right">
         <div class="user-notification">
             <div class="dropdown">
-                <a class="dropdown-toggle no-arrow" href="#" role="button" data-toggle="dropdown">
+                <a class="dropdown-toggle no-arrow" id="notification" href="#" role="button"
+                    data-toggle="dropdown">
                     <i class="icon-copy dw dw-notification"></i>
                     @if (Auth::user()->unreadNotifications()->count())
                         <span class="badge notification-active"></span>
