@@ -17,7 +17,7 @@ class SendAdditionMiddleware
      */
     public function handle(Request $request, Closure $next)
     {
-        $categories = Category::all();
+        $categories = Category::orderBy('updated_at', 'desc')->get();
         $request->merge(['categories' => $categories]);
         return $next($request);
     }
