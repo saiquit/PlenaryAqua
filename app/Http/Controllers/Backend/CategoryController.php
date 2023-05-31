@@ -100,6 +100,7 @@ class CategoryController extends Controller
             'slug' => Str::slug($request->category_name_en),
             'name_bn' => $request->category_name_bn,
             'parent_id' => $request->parent,
+            'sort'  => $request->sort
         ]);
         if ($request->hasFile('cover_img')) {
             $image = Storage::put('category/cover', $request->cover_img);
@@ -116,6 +117,13 @@ class CategoryController extends Controller
         return redirect()->back();
     }
 
+    public function sort(Request $request, Category $category)
+    {
+        $category->update([
+            'sort'  => $request->sort
+        ]);
+        return redirect()->back();
+    }
     /**
      * Remove the specified resource from storage.
      *

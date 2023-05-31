@@ -92,7 +92,7 @@
             <table class="table hover data-table-category nowrap">
                 <thead>
                     <tr>
-                        <th class="table-plus datatable-nosort">ID</th>
+                        <th class="table-plus datatable-nosort">Sort ID</th>
                         <th class="table-plus datatable-nosort">Name</th>
                         <th class="table-plus datatable-nosort">Products</th>
                         <th>Start Date</th>
@@ -103,7 +103,20 @@
                 <tbody>
                     @foreach ($categories as $category)
                         <tr>
-                            <td class="table-plus">{{ $category->id }}</td>
+                            <td class="table-plus">
+                                <form action="{{ route('admin.categories.sort', $category) }}" method="post"
+                                    id="category_form_{{ $category->id }}">
+                                    @csrf
+                                    @method('PUT')
+                                    <div class="form-group">
+                                        <input
+                                            onchange="document.querySelector('#category_form_{{ $category->id }}').submit()"
+                                            value="{{ $category->sort }}" class="form-control" type="number"
+                                            name="sort">
+                                    </div>
+                                </form>
+
+                            </td>
                             <td>{{ $category->name_en }}</td>
                             <td>{{ $category->products->count() }}</td>
                             <td>{{ $category->created_at->format('d/m/Y') }}</td>
@@ -270,7 +283,7 @@
                     }
                 },
                 "order": [
-                    [4, "desc"]
+                    [0, "desc"]
                 ]
             });
 
