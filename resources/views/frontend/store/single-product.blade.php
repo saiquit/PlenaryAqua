@@ -93,15 +93,11 @@
                                     </div>
                                     <button @disabled(!isset(session('cart.items')[$variation->id]['qty'])) type="submit" class="btn primary-btn">ADD TO
                                         CARD</button>
-                                    <a onclick="document.querySelector('#form-{{ $variation->id . $product->id }}').submit()"
-                                        href="#" class="heart-icon"><span
+                                    <a onclick="document.querySelector('#love-var-{{ $variation->id }}').submit()"
+                                        class="heart-icon"><span
                                             class="@if (auth()->user() &&
                                                     auth()->user()->loved_products->contains($product->id)) icon_heart text-danger @else icon_heart_alt @endif"></span></a>
-                                    <form hidden id="form-{{ $variation->id . $product->id }}"
-                                        action="{{ route('front.store_love', ['product' => $product->id]) }}"
-                                        method="post">
-                                        @csrf
-                                    </form>
+
                                     <ul>
                                         <li><b>Availability</b>
                                             <span>{{ $variation->stock > 0 ? 'In Stock' : 'Out of Stock' }}
@@ -122,6 +118,10 @@
                                         </li> --}}
                                     </ul>
                                 </div>
+                            </form>
+                            <form hidden id="love-var-{{ $variation->id }}"
+                                action="{{ route('front.store_love', ['product' => $product->id]) }}" method="post">
+                                @csrf
                             </form>
                         </div>
                     </div>
