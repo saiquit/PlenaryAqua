@@ -56,7 +56,7 @@
                     <div class="col-lg-6 col-md-12 col-sm-12">
                         <div class="product-detail-desc pd-20 card-box height-100-p">
                             <h4 class="mb-20 pt-20">{{ $product->name_en }}</h4>
-                            <p>{{ $product->desc_en }}</p>
+                            <p>{!! $product->desc_en !!}</p>
                             <div class="pd-20 card-box ">
                                 <h4 class="mb-20 h4">Latest Comments</h4>
                                 <div class="list-group">
