@@ -99,7 +99,6 @@ Route::group([
         Route::resource('products', ProductController::class);
         Route::resource('variations', VariationController::class);
         Route::resource('categories', CategoryController::class);
-        Route::put('categories/{category}', 'CategoryController@sort')->name('categories.sort');
         Route::resource('blogs', BlogController::class);
         Route::resource('tags', TagController::class);
         Route::resource('orders', OrderController::class);

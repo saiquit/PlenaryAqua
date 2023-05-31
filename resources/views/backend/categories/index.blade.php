@@ -103,20 +103,7 @@
                 <tbody>
                     @foreach ($categories as $category)
                         <tr>
-                            <td class="table-plus">
-                                <form action="{{ route('admin.categories.sort', $category) }}" method="post"
-                                    id="category_form_{{ $category->id }}">
-                                    @csrf
-                                    @method('PUT')
-                                    <div class="form-group">
-                                        <input
-                                            onchange="document.querySelector('#category_form_{{ $category->id }}').submit()"
-                                            value="{{ $category->sort }}" class="form-control" type="number"
-                                            name="sort">
-                                    </div>
-                                </form>
-
-                            </td>
+                            <td>{{ $category->sort }}</td>
                             <td>{{ $category->name_en }}</td>
                             <td>{{ $category->products->count() }}</td>
                             <td>{{ $category->created_at->format('d/m/Y') }}</td>
@@ -150,7 +137,13 @@
                                                     @csrf
                                                     <div class="form">
                                                         <div class="row">
-                                                            <div class="col-12 col-md-6">
+                                                            <div class="col-12 col-md-12">
+                                                                <div class="form-group">
+                                                                    <label>Sorting Rank</label>
+                                                                    <input value="{{ $category->sort }}"
+                                                                        class="form-control" name="sort"
+                                                                        type="text" placeholder="Sort Number">
+                                                                </div>
                                                                 <div class="form-group">
                                                                     <label>Category Name (English)</label>
                                                                     <input value="{{ $category->name_en }}"
@@ -283,7 +276,7 @@
                     }
                 },
                 "order": [
-                    [0, "desc"]
+                    [0, "asc"]
                 ]
             });
 

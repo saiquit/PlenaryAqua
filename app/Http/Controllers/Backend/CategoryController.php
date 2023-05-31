@@ -117,13 +117,6 @@ class CategoryController extends Controller
         return redirect()->back();
     }
 
-    public function sort(Request $request, Category $category)
-    {
-        $category->update([
-            'sort'  => $request->sort
-        ]);
-        return redirect()->back();
-    }
     /**
      * Remove the specified resource from storage.
      *
