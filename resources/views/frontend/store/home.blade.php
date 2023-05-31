@@ -229,10 +229,10 @@
                                 <div class="hero__item set-bg offer_banner "
                                     data-setbg="{{ url('storage/' . $item->image) }}">
                                     <div class="hero__text">
-                                        <span>{{ App\Models\Category::where('id', $item->category_id)->first()['name_' . app()->getLocale()] }}</span>
+                                        <span>{{ App\Models\Product::where('id', $item->product_id)->first()['name_' . app()->getLocale()] }}</span>
                                         <h2>{{ collect($item)['heading_' . app()->getLocale()] }}</h2>
                                         <p>{{ collect($item)['sub_heading_' . app()->getLocale()] }}</p>
-                                        <a href="{{ route('front.shop', ['category_id' => $item->category_id]) }}"
+                                        <a href="{{ route('front.shop', ['product_id' => $item->product_id]) }}"
                                             class="primary-btn">SHOP NOW</a>
                                     </div>
                                 </div>

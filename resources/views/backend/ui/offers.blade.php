@@ -60,14 +60,14 @@
 
                                         <div class="col-12 col-md-12">
                                             <div class="form-group">
-                                                <label>Category</label>
+                                                <label>Product</label>
                                                 <br>
                                                 <select class="form-control custom-select2" style="width: 100%"
-                                                    name="parent">
+                                                    name="product">
                                                     <option value="">None</option>
-                                                    @foreach (App\Models\Category::all() as $category)
-                                                        <option value="{{ $category->id }}">
-                                                            {{ $category->name_en }}</option>
+                                                    @foreach (App\Models\Product::all() as $product)
+                                                        <option value="{{ $product->id }}">
+                                                            {{ $product->name_en }}</option>
                                                     @endforeach
                                                 </select>
                                             </div>
@@ -204,15 +204,15 @@
 
                                                         <div class="col-12 col-md-12">
                                                             <div class="form-group">
-                                                                <label>Category</label>
+                                                                <label>Product</label>
                                                                 <br>
                                                                 <select class="form-control custom-select2"
-                                                                    style="width: 100%" name="parent">
+                                                                    style="width: 100%" name="product">
                                                                     <option value="">None</option>
-                                                                    @foreach (App\Models\Category::all() as $category)
-                                                                        <option @selected($category->id == $offer->category_id)
-                                                                            value="{{ $category->id }}">
-                                                                            {{ $category->name_en }}</option>
+                                                                    @foreach (App\Models\Product::all() as $product)
+                                                                        <option @selected($product->id == $offer->product_id)
+                                                                            value="{{ $product->id }}">
+                                                                            {{ $product->name_en }}</option>
                                                                     @endforeach
                                                                 </select>
                                                             </div>

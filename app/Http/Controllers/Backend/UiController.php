@@ -84,18 +84,9 @@ class UiController extends Controller
 
     public function store_offers(Request $request)
     {
-        // dd($request->all());
-        $request->validate([
-            'banner_img' => 'file',
-            "heading_en" => "string",
-            "heading_bn" => "string",
-            "sub_heading_en" => "string",
-            "sub_heading_bn" => "string",
-            "parent" => "string"
-        ]);
-
         $id = DB::table('offers')->insertGetId([
             'category_id' => $request['parent'],
+            'product_id' => $request['product'],
             'heading_en' => $request['heading_en'],
             'heading_bn' => $request['heading_bn'],
             'sub_heading_en' => $request['sub_heading_en'],
@@ -114,16 +105,10 @@ class UiController extends Controller
 
     public function update_offer(Request $request, $id)
     {
-        $request->validate([
-            'banner_img' => 'file',
-            "heading_en" => "string",
-            "heading_bn" => "string",
-            "sub_heading_en" => "string",
-            "sub_heading_bn" => "string",
-            "parent" => "string"
-        ]);
+
         DB::table('offers')->where('id', $id)->update([
             'category_id' => $request['parent'],
+            'product_id' => $request['product'],
             'heading_en' => $request['heading_en'],
             'heading_bn' => $request['heading_bn'],
             'sub_heading_en' => $request['sub_heading_en'],
