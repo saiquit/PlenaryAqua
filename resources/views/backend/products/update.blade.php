@@ -47,13 +47,17 @@
                         <div class="col-12 col-md-6">
                             <div class="form-group">
                                 <label>Product Decription (English)</label>
-                                <textarea class="form-control" name="product_desc_en">{{ $product->desc_en }}</textarea>
+                                <textarea class="tiny border-radius-0" name="product_desc_en" placeholder="Enter text ...">{!! $product->desc_en !!}</textarea>
+
+                                {{-- <textarea class="form-control" name="product_desc_en">{{ $product->desc_en }}</textarea> --}}
                             </div>
                         </div>
                         <div class="col-12 col-md-6">
                             <div class="form-group">
                                 <label>প্রোডাক্টের বর্ণনা</label>
-                                <textarea class="form-control" name="product_desc_bn">{{ $product->desc_bn }}</textarea>
+                                <textarea class="tiny border-radius-0" name="product_desc_bn" placeholder="Enter text ...">{!! $product->desc_bn !!}</textarea>
+
+                                {{-- <textarea class="form-control" name="product_desc_bn">{{ $product->desc_bn }}</textarea> --}}
                             </div>
                         </div>
                         <div class="col-12">
@@ -103,6 +107,12 @@
                 imagesInputName: 'images',
 
             });
+        });
+    </script>
+    <script src="{{ asset('static/b/vendors/scripts/tinymce/tinymce.min.js') }}"></script>
+    <script>
+        tinymce.init({
+            selector: '.tiny'
         });
     </script>
 @endpush
