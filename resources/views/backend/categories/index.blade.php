@@ -89,13 +89,14 @@
             </div>
         </div>
         <div class="pb-20">
-            <table class="table hover data-table nowrap">
+            <table class="table hover data-table-category nowrap">
                 <thead>
                     <tr>
                         <th class="table-plus datatable-nosort">ID</th>
                         <th class="table-plus datatable-nosort">Name</th>
                         <th class="table-plus datatable-nosort">Products</th>
                         <th>Start Date</th>
+                        <th>Updated Date</th>
                         <th>Action</th>
                     </tr>
                 </thead>
@@ -106,6 +107,7 @@
                             <td>{{ $category->name_en }}</td>
                             <td>{{ $category->products->count() }}</td>
                             <td>{{ $category->created_at->format('d/m/Y') }}</td>
+                            <td>{{ $category->updated_at->format('d/m/Y') }}</td>
                             <td>
                                 <div class="d-inline-flex">
                                     <a class="dropdown-item" href="#" class="btn-block" data-toggle="modal"
@@ -245,6 +247,33 @@
                 };
                 reader.readAsDataURL(event.target.files[0]);
             })
+
+            $('.data-table-category').DataTable({
+                scrollCollapse: true,
+                autoWidth: false,
+                responsive: true,
+                columnDefs: [{
+                    targets: "datatable-nosort",
+                    orderable: false,
+                }],
+                "lengthMenu": [
+                    [10, 25, 50, -1],
+                    [10, 25, 50, "All"]
+                ],
+                "pageLength": 50,
+                "language": {
+                    "info": "_START_-_END_ of _TOTAL_ entries",
+                    searchPlaceholder: "Search",
+                    paginate: {
+                        next: '<i class="ion-chevron-right"></i>',
+                        previous: '<i class="ion-chevron-left"></i>'
+                    }
+                },
+                "order": [
+                    [4, "desc"]
+                ]
+            });
+
         });
     </script>
 @endpush
