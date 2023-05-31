@@ -132,27 +132,27 @@
                                 <div class="section_heading text-center wow fadeInUp" data-wow-delay="0.2s"
                                     style="visibility: visible; animation-delay: 0.2s; animation-name: fadeInUp;">
                                     <h3><span>Frequently </span> Asked Questions</h3>
-
+                                    <p></p>
                                     <div class="line"></div>
                                 </div>
                             </div>
                         </div>
-                        <div class="row justify-content-center">
+                        <div class="row">
                             <!-- FAQ Area-->
-                            <div class="col-12 col-sm-10 col-lg-8">
-                                <div class="accordion faq-accordian" id="faqAccordion">
+                            <div class="col-12 ">
+                                <div class="accordion faq-accordian">
                                     @if (DB::table('faqs')->count())
                                         @foreach (DB::table('faqs')->get() as $faq)
                                             <div class="card border-0 wow fadeInUp" data-wow-delay="0.2s"
                                                 style="visibility: visible; animation-delay: 0.2s; animation-name: fadeInUp;">
                                                 <div class="card-header" id="headingOne">
                                                     <h6 class="mb-0 collapsed" data-toggle="collapse"
-                                                        data-target="#{{ $faq->id }}" aria-expanded="true"
-                                                        aria-controls="{{ $faq->id }}">{{ $faq->q }}<span
-                                                            class="lni-chevron-up"></span></h6>
+                                                        data-target="#col-{{ Str::slug($faq->q) }}" aria-expanded="true"
+                                                        aria-controls="col-{{ Str::slug($faq->q) }}">
+                                                        {{ $faq->q }}<span class="lni-chevron-up"></span></h6>
                                                 </div>
-                                                <div class="collapse" id="{{ $faq->id }}" aria-labelledby="headingOne"
-                                                    data-parent="#faqAccordion">
+                                                <div class="collapse" id="col-{{ Str::slug($faq->q) }}"
+                                                    aria-labelledby="headingOne">
                                                     <div class="card-body">
                                                         <p>{{ $faq->a }}</p>
                                                     </div>
@@ -160,8 +160,9 @@
                                             </div>
                                         @endforeach
                                     @endif
-
                                 </div>
+                            </div>
+                            <div class="col-12 ">
                                 <!-- Support Button-->
                                 <div class="support-button text-center d-flex align-items-center justify-content-center mt-4 wow fadeInUp"
                                     data-wow-delay="0.5s"
@@ -174,8 +175,9 @@
                         </div>
                     </div>
                 </div>
-
             </div>
+
+        </div>
         </div>
     </section>
 @endsection
