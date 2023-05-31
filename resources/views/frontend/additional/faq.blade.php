@@ -132,8 +132,7 @@
                                 <div class="section_heading text-center wow fadeInUp" data-wow-delay="0.2s"
                                     style="visibility: visible; animation-delay: 0.2s; animation-name: fadeInUp;">
                                     <h3><span>Frequently </span> Asked Questions</h3>
-                                    <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Voluptatibus sit tempore
-                                        magnam deleniti sunt ipsum quaerat praesentium, aut velit fuga.</p>
+
                                     <div class="line"></div>
                                 </div>
                             </div>
@@ -148,11 +147,11 @@
                                                 style="visibility: visible; animation-delay: 0.2s; animation-name: fadeInUp;">
                                                 <div class="card-header" id="headingOne">
                                                     <h6 class="mb-0 collapsed" data-toggle="collapse"
-                                                        data-target="#collapseOne" aria-expanded="true"
-                                                        aria-controls="collapseOne">{{ $faq->q }}<span
+                                                        data-target="#{{ $faq->id }}" aria-expanded="true"
+                                                        aria-controls="{{ $faq->id }}">{{ $faq->q }}<span
                                                             class="lni-chevron-up"></span></h6>
                                                 </div>
-                                                <div class="collapse" id="collapseOne" aria-labelledby="headingOne"
+                                                <div class="collapse" id="{{ $faq->id }}" aria-labelledby="headingOne"
                                                     data-parent="#faqAccordion">
                                                     <div class="card-body">
                                                         <p>{{ $faq->a }}</p>
