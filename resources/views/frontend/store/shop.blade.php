@@ -163,7 +163,9 @@
                                                         <div class="product__item__price">
                                                             {{ $variation->weight }} KG /
                                                             ৳{{ $variation->price }}
-                                                            <span>৳{{ $variation->discounted_from_price }}</span>
+                                                            @if ($variation->discounted_from_price > 0)
+                                                                <span>৳{{ $variation->discounted_from_price }}</span>
+                                                            @endif
                                                         </div>
                                                     </div>
                                                 </div>
