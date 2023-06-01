@@ -465,8 +465,7 @@
                                                                                         style="-webkit-text-size-adjust:none;-ms-text-size-adjust:none;mso-line-height-rule:exactly;text-decoration:underline;color:#1a632d;font-size:14px">office@plenaryaqua.com</a>
                                                                                     give us a call at&nbsp;<a
                                                                                         target="_blank" href=""
-                                                                                        style="-webkit-text-size-adjust:none;-ms-text-size-adjust:none;mso-line-height-rule:exactly;text-decoration:underline;color:#1a632d;font-size:14px">+000
-                                                                                        123 456</a>.
+                                                                                        style="-webkit-text-size-adjust:none;-ms-text-size-adjust:none;mso-line-height-rule:exactly;text-decoration:underline;color:#1a632d;font-size:14px">+8801984955695</a>.
                                                                                 </p>
                                                                             </td>
                                                                         </tr>
@@ -516,29 +515,26 @@
                                                                                             <td align="center"
                                                                                                 valign="top"
                                                                                                 style="padding:0;Margin:0;padding-right:40px">
-                                                                                                <img title="Facebook"
-                                                                                                    src="https://mafycx.stripocdn.email/content/assets/img/social-icons/logo-black/facebook-logo-black.png"
-                                                                                                    alt="Fb"
-                                                                                                    width="32"
-                                                                                                    style="display:block;border:0;outline:none;text-decoration:none;-ms-interpolation-mode:bicubic">
+                                                                                                <a
+                                                                                                    href="https://www.facebook.com/Plenaryaqua5">
+                                                                                                    <img title="Facebook"
+                                                                                                        src="https://mafycx.stripocdn.email/content/assets/img/social-icons/logo-black/facebook-logo-black.png"
+                                                                                                        alt="Fb"
+                                                                                                        width="32"
+                                                                                                        style="display:block;border:0;outline:none;text-decoration:none;-ms-interpolation-mode:bicubic">
+                                                                                                </a>
                                                                                             </td>
                                                                                             <td align="center"
                                                                                                 valign="top"
                                                                                                 style="padding:0;Margin:0;padding-right:40px">
-                                                                                                <img title="Twitter"
-                                                                                                    src="https://mafycx.stripocdn.email/content/assets/img/social-icons/logo-black/twitter-logo-black.png"
-                                                                                                    alt="Tw"
-                                                                                                    width="32"
-                                                                                                    style="display:block;border:0;outline:none;text-decoration:none;-ms-interpolation-mode:bicubic">
-                                                                                            </td>
-                                                                                            <td align="center"
-                                                                                                valign="top"
-                                                                                                style="padding:0;Margin:0;padding-right:40px">
-                                                                                                <img title="Instagram"
-                                                                                                    src="https://mafycx.stripocdn.email/content/assets/img/social-icons/logo-black/instagram-logo-black.png"
-                                                                                                    alt="Inst"
-                                                                                                    width="32"
-                                                                                                    style="display:block;border:0;outline:none;text-decoration:none;-ms-interpolation-mode:bicubic">
+                                                                                                <a
+                                                                                                    href="https://www.instagram.com/plenaryaqua">
+                                                                                                    <img title="Instagram"
+                                                                                                        src="https://mafycx.stripocdn.email/content/assets/img/social-icons/logo-black/instagram-logo-black.png"
+                                                                                                        alt="Inst"
+                                                                                                        width="32"
+                                                                                                        style="display:block;border:0;outline:none;text-decoration:none;-ms-interpolation-mode:bicubic">
+                                                                                                </a>
                                                                                             </td>
                                                                                             <td align="center"
                                                                                                 valign="top"
@@ -559,13 +555,16 @@
                                                                                 style="padding:0;Margin:0;padding-bottom:35px">
                                                                                 <p
                                                                                     style="Margin:0;-webkit-text-size-adjust:none;-ms-text-size-adjust:none;mso-line-height-rule:exactly;font-family:arial, 'helvetica neue', helvetica, sans-serif;line-height:18px;color:#333333;font-size:12px">
-                                                                                    Style Casual&nbsp;© 2021 Style
-                                                                                    Casual, Inc. All Rights Reserved.
+                                                                                    Copyright © 2023 Plenary Aqua | All
+                                                                                    rights reserved.
                                                                                 </p>
                                                                                 <p
                                                                                     style="Margin:0;-webkit-text-size-adjust:none;-ms-text-size-adjust:none;mso-line-height-rule:exactly;font-family:arial, 'helvetica neue', helvetica, sans-serif;line-height:18px;color:#333333;font-size:12px">
-                                                                                    4562 Hazy Panda Limits, Chair
-                                                                                    Crossing, Kentucky, US, 607898</p>
+                                                                                    Address: Shop No 1, Nurani Madrasa
+                                                                                    <br>
+                                                                                    Road, Mohammad Nagor <br>
+                                                                                    Phone: 01984955695
+                                                                                </p>
                                                                             </td>
                                                                         </tr>
                                                                         <tr>
@@ -576,7 +575,7 @@
                                                                                     style="mso-table-lspace:0pt;mso-table-rspace:0pt;border-collapse:collapse;border-spacing:0px">
                                                                                     <tbody>
                                                                                         <tr class="links">
-                                                                                            <td align="center"
+                                                                                            {{-- <td align="center"
                                                                                                 valign="top"
                                                                                                 width="33.33%"
                                                                                                 style="Margin:0;padding-left:5px;padding-right:5px;padding-top:5px;padding-bottom:5px;border:0">
@@ -602,7 +601,7 @@
                                                                                                     href=""
                                                                                                     style="-webkit-text-size-adjust:none;-ms-text-size-adjust:none;mso-line-height-rule:exactly;text-decoration:none;display:block;font-family:arial, 'helvetica neue', helvetica, sans-serif;color:#333333;font-size:12px">Terms
                                                                                                     of Use</a>
-                                                                                            </td>
+                                                                                            </td> --}}
                                                                                         </tr>
                                                                                     </tbody>
                                                                                 </table>
@@ -644,22 +643,6 @@
                                                                     style="mso-table-lspace:0pt;mso-table-rspace:0pt;border-collapse:collapse;border-spacing:0px">
                                                                     <tbody>
                                                                         <tr>
-                                                                            <td align="center" class="es-infoblock"
-                                                                                style="padding:0;Margin:0;line-height:14px;font-size:12px;color:#CCCCCC">
-                                                                                <p
-                                                                                    style="Margin:0;-webkit-text-size-adjust:none;-ms-text-size-adjust:none;mso-line-height-rule:exactly;font-family:arial, 'helvetica neue', helvetica, sans-serif;line-height:14px;color:#CCCCCC;font-size:12px">
-                                                                                    <a target="_blank"
-                                                                                        style="-webkit-text-size-adjust:none;-ms-text-size-adjust:none;mso-line-height-rule:exactly;text-decoration:underline;color:#CCCCCC;font-size:12px"
-                                                                                        href=""></a>No longer
-                                                                                    want to receive these
-                                                                                    emails?&nbsp;<a href=""
-                                                                                        target="_blank"
-                                                                                        style="-webkit-text-size-adjust:none;-ms-text-size-adjust:none;mso-line-height-rule:exactly;text-decoration:underline;color:#CCCCCC;font-size:12px">Unsubscribe</a>.<a
-                                                                                        target="_blank"
-                                                                                        style="-webkit-text-size-adjust:none;-ms-text-size-adjust:none;mso-line-height-rule:exactly;text-decoration:underline;color:#CCCCCC;font-size:12px"
-                                                                                        href=""></a>
-                                                                                </p>
-                                                                            </td>
                                                                         </tr>
                                                                     </tbody>
                                                                 </table>

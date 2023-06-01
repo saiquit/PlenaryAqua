@@ -85,7 +85,7 @@ class CartController extends Controller
     public function redeem(Request $request)
     {
         $redeemable_taka = round(auth()->user()->profile->point / 100);
-        if ($redeemable_taka > 50) {
+        if ($redeemable_taka >= 50) {
             $discount = session('cart.discount', 0);
             $discount += $redeemable_taka;
             Session::put('cart.discount', $discount);
