@@ -63,8 +63,15 @@
               </li>
               @guest
                   <li><a href="{{ route('login', []) }}">Login</a></li>
-              @else
                   <li><a href="{{ route('register', []) }}">Register</a></li>
+              @else
+                  <li>
+                      @if (auth()->user()->type == 'admin')
+                          <a href="{{ route('admin.dashboard', []) }}"><i class="fa fa-user"></i> Admin</a>
+                      @else
+                          <a href="{{ route('front.profile', []) }}"><i class="fa fa-user"></i> Profile</a>
+                      @endif
+                  </li>
               @endguest
           </ul>
       </nav>

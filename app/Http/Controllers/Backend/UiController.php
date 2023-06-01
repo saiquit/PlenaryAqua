@@ -155,7 +155,7 @@ class UiController extends Controller
             }
         }
         foreach ($receivers as $key => $reciver) {
-            Mail::to($reciver)->queue(new NewsletterMail($request->iframe_text));
+            Mail::from(env('MAIL_FROM_ADDRESS'), env('MAIL_FROM_NAME'))->to($reciver)->queue(new NewsletterMail($request->iframe_text));
         }
         $html_code = htmlspecialchars($request['iframe_text']);
         $sent_to = join(',', $request->receivers);
