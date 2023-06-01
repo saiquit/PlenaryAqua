@@ -191,21 +191,21 @@
                         <div class="col-md-6">
                             <div class="row">
                                 <div class="col-6 col-md-12 img-hover mb-4"><img
-                                        src="{{ asset('static/f/img/product/discount/pd-1.jpg') }}"
-                                        class="rounded img-shadow img-fluid" alt="wrapkit" /></div>
+                                        src="{{ asset('static/f/img/rtc/1.jpg') }}" class="rounded img-shadow img-fluid"
+                                        alt="wrapkit" /></div>
                                 <div class="col-6 col-md-12 img-hover mb-4"><img
-                                        src="{{ asset('static/f/img/product/discount/pd-1.jpg') }}"
-                                        class="rounded img-shadow img-fluid" alt="wrapkit" /></div>
+                                        src="{{ asset('static/f/img/rtc/2.jpg') }}" class="rounded img-shadow img-fluid"
+                                        alt="wrapkit" /></div>
                             </div>
                         </div>
                         <div class="col-md-6 uneven-box">
                             <div class="row">
                                 <div class="col-6 col-md-12 img-hover mb-4"><img
-                                        src="{{ asset('static/f/img/product/discount/pd-1.jpg') }}"
-                                        class="rounded img-shadow img-fluid" alt="wrapkit" /></div>
+                                        src="{{ asset('static/f/img/rtc/3.jpg') }}" class="rounded img-shadow img-fluid"
+                                        alt="wrapkit" /></div>
                                 <div class="col-6 col-md-12 img-hover mb-4"><img
-                                        src="{{ asset('static/f/img/product/discount/pd-1.jpg') }}"
-                                        class="rounded img-shadow img-fluid" alt="wrapkit" /></div>
+                                        src="{{ asset('static/f/img/rtc/4.jpg') }}" class="rounded img-shadow img-fluid"
+                                        alt="wrapkit" /></div>
                             </div>
                         </div>
                     </div>

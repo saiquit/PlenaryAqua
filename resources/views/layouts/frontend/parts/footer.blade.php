@@ -45,10 +45,8 @@
                            <button type="submit" class="site-btn">Subscribe</button>
                        </form>
                        <div class="footer__widget__social">
-                           <a href="#"><i class="fa fa-facebook"></i></a>
-                           <a href="#"><i class="fa fa-instagram"></i></a>
-                           <a href="#"><i class="fa fa-twitter"></i></a>
-                           <a href="#"><i class="fa fa-pinterest"></i></a>
+                           <a href="https://www.facebook.com/Plenaryaqua5"><i class="fa fa-facebook"></i></a>
+                           <a href="https://www.instagram.com/plenaryaqua"><i class="fa fa-instagram"></i></a>
                        </div>
                    </div>
                </div>
