@@ -35,7 +35,7 @@ class NewsletterMail extends Mailable implements ShouldQueue
     {
         return new Envelope(
             subject: 'Newsletter Mail',
-            from: new Address(env('MAIL_FROM_ADDRESS')),
+            from: new Address(env('MAIL_FROM_ADDRESS'), env('MAIL_FROM_NAME')),
         );
     }
 
