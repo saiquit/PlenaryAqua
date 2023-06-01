@@ -77,8 +77,11 @@
       </nav>
       <div id="mobile-menu-wrap"></div>
       <div class="header__top__right__social">
-          <a href="https://www.facebook.com/Plenaryaqua5"><i class="fa fa-facebook"></i></a>
-          <a href="https://www.instagram.com/plenaryaqua"><i class="fa fa-instagram"></i></a>
+          <a target="_blank" rel="noopener noreferrer" href="https://www.facebook.com/Plenaryaqua5"><i
+                  class="fa fa-facebook"></i></a>
+
+          <a target="_blank" rel="noopener noreferrer" href="https://www.instagram.com/plenaryaqua"><i
+                  class="fa fa-instagram"></i></a>
       </div>
       <div class="humberger__menu__contact">
           <ul>
@@ -107,8 +110,10 @@
                   <div class="col-lg-6 col-md-6">
                       <div class="header__top__right">
                           <div class="header__top__right__social">
-                              <a href="https://www.facebook.com/Plenaryaqua5"><i class="fa fa-facebook"></i></a>
-                              <a href="https://www.instagram.com/plenaryaqua"><i class="fa fa-instagram"></i></a>
+                              <a target="_blank" rel="noopener noreferrer"
+                                  href="https://www.facebook.com/Plenaryaqua5"><i class="fa fa-facebook"></i></a>
+                              <a target="_blank" rel="noopener noreferrer"
+                                  href="https://www.instagram.com/plenaryaqua"><i class="fa fa-instagram"></i></a>
 
                               {{-- <a href="#"><i class="fa fa-twitter"></i></a>
                               <a href="#"><i class="fa fa-linkedin"></i></a>

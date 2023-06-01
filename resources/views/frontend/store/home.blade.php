@@ -28,7 +28,7 @@
                         <div class="mb-6">
                             <div class="icon_cover"><i class="icon icon_bag"></i></div>
                         </div>
-                        <h3 class="h5 mb-3">Support 24/7</h3>
+                        <h3 class="h5 mb-3">24/7 Support</h3>
                         <p class="text-justify">Choose from our uploaded product categories and contact us 24 hours a day, 7
                             days a week.</p>
                     </div>

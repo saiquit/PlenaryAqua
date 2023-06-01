@@ -100,8 +100,11 @@
                                         {{-- <li><span>Tags:</span> All, Trending, Cooking, Healthy Food, Life Style</li> --}}
                                     </ul>
                                     <div class="blog__details__social">
-                                        <a href="https://www.facebook.com/Plenaryaqua5"><i class="fa fa-facebook"></i></a>
-                                        <a href="https://www.instagram.com/plenaryaqua"><i class="fa fa-instagram"></i></a>
+                                        <a target="_blank" rel="noopener noreferrer"
+                                            href="https://www.facebook.com/Plenaryaqua5"><i class="fa fa-facebook"></i></a>
+
+                                        <a target="_blank" rel="noopener noreferrer"
+                                            href="https://www.instagram.com/plenaryaqua"><i class="fa fa-instagram"></i></a>
                                         {{-- <a href="#"><i class="fa fa-envelope"></i></a> --}}
                                     </div>
                                 </div>
