@@ -91,7 +91,7 @@ class OrderController extends Controller
         auth()->user()->profile->increment('point', intval($total));
         session()->forget(['cart.items', 'cart.qty', 'cart.weight', 'cart.subTotal', 'cart.discount', 'cart.coupon']);
         Notification::send(User::where('type', 'admin')->get(), new NewOrderNotification($order));
-        Mail::from(env('MAIL_FROM_ADDRESS'), env('MAIL_FROM_NAME'))->to(auth()->user())->queue(new OrderReceivedMail($order));
+        Mail::to(auth()->user())->queue(new OrderReceivedMail($order));
         switch ($request->pay) {
             case 'cod':
                 return redirect()->route('order.invoice', $order->order_id);
