@@ -1,7 +1,7 @@
 @extends('layouts.backend.base')
 
 @section('main')
-    <div class="min-height-200px">
+    <div id="invoice_area" class="min-height-200px">
         <div class="page-header">
             <div class="row">
                 <div class="col-md-10 col-sm-12">
@@ -15,6 +15,9 @@
                             </li>
                         </ol>
                     </nav>
+                    <button id="print_btn" class="btn btn-primary" onclick="printDiv('invoice_area')"><span
+                            class="micon icon-copy dw dw-print"></span>Print</button>
+
                 </div>
                 <div class="col-md-2 col-sm-12">
                     <form action="{{ route('admin.orders.update', $order) }}" method="post" id="shipping_form">
@@ -111,20 +114,55 @@
                         </div>
                     </div>
                 </div>
+                <div class=" w-100">
+                    <hr style="border-top: dotted 2px;">
+                </div>
                 <div class="col-md-12 my-3">
                     <div class="card card-box">
+                        <img class="p-3 " width="250" src="{{ asset('static/b/vendors/images/logo.png') }}"
+                            alt="">
                         <div class="card-body">
-                            <h5 class="card-title">Order {{ $order->order_id }}</h5>
-                            <p>Note: {{ $order->note }}</p>
+                            <h3 class="mb-3">Order {{ $order->order_id }}</h3>
                             <div class="row">
-                                <div class="col-md-8">
+                                <div class="col-md-6">
+                                    <h5 class="card-title">Shipping Address</h5>
                                     {{ $order->address }},<br>
                                     {{ collect(DB::table('delivery')->find($order->upazila))['name_en'] }},<br>
                                     {{ App\Models\District::find($order->district)->name_en }},<br>
                                     Bangladesh.<br>
                                 </div>
-                                <div class="col-md-4">
-                                    <i style="font-size: 12rem" class="icon-copy dw dw-caravan"></i>
+                                <div class="col-md-6">
+                                    <h5 class="card-title">Customer Details</h5>
+                                    <table class="table">
+                                        <tbody class="fw-semibold text-gray-600">
+                                            <tr>
+                                                <td class="text-muted">
+                                                    <div class="d-flex align-items-center">
+                                                        Customer
+                                                    </div>
+                                                </td>
+                                                <td class="fw-bold text-end">{{ $order->user->name }}</td>
+                                            </tr>
+                                            <tr>
+                                                <td class="text-muted">
+                                                    <div class="d-flex align-items-center">
+                                                        Phone
+                                                    </div>
+                                                </td>
+                                                <td class="fw-bold text-end">
+                                                    {{ $order->user->phone }}
+                                                </td>
+                                            </tr>
+                                            <tr>
+                                                <td class="text-muted">
+                                                    <div class="d-flex align-items-center">
+                                                        Cut/Slice
+                                                    </div>
+                                                </td>
+                                                <td class="fw-bold text-end">{{ $order->cut ? 'Cut' : 'Raw' }}</td>
+                                            </tr>
+                                        </tbody>
+                                    </table>
                                 </div>
                             </div>
                         </div>
@@ -232,3 +270,16 @@
         </div>
     </div>
 @endsection
+
+@push('js')
+    <script>
+        function printDiv(divName) {
+            var printContents = document.getElementById(divName).innerHTML;
+            var originalContents = document.body.innerHTML;
+            document.body.innerHTML = printContents;
+            window.print();
+            document.body.innerHTML = originalContents;
+            window.location.reload();
+        }
+    </script>
+@endpush

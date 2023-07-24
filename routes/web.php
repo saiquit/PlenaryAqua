@@ -81,6 +81,7 @@ Route::group([
     ], function () {
         Route::get('invoice/{order?}', 'OrderController@invoice')->name('invoice');
         Route::post('store', 'OrderController@store')->name('store');
+        Route::post('cancle/{order?}', 'OrderController@cancleOrder')->name('cancle');
     });
 
     Route::get('mail', function () {

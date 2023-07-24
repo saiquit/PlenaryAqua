@@ -33,27 +33,27 @@
 
 
         /* .btn-primary {
-                            color: #fff;
-                            background-color: #1a632d;
-                            border-color: #1a632d;
-                            padding: 12px;
-                            padding-right: 30px;
-                            padding-left: 30px;
-                            border-radius: 1px;
-                            font-size: 17px;
-                        }
+                                                                                                                                    color: #fff;
+                                                                                                                                    background-color: #1a632d;
+                                                                                                                                    border-color: #1a632d;
+                                                                                                                                    padding: 12px;
+                                                                                                                                    padding-right: 30px;
+                                                                                                                                    padding-left: 30px;
+                                                                                                                                    border-radius: 1px;
+                                                                                                                                    font-size: 17px;
+                                                                                                                                }
 
 
-                        .btn-primary:hover {
-                            color: #fff;
-                            background-color: #1a632d;
-                            border-color: #1a632d;
-                            padding: 12px;
-                            padding-right: 30px;
-                            padding-left: 30px;
-                            border-radius: 1px;
-                            font-size: 17px;
-                        } */
+                                                                                                                                .btn-primary:hover {
+                                                                                                                                    color: #fff;
+                                                                                                                                    background-color: #1a632d;
+                                                                                                                                    border-color: #1a632d;
+                                                                                                                                    padding: 12px;
+                                                                                                                                    padding-right: 30px;
+                                                                                                                                    padding-left: 30px;
+                                                                                                                                    border-radius: 1px;
+                                                                                                                                    font-size: 17px;
+                                                                                                                                } */
     </style>
 @endpush
 @section('main')
@@ -273,7 +273,7 @@
 
                     </div>
                     <div class="tab-pane fade" id="order" role="tabpanel" aria-labelledby="order-tab">
-                        <h3 class="mb-4">order Settings</h3>
+                        <h3 class="mb-4">Order Settings</h3>
                         <div class="row">
                             <div class="col-xl-12">
                                 <div class="card">
@@ -308,9 +308,17 @@
                                                                 <span
                                                                     class="badge @switch($order->shipping_status) @case('pending') badge-info @break @case('shipping') badge-warning @break @case('shipped') badge-warning @break @default badge-success @endswitch badge-boxed badge-soft-warning">{{ $order->payment }}</span>
                                                             </td>
-                                                            <td><button class="btn btn-primary" data-toggle="modal"
-                                                                    data-target="#vars_{{ $order->id }}"><i
-                                                                        class="icon_bag_alt"></i></button></td>
+                                                            <td>
+                                                                @if ($order->status == 'canceled')
+                                                                    <button class="btn btn-danger"
+                                                                        disabled>Canceled</button>
+                                                                @else
+                                                                    <button @disabled($order->status == 'canceled')
+                                                                        class="btn btn-primary" data-toggle="modal"
+                                                                        data-target="#vars_{{ $order->id }}"><i
+                                                                            class="icon_bag_alt"></i></button>
+                                                                @endif
+                                                            </td>
                                                         </tr>
                                                         <div class="modal fade" id="vars_{{ $order->id }}"
                                                             tabindex="-1" role="dialog"
@@ -366,6 +374,13 @@
                                                                                     class="font-weight-bold theme-color">৳{{ $order->total }}</span>
                                                                             </div>
                                                                             <div class="text-center mt-5">
+                                                                                <form
+                                                                                    action="{{ route('order.cancle', ['order' => $order->order_id]) }}"
+                                                                                    method="post">
+                                                                                    @csrf
+                                                                                    <button type="submit"
+                                                                                        class="btn btn-danger">Cancel</button>
+                                                                                </form>
                                                                                 <button class="btn btn-primary">Track your
                                                                                     order</button>
                                                                                 <a

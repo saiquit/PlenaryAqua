@@ -109,9 +109,20 @@ class OrderController extends Controller
     public function invoice(Request $request, $order_id)
     {
         $order = auth()->user()->orders->where('order_id', $order_id)->first();
-        if (!$order) {
+        if (!$order or $order->status == 'canceled') {
             return \redirect()->back();
         }
         return view('frontend.store.invoice', compact('order'));
+    }
+    public function cancleOrder(Request $request, $order_id)
+    {
+        $order = auth()->user()->orders->where('order_id', $order_id)->first();
+        if (!$order) {
+            return \redirect()->back();
+        }
+        $order->update([
+            'status' => 'canceled'
+        ]);
+        return \redirect()->back();
     }
 }

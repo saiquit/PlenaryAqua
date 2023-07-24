@@ -6,7 +6,7 @@
 @push('css')
     <style>
         .text-secondary-d1 {
-            color: #728299 !important;
+            color: black !important;
         }
 
         .page-header {
@@ -56,7 +56,7 @@
         }
 
         .text-grey-m2 {
-            color: #888a8d !important;
+            color: black !important;
         }
 
         .text-success-m2 {
@@ -66,14 +66,15 @@
         .font-bolder,
         .text-600 {
             font-weight: 600 !important;
+
         }
 
         .text-110 {
-            font-size: 110% !important;
+            font-size: 130% !important;
         }
 
         .text-blue {
-            color: #478fcc !important;
+            color: black !important;
         }
 
         .pb-25,
@@ -234,7 +235,7 @@
                                             <td>{{ $variation->pivot->qty }}</td>
                                             <td class="text-95">৳{{ $variation->price }}</td>
                                             <td class="text-secondary-d2">
-                                                ${{ $variation->pivot->qty * $variation->price }}</td>
+                                                ৳{{ $variation->pivot->qty * $variation->price }}</td>
                                         </tr>
                                     @endforeach
                                 </tbody>
@@ -305,7 +306,7 @@
                         <hr />
 
                         <div>
-                            <span class="text-secondary-d1 text-105">Thank you for your business</span>
+                            <span class="text-secondary-d1 text-105">Thank you for shopping.</span>
                             @if ($order->payment != 'paid' && $order->payment_method != 'cod')
                                 <a href="#" class="btn btn-info btn-bold px-4 float-right mt-3 mt-lg-0">Pay Now</a>
                             @endif
@@ -329,6 +330,7 @@
                     removeInline: false,
                     importCSS: true,
                     importStyle: true,
+
                 });
             });
 
