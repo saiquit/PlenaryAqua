@@ -23,9 +23,6 @@ use Illuminate\Support\Facades\Route;
 |
 */
 
-Route::any('/', function () {
-    return view('maintainence');
-});
 // Route::match(['get', 'post'], '/botman', 'App\Http\Controllers\ChatController@handle');
 Route::group([
     'middleware' => ['locale', 'district', 'additional']
@@ -34,7 +31,10 @@ Route::group([
         'namespace' => 'App\Http\Controllers\Frontend',
         'as'        => 'front.',
     ], function () {
-        Route::get('/', 'StoreController@home')->name('home');
+        Route::get('/', function () {
+            return view('maintainence');
+        })->name('home');
+        // Route::get('/', 'StoreController@home')->name('home');
 
         Route::get('/shop', 'StoreController@shop')->name('shop');
         Route::get('/blogs', 'StoreController@blogs')->name('blogs');
