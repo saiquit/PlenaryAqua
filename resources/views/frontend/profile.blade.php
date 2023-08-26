@@ -10,7 +10,6 @@
 
         }
 
-
         .close {
             color: #000;
             cursor: pointer;
@@ -31,29 +30,103 @@
             margin: 0.4rem 0;
         }
 
+        .hh-grayBox {
+            background-color: #F8F8F8;
+            margin-bottom: 20px;
+            padding: 35px;
+            margin-top: 20px;
+        }
 
-        /* .btn-primary {
-                                                                                                                                    color: #fff;
-                                                                                                                                    background-color: #1a632d;
-                                                                                                                                    border-color: #1a632d;
-                                                                                                                                    padding: 12px;
-                                                                                                                                    padding-right: 30px;
-                                                                                                                                    padding-left: 30px;
-                                                                                                                                    border-radius: 1px;
-                                                                                                                                    font-size: 17px;
-                                                                                                                                }
+        .pt45 {
+            padding-top: 45px;
+        }
 
+        .order-tracking {
+            text-align: center;
+            width: 33.33%;
+            position: relative;
+            display: block;
+        }
 
-                                                                                                                                .btn-primary:hover {
-                                                                                                                                    color: #fff;
-                                                                                                                                    background-color: #1a632d;
-                                                                                                                                    border-color: #1a632d;
-                                                                                                                                    padding: 12px;
-                                                                                                                                    padding-right: 30px;
-                                                                                                                                    padding-left: 30px;
-                                                                                                                                    border-radius: 1px;
-                                                                                                                                    font-size: 17px;
-                                                                                                                                } */
+        .order-tracking .is-complete {
+            display: block;
+            position: relative;
+            border-radius: 50%;
+            height: 30px;
+            width: 30px;
+            border: 0px solid #AFAFAF;
+            background-color: #f7be16;
+            margin: 0 auto;
+            transition: background 0.25s linear;
+            -webkit-transition: background 0.25s linear;
+            z-index: 2;
+        }
+
+        .order-tracking .is-complete:after {
+            display: block;
+            position: absolute;
+            content: '';
+            height: 14px;
+            width: 7px;
+            top: -2px;
+            bottom: 0;
+            left: 5px;
+            margin: auto 0;
+            border: 0px solid #AFAFAF;
+            border-width: 0px 2px 2px 0;
+            transform: rotate(45deg);
+            opacity: 0;
+        }
+
+        .order-tracking.completed .is-complete {
+            border-color: #27aa80;
+            border-width: 0px;
+            background-color: #27aa80;
+        }
+
+        .order-tracking.completed .is-complete:after {
+            border-color: #fff;
+            border-width: 0px 3px 3px 0;
+            width: 7px;
+            left: 11px;
+            opacity: 1;
+        }
+
+        .order-tracking p {
+            color: #A4A4A4;
+            font-size: 16px;
+            margin-top: 8px;
+            margin-bottom: 0;
+            line-height: 20px;
+        }
+
+        .order-tracking p span {
+            font-size: 14px;
+        }
+
+        .order-tracking.completed p {
+            color: #000;
+        }
+
+        .order-tracking::before {
+            content: '';
+            display: block;
+            height: 3px;
+            width: calc(100% - 40px);
+            background-color: #f7be16;
+            top: 13px;
+            position: absolute;
+            left: calc(-50% + 20px);
+            z-index: 0;
+        }
+
+        .order-tracking:first-child:before {
+            display: none;
+        }
+
+        .order-tracking.completed:before {
+            background-color: #27aa80;
+        }
     </style>
 @endpush
 @section('main')
@@ -287,7 +360,7 @@
                                                         <th>Product Name</th>
                                                         <th>Order Date</th>
                                                         <th>Amount</th>
-                                                        <th>Transaction</th>
+                                                        <th>Order Status</th>
                                                         <th>Shipping</th>
                                                         <th>Show Items</th>
                                                     </tr>
@@ -301,8 +374,19 @@
                                                             <td>{{ $order->created_at->format('d/m/Y') }}</td>
                                                             <td>৳{{ $order->total }}</td>
                                                             <td>
-                                                                <span
-                                                                    class="badge badge-{{ $order->payment == 'pending' ? 'warning' : 'success' }}  badge-boxed badge-soft-warning">{{ $order->payment }}</span>
+                                                                @if ($order->status == 'pending')
+                                                                    <span
+                                                                        class="badge badge-warning badge-boxed badge-soft-warning">{{ $order->status }}</span>
+                                                                @elseif ($order->status == 'accepted')
+                                                                    <span
+                                                                        class="badge badge-success badge-boxed badge-soft-success">{{ $order->status }}</span>
+                                                                @elseif ($order->status == 'cancled')
+                                                                    <span
+                                                                        class="badge badge-danger badge-boxed badge-soft-danger">{{ $order->status }}</span>
+                                                                @else
+                                                                    <span
+                                                                        class="badge badge-info badge-boxed badge-soft-info">{{ $order->status }}</span>
+                                                                @endif
                                                             </td>
                                                             <td>
                                                                 <span
@@ -390,8 +474,40 @@
                                                                             </div>
 
                                                                         </div>
-
-
+                                                                        <div class="container">
+                                                                            <div class="row">
+                                                                                <div class="col-12  hh-grayBox pt45 pb20">
+                                                                                    <div
+                                                                                        class="row justify-content-between">
+                                                                                        <div
+                                                                                            class="order-tracking completed">
+                                                                                            <span
+                                                                                                class="is-complete"></span>
+                                                                                            <p>Ordered<br><span>{{ $order->created_at->format('d/m/Y') }}</span>
+                                                                                            </p>
+                                                                                        </div>
+                                                                                        <div
+                                                                                            class="order-tracking @if ($order->status == 'accepted' or $order->status == 'complete') completed @endif">
+                                                                                            <span
+                                                                                                class="is-complete"></span>
+                                                                                            <p>Accepted @if ($order->status == 'accepted')
+                                                                                                    <br><span>{{ $order->updated_at->format('d/m/Y') }}</span>
+                                                                                                @endif
+                                                                                            </p>
+                                                                                        </div>
+                                                                                        <div
+                                                                                            class="order-tracking @if ($order->status == 'complete') completed @endif"">
+                                                                                            <span
+                                                                                                class="is-complete"></span>
+                                                                                            <p>Delivered @if ($order->status == 'complete')
+                                                                                                    <br><span>{{ $order->updated_at->format('d/m/Y') }}</span>
+                                                                                                @endif
+                                                                                            </p>
+                                                                                        </div>
+                                                                                    </div>
+                                                                                </div>
+                                                                            </div>
+                                                                        </div>
                                                                     </div>
                                                                 </div>
                                                             </div>

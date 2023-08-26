@@ -42,7 +42,7 @@ class DashboardController extends Controller
                 $pi_data[Variation::find($item->variation_id)->product->name_en] = 1;
             }
         }
-        $orders = Order::where('shipping_status', '!=', 'delivered')->latest()->get();
+        $orders = Order::where('shipping_status', '!=', 'delivered')->orWhere('status', '!=', 'complete')->latest()->get();
         return view('backend.dashboard', compact('data', 'pi_data', 'orders'));
     }
 

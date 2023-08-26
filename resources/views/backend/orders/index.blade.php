@@ -16,6 +16,7 @@
                 <thead>
                     <tr>
                         <th class="table-plus">ID</th>
+                        <th class="table-plus datatable-nosort">Status</th>
                         <th class="table-plus datatable-nosort">Shiping</th>
                         <th class="table-plus datatable-nosort">Phone</th>
                         <th>Total</th>
@@ -33,6 +34,25 @@
                     @foreach ($orders as $order)
                         <tr>
                             <td class="table-plus">#{{ $order->order_id }}</td>
+                            <td class="table-plus">
+                                <form action="{{ route('admin.orders.update', $order) }}" method="post"
+                                    id="order_status_form_{{ $order->id }}">
+                                    @csrf
+                                    @method('PUT')
+                                    <div class="form-group">
+                                        <select
+                                            onchange="document.querySelector('#order_status_form_{{ $order->id }}').submit()"
+                                            class="custom-select2 form-control" name="status"
+                                            style="width: 100%; height: 38px">
+                                            <option @selected($order->status == 'pending') value="pending">Pending</option>
+                                            <option @selected($order->status == 'canceled') value="canceled">Cancled</option>
+                                            <option @selected($order->status == 'accepted') value="accepted">Accepted</option>
+                                            <option @selected($order->status == 'complete') value="complete">Completed</option>
+                                        </select>
+                                    </div>
+                                </form>
+                            </td>
+
                             <td class="table-plus">
                                 <form action="{{ route('admin.orders.update', $order) }}" method="post"
                                     id="shipping_form_{{ $order->id }}">
