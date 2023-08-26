@@ -344,8 +344,8 @@
                                             <img src="https://logos-download.com/wp-content/uploads/2022/01/BKash_Logo_icon-700x662.png"
                                                 width="80" alt="">
                                         </label>
-                                    </div>
-                                    <div>
+                                    </div> --}}
+                                    {{-- <div>
                                         <input type="radio" id="control_02" name="pay" value="nagad">
                                         <label for="control_02">
                                             <p>Nagad</p>

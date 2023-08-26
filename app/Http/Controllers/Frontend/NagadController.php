@@ -55,7 +55,7 @@ class NagadController extends Controller
 
     public function refund($paymentRefId)
     {
-        $refundAmount = 1000;
+        // $refundAmount = 1000;
         $verify = NagadRefund::refund($paymentRefId, $refundAmount);
         //$verify = NagadRefund::refund($paymentRefId,$refundAmount,'','sss',1); last parameter for manage account
 
