@@ -91,6 +91,6 @@
         <p>Sorry for the inconvenience. We&rsquo;re performing some maintenance at the moment. If you need to you can
             always follow us on <a href="http://www.twitter.com/">Twitter</a> for updates, otherwise we&rsquo;ll be back
             up shortly!</p>
-        <p>&mdash; The [WEBSITE NAME] Team</p>
+        <p>&mdash; The Plenary Aqua Team</p>
     </div>
 </article>
