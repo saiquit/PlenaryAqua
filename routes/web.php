@@ -34,7 +34,7 @@ Route::group([
         'namespace' => 'App\Http\Controllers\Frontend',
         'as'        => 'front.',
     ], function () {
-        // Route::get('/', 'StoreController@home')->name('home');
+        Route::get('/', 'StoreController@home')->name('home');
 
         Route::get('/shop', 'StoreController@shop')->name('shop');
         Route::get('/blogs', 'StoreController@blogs')->name('blogs');
