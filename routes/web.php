@@ -32,6 +32,10 @@ Route::group([
         'as'        => 'front.',
     ], function () {
         Route::get('/', 'StoreController@home')->name('home');
+        //auth
+        Route::post('/do_login', 'AuthController@doLogin')->name('do_login')->middleware(['throttle:10,2', 'guest']);
+        Route::post('/do_register', 'AuthController@doRegister')->name('do_register')->middleware('throttle:10,2');
+
         Route::get('/shop', 'StoreController@shop')->name('shop');
         Route::get('/blogs', 'StoreController@blogs')->name('blogs');
         Route::get('/blogs/{slug?}', 'StoreController@single_blog')->name('single_blog');
@@ -166,7 +170,10 @@ Route::group([
     Route::post('login', 'AuthController@do_login')->name('do_login')->middleware('throttle:10,2');
 });
 
+
 Auth::routes(['verify' => true]);
+
+
 
 //payment
 
