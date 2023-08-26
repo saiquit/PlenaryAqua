@@ -180,7 +180,7 @@
 
                 <li class="dropdown">
                     <a href="javascript:;" class="dropdown-toggle">
-                        <span class="micon bi bi-view-list"></span><span class="mtext">UI</span>
+                        <span class="micon bi bi-view-list"></span><span class="mtext">Banner & Newsletter</span>
                     </a>
                     <ul class="submenu">
                         <li>
