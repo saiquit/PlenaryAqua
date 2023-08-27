@@ -53,7 +53,7 @@ class LoginController extends Controller
         ]);
         $credentials = $request->only('email', 'password');
         if (Auth::attempt($credentials)) {
-            return redirect()->route('front.home');
+            return redirect()->intended();
         }
         return redirect()->route('login')->with(['message' => 'Oppes! You have entered invalid credentials', 'type' => 'alert-danger']);
     }
