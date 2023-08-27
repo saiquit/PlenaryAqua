@@ -71,10 +71,15 @@ class OrderController extends Controller
      */
     public function update(Request $request, Order $order)
     {
-        $order->update([
-            'shipping_status' => $request->shipping_status,
-            'status'          => $request->status
-        ]);
+        if ($request->has('shipping_status')) {
+            $order->update([
+                'shipping_status' => $request->shipping_status,
+            ]);
+        } elseif ($request->has('status')) {
+            $order->update([
+                'status'          => $request->status
+            ]);
+        }
         return redirect()->back();
     }
 
