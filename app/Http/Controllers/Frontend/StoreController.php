@@ -38,6 +38,7 @@ class StoreController extends Controller
         $latest = $var_q->orderBy('created_at', 'desc')->get()->chunk(3);
         return view('frontend.store.home', compact('top_categories', 'featured', 'top_rated', 'latest', 'all_categories', 'reviewd_products'));
     }
+
     public function shop(Request $request)
     {
         $product_q = Product::query();
