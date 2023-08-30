@@ -59,9 +59,12 @@
               </li>
               <li class="@if (request()->route()->getName() == 'front.contact') active @endif"><a
                       href="{{ route('front.contact') }}">Contact</a></li>
-              <a href="{{ route('front.orders') }}">
-                  <li class="btn btn-outline-primary"><b>Orders</b></li>
-              </a>
+              @auth
+                  <a href="{{ route('front.orders') }}">
+                      <li class="btn btn-outline-primary"><b>Orders</b></li>
+                  </a>
+
+              @endauth
               <li class="@if (request()->route()->getName() == 'front.blogs ') active @endif"><a href="{{ route('front.blogs') }}">Blog</a>
               </li>
               @guest
@@ -270,9 +273,12 @@
                                   href="{{ route('front.blogs') }}">Blog</a></li>
                           <li class="@if (request()->route()->getName() == 'front.contact') active @endif"><a
                                   href="{{ route('front.contact') }}">Contact</a></li>
-                          <a href="{{ route('front.orders') }}">
-                              <li class="btn btn-outline-primary"><b>Orders</b></li>
-                          </a>
+                          @auth
+                              <a href="{{ route('front.orders') }}">
+                                  <li class="btn btn-outline-primary"><b>Orders</b></li>
+                              </a>
+
+                          @endauth
                       </ul>
                   </nav>
               </div>
