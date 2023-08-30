@@ -6,7 +6,7 @@
     <div class="limiter">
         <div class="container-login100">
             <div class="wrap-login100">
-                <form action="{{ route('front.do_login') }}" method="POST" class="login100-form validate-form">
+                <form action="{{ route('login') }}" method="POST" class="login100-form validate-form">
                     @csrf
                     <a href="{{ route('front.home') }}">
                         <img src="{{ asset('static/f/img/logo.png') }}" class="d-block mx-auto" alt=""
