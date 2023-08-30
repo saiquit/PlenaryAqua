@@ -195,4 +195,9 @@ class StoreController extends Controller
         $projects = Project::all();
         return view('frontend.projects', compact('projects'));
     }
+    public function orders()
+    {
+        $orders = auth()->user()->orders;
+        return view('frontend.store.orders', compact('orders'));
+    }
 }

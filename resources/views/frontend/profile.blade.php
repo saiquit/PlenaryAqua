@@ -158,11 +158,11 @@
                             <i class="fa fa-tv text-center mr-1"></i>
                             Orders
                         </a>
-                        <a class="nav-link" id="notification-tab" data-toggle="pill" href="#notification" role="tab"
+                        {{-- <a class="nav-link" id="notification-tab" data-toggle="pill" href="#notification" role="tab"
                             aria-controls="notification" aria-selected="false">
                             <i class="fa fa-bell text-center mr-1"></i>
                             Notification
-                        </a>
+                        </a> --}}
                     </div>
                 </div>
                 <div class="col-12 col-md-9 tab-content p-4 p-md-5 w-100" id="v-pills-tabContent">
@@ -357,7 +357,7 @@
                                                 <thead>
                                                     <tr class="align-self-center">
                                                         <th>Order ID</th>
-                                                        <th>Product Name</th>
+                                                        <th>Customer Name</th>
                                                         <th>Order Date</th>
                                                         <th>Amount</th>
                                                         <th>Order Status</th>
@@ -457,6 +457,41 @@
                                                                                 <span
                                                                                     class="font-weight-bold theme-color">৳{{ $order->total }}</span>
                                                                             </div>
+                                                                            <div class="container">
+                                                                                <div class="row">
+                                                                                    <div
+                                                                                        class="col-12  hh-grayBox pt45 pb20">
+                                                                                        <div
+                                                                                            class="row justify-content-between">
+                                                                                            <div
+                                                                                                class="order-tracking completed">
+                                                                                                <span
+                                                                                                    class="is-complete"></span>
+                                                                                                <p>Ordered<br><span>{{ $order->created_at->format('d/m/Y') }}</span>
+                                                                                                </p>
+                                                                                            </div>
+                                                                                            <div
+                                                                                                class="order-tracking @if ($order->status == 'accepted' or $order->status == 'complete') completed @endif">
+                                                                                                <span
+                                                                                                    class="is-complete"></span>
+                                                                                                <p>Accepted @if ($order->status == 'accepted')
+                                                                                                        <br><span>{{ $order->updated_at->format('d/m/Y') }}</span>
+                                                                                                    @endif
+                                                                                                </p>
+                                                                                            </div>
+                                                                                            <div
+                                                                                                class="order-tracking @if ($order->status == 'complete') completed @endif"">
+                                                                                                <span
+                                                                                                    class="is-complete"></span>
+                                                                                                <p>Delivered @if ($order->status == 'complete')
+                                                                                                        <br><span>{{ $order->updated_at->format('d/m/Y') }}</span>
+                                                                                                    @endif
+                                                                                                </p>
+                                                                                            </div>
+                                                                                        </div>
+                                                                                    </div>
+                                                                                </div>
+                                                                            </div>
                                                                             <div class="text-center mt-5">
                                                                                 <form
                                                                                     action="{{ route('order.cancle', ['order' => $order->order_id]) }}"
@@ -465,8 +500,6 @@
                                                                                     <button type="submit"
                                                                                         class="btn btn-danger">Cancel</button>
                                                                                 </form>
-                                                                                <button class="btn btn-primary">Track your
-                                                                                    order</button>
                                                                                 <a
                                                                                     href="{{ route('order.invoice', ['order' => $order->order_id]) }}">
                                                                                     <button
@@ -474,40 +507,7 @@
                                                                             </div>
 
                                                                         </div>
-                                                                        <div class="container">
-                                                                            <div class="row">
-                                                                                <div class="col-12  hh-grayBox pt45 pb20">
-                                                                                    <div
-                                                                                        class="row justify-content-between">
-                                                                                        <div
-                                                                                            class="order-tracking completed">
-                                                                                            <span
-                                                                                                class="is-complete"></span>
-                                                                                            <p>Ordered<br><span>{{ $order->created_at->format('d/m/Y') }}</span>
-                                                                                            </p>
-                                                                                        </div>
-                                                                                        <div
-                                                                                            class="order-tracking @if ($order->status == 'accepted' or $order->status == 'complete') completed @endif">
-                                                                                            <span
-                                                                                                class="is-complete"></span>
-                                                                                            <p>Accepted @if ($order->status == 'accepted')
-                                                                                                    <br><span>{{ $order->updated_at->format('d/m/Y') }}</span>
-                                                                                                @endif
-                                                                                            </p>
-                                                                                        </div>
-                                                                                        <div
-                                                                                            class="order-tracking @if ($order->status == 'complete') completed @endif"">
-                                                                                            <span
-                                                                                                class="is-complete"></span>
-                                                                                            <p>Delivered @if ($order->status == 'complete')
-                                                                                                    <br><span>{{ $order->updated_at->format('d/m/Y') }}</span>
-                                                                                                @endif
-                                                                                            </p>
-                                                                                        </div>
-                                                                                    </div>
-                                                                                </div>
-                                                                            </div>
-                                                                        </div>
+
                                                                     </div>
                                                                 </div>
                                                             </div>
@@ -555,7 +555,7 @@
                             </div>
                         </div>
                     </div>
-                    <div class="tab-pane fade" id="notification" role="tabpanel" aria-labelledby="notification-tab">
+                    {{-- <div class="tab-pane fade" id="notification" role="tabpanel" aria-labelledby="notification-tab">
                         <h3 class="mb-4">Notification Settings</h3>
                         <div class="form-group">
                             <div class="form-check">
@@ -586,7 +586,7 @@
                             <button class="btn btn-primary">Update</button>
                             <button class="btn btn-light">Cancel</button>
                         </div>
-                    </div>
+                    </div> --}}
                 </div>
             </div>
         </div>

@@ -62,6 +62,7 @@ Route::group([
         Route::get('/policy', 'StoreController@privacy')->name('policy');
         Route::get('/terms', 'StoreController@terms')->name('terms');
         Route::get('/faq', 'StoreController@faq')->name('faq');
+        Route::get('/orders', 'StoreController@orders')->name('orders')->middleware('auth');
         //love product
         Route::post('/love_store/{product}', 'LoveController@storeLove')->name('store_love')->middleware(['auth', 'verified', 'role:customer']);
     });
