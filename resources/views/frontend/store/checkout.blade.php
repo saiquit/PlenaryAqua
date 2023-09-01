@@ -309,7 +309,7 @@
                                         @if (auth()->user()->profile->addresses->contains('active', 1))
                                             {{ DB::table('delivery')->where(
                                                     'id',
-                                                    auth()->user()->profile->addresses->where('active', 1)->first()->id,
+                                                    auth()->user()->profile->addresses->where('active', 1)->first()->upazila,
                                                 )->first()->cost }}
                                         @else
                                             0
@@ -328,7 +328,7 @@
                                                 floatval(
                                                     DB::table('delivery')->where(
                                                             'id',
-                                                            auth()->user()->profile->addresses->where('active', 1)->first()->id,
+                                                            auth()->user()->profile->addresses->where('active', 1)->first()->upazila,
                                                         )->first()->cost,
                                                 ) -
                                                 session('cart.discount') }}
