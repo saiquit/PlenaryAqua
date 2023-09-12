@@ -232,7 +232,7 @@
                                         <span>{{ App\Models\Product::where('id', $item->product_id)->first()['name_' . app()->getLocale()] }}</span>
                                         <h2>{{ collect($item)['heading_' . app()->getLocale()] }}</h2>
                                         <p>{{ collect($item)['sub_heading_' . app()->getLocale()] }}</p>
-                                        <a href="{{ route('front.shop', ['product_id' => $item->product_id]) }}"
+                                        <a href="{{ route('front.shop', ['product_name' => App\Models\Product::where('id', $item->product_id)->first()['name_' . app()->getLocale()]]) }}"
                                             class="primary-btn">SHOP NOW</a>
                                     </div>
                                 </div>
